@@ -6,4 +6,4 @@ Create database Odroid;
 
 CREATE USER 'Odroid'@'localhost' IDENTIFIED BY 'Odroid123';
 
-RANT ALL PRIVILEGES ON *.* TO 'Odroid'@'localhost' With grant option;
+GRANT ALL PRIVILEGES ON *.* TO 'Odroid'@'localhost' With grant option;
