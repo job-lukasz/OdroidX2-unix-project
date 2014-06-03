@@ -28,7 +28,8 @@ public class StaticValues{
 		 PIN39, PIN40,
 		 PIN41, PIN42,
 		 PIN43, PIN44,
-		 PIN45};
+		 PIN45
+		 };
 	public static enum Direction {
 			in, out
 		}
