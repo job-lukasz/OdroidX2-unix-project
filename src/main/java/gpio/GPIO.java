@@ -90,7 +90,7 @@ public enum GPIO {
 		Iterator<Entry<OdroidX2PIN, GpioPin>> pinsIterator = pins.entrySet().iterator();
 		while (pinsIterator.hasNext()) {
 			Entry<OdroidX2PIN, GpioPin> temp = pinsIterator.next();
-			if (temp.getValue().pinState.isOpen()) {
+			if (temp.getValue().pinState.getOpen()) {
 				temp.getValue().close();
 			}
 		}
@@ -108,7 +108,7 @@ public enum GPIO {
 
 	private void openPin(OdroidX2PIN odroidPin) {
 		if (pins.containsKey(odroidPin)) {
-			if (pins.get(odroidPin).pinState.isOpen()) {
+			if (pins.get(odroidPin).pinState.getOpen()) {
 				if (pins.get(odroidPin).pinState.getDirection() != Direction.out) {
 					pins.get(odroidPin).close();
 					pins.get(odroidPin).open(Direction.out);

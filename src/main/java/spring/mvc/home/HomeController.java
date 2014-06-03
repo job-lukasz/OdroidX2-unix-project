@@ -22,7 +22,7 @@ public class HomeController {
 		new SignupForm();
 		if(principal != null){
 			Set<gpio.PinState> pins = gpio.GPIO.INSTANCE.getAllPinStates();
-			model.addAttribute("pinsState",pins);
+			model.addAttribute("pins",pins);
 			model.addAttribute("name",principal.getName());
 			return "home/homeSignedIn";
 		}

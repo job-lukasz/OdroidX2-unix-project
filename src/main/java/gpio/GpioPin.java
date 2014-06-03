@@ -104,13 +104,4 @@ public class GpioPin {
 		}
 		return result;
 	}
-
-	public Direction getDir() {
-		return pinState.getDirection();
-	}
-
-	public void setDir(Direction dir) {
-		pinState.setDirection(dir);
-	}
-
 }

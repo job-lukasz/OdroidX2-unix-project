@@ -4,6 +4,14 @@ package gpio;
 import gpio.StaticValues.*;
 
 public class PinState {
+	
+	private OdroidX2PIN pinID;
+	private Direction direction;
+	private boolean value;
+	private boolean isSoftPWN;
+	private boolean open;
+	private String address;
+	
 	public PinState() {
 		setPinID(null);
 		setDirection(Direction.out);
@@ -45,12 +53,12 @@ public class PinState {
 		this.isSoftPWN = isSoftPWN;
 	}
 
-	public boolean isOpen() {
-		return isOpen;
+	public boolean getOpen() {
+		return open;
 	}
 
 	public void setOpen(boolean isOpen) {
-		this.isOpen = isOpen;
+		this.open = isOpen;
 	}
 
 	public String getAddress() {
@@ -60,11 +68,4 @@ public class PinState {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-	private OdroidX2PIN pinID;
-	private Direction direction;
-	private boolean value;
-	private boolean isSoftPWN;
-	private boolean isOpen;
-	private String address;
 };

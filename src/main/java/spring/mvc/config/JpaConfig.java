@@ -37,38 +37,6 @@ class JpaConfig {
 	@Value("${hibernate.show_sql}")
 	private String show_sql;
 
-	// @Bean
-	// public DataSource configureDataSource() {
-	// DriverManagerDataSource dataSource = new DriverManagerDataSource();
-	// dataSource.setDriverClassName(driver);
-	// dataSource.setUrl(url);
-	// dataSource.setUsername(username);
-	// dataSource.setPassword(password);
-	// return dataSource;
-	// }
-	// @Bean
-	// public LocalContainerEntityManagerFactoryBean
-	// configureEntityManagerFactory() {
-	// LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new
-	// LocalContainerEntityManagerFactoryBean();
-	// entityManagerFactoryBean.setDataSource(configureDataSource());
-	// entityManagerFactoryBean.setPackagesToScan("wszib_kolo.fitness");
-	// entityManagerFactoryBean.setJpaVendorAdapter(new
-	// HibernateJpaVendorAdapter());
-	//
-	// Properties jpaProperties = new Properties();
-	// jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
-	// jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO,
-	// hbm2ddlAuto);
-	// jpaProperties.put(org.hibernate.cfg.Environment.SHOW_SQL, show_sql);
-	// entityManagerFactoryBean.setJpaProperties(jpaProperties);
-	//
-	// return entityManagerFactoryBean;
-	// }
-	// @Bean
-	// public PlatformTransactionManager annotationDrivenTransactionManager() {
-	// return new JpaTransactionManager();
-	// }
 	@Bean
 	public FactoryBean<SessionFactory> createSessionFactory() throws Exception {
 		ComboPooledDataSource dataSource = new ComboPooledDataSource();
@@ -79,7 +47,7 @@ class JpaConfig {
 
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource);
-		sessionFactory.setPackagesToScan(new String[] {"spring.mvc.account", "spring.mvc.schedule"});
+		sessionFactory.setPackagesToScan(new String[] {"spring.mvc.account"});
 		sessionFactory
 				.setHibernateProperties(hibernateProperties().getObject());
 
