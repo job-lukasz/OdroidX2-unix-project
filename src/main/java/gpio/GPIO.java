@@ -52,6 +52,21 @@ public enum GPIO {
 	public final static Map<OdroidX2PIN, String> pinMap;
 	static {
 		Map<OdroidX2PIN, String> tempMap = new HashMap<OdroidX2PIN, String>();
+		tempMap.put(OdroidX2PIN.PIN1, "220");
+		tempMap.put(OdroidX2PIN.PIN2, "12");
+		tempMap.put(OdroidX2PIN.PIN3, "44");
+		tempMap.put(OdroidX2PIN.PIN4, "209");
+		tempMap.put(OdroidX2PIN.PIN5, "45");
+		tempMap.put(OdroidX2PIN.PIN6, "20");
+		tempMap.put(OdroidX2PIN.PIN7, "19");
+		tempMap.put(OdroidX2PIN.PIN8, "18");
+		tempMap.put(OdroidX2PIN.PIN9, "203");
+		tempMap.put(OdroidX2PIN.PIN10, "21");
+		tempMap.put(OdroidX2PIN.PIN11, "23");
+		tempMap.put(OdroidX2PIN.PIN13, "38");
+		tempMap.put(OdroidX2PIN.PIN14, "13");
+		tempMap.put(OdroidX2PIN.PIN15, "22");
+		tempMap.put(OdroidX2PIN.PIN16, "10");
 		tempMap.put(OdroidX2PIN.PIN17, "112");
 		tempMap.put(OdroidX2PIN.PIN18, "115");
 		tempMap.put(OdroidX2PIN.PIN19, "93");
