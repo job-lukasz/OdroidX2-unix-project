@@ -1,13 +1,15 @@
 package gpio;
 
-import gpio.StaticValues.*;
+import gpio.StaticValues.Direction;
+import gpio.StaticValues.OdroidX2PIN;
 
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeSet;
 
 /*
  __________
@@ -59,7 +61,18 @@ public enum GPIO {
 	}
 
 	public Set<PinState> getAllPinStates() {
-		Set<PinState> tmpSet = new HashSet<PinState>();
+		Set<PinState> tmpSet = new TreeSet<PinState>(new Comparator<PinState>() {
+			@Override
+			public int compare(PinState o1, PinState o2) {
+				if (Integer.parseInt(o1.getPinID().toString().substring(3)) < Integer.parseInt(o2.getPinID().toString().substring(3))) {
+					return -1;
+				}
+				else if (Integer.parseInt(o1.getPinID().toString().substring(3)) > Integer.parseInt(o2.getPinID().toString().substring(3))){
+					return 1;
+				}
+				return 0;
+			}
+		});
 		Iterator<Entry<OdroidX2PIN, GpioPin>> pinsIterator = pins.entrySet().iterator();
 		while (pinsIterator.hasNext()) {
 			Entry<OdroidX2PIN, GpioPin> pin = pinsIterator.next();
@@ -80,7 +93,7 @@ public enum GPIO {
 
 	public void setPWM(OdroidX2PIN odroidPin, long high_microS, long freq_microS) {
 		openPin(odroidPin);
-		if(pwmPins.containsKey(odroidPin)){
+		if (pwmPins.containsKey(odroidPin)) {
 			pwmPins.get(odroidPin).stop();
 			pwmPins.remove(odroidPin);
 		}
