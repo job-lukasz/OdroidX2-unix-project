@@ -20,6 +20,7 @@ public class GpioPin {
 	public boolean open(Direction direction) {
 		exportPin();
 		setDirection(direction);
+		pinState.setOpen(true);
 		return true;
 	}
 
@@ -49,6 +50,7 @@ public class GpioPin {
 		if (isPinExported()) {
 			return writeToFile("/sys/class/gpio/unexport", pinState.getAddress());
 		}
+		pinState.setOpen(false);
 		return false;
 	}
 

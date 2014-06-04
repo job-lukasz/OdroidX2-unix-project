@@ -37,6 +37,12 @@ public class LedsController {
 	public String toggleLeds(Principal principal, Model model, @ModelAttribute("ledsToggleForm") LedsToggleForm ledsForm) {
 		if (principal != null) {
 			System.out.println(ledsForm.getPinID());
+			if(!ledsForm.getPinValue()){
+				gpio.GPIO.INSTANCE.setHigh(ledsForm.getPinID());
+			}
+			else{
+				gpio.GPIO.INSTANCE.setLow(ledsForm.getPinID());	
+			}
 			model.addAttribute("message","na pinie: " +ledsForm.getPinID().toString() + " ustawiono wartość " + !ledsForm.getPinValue());
 			Set<gpio.PinState> pins = gpio.GPIO.INSTANCE.getAllPinStates();
 			model.addAttribute("pins", pins);

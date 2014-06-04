@@ -80,6 +80,10 @@ public enum GPIO {
 
 	public void setPWM(OdroidX2PIN odroidPin, long high_microS, long freq_microS) {
 		openPin(odroidPin);
+		if(pwmPins.containsKey(odroidPin)){
+			pwmPins.get(odroidPin).stop();
+			pwmPins.remove(odroidPin);
+		}
 		pwmPins.put(odroidPin, new GPIO_PWM(freq_microS, high_microS, pins.get(odroidPin)));
 		Thread pwmThread = new Thread(pwmPins.get(odroidPin));
 		pwmThread.start();
@@ -95,7 +99,6 @@ public enum GPIO {
 			}
 		}
 		pwmPins.clear();
-		pins.clear();
 	}
 
 	private void closeAllPWMPins() {
@@ -104,6 +107,7 @@ public enum GPIO {
 			Entry<OdroidX2PIN, GPIO_PWM> temp = iterator.next();
 			temp.getValue().stop();
 		}
+		pins.clear();
 	}
 
 	private void openPin(OdroidX2PIN odroidPin) {
