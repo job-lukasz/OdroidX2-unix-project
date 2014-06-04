@@ -1,6 +1,6 @@
 package serial;
 
-public class SerialThread implements Runnable{
+public class Thread implements Runnable{
 
 	@Override
 	public void run() {
