@@ -1,49 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title th:text="#{view.index.title}">Welcome!</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
-    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+<title th:text="#{view.index.title}">Welcome!</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../../../resources/css/bootstrap.min.css" rel="stylesheet"
+	media="screen" th:href="@{/resources/css/bootstrap.min.css}" />
+<link href="../../../resources/css/core.css" rel="stylesheet"
+	media="screen" th:href="@{/resources/css/core.css}" />
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="../../../resources/js/bootstrap.min.js"
+	th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<div th:replace="fragments/header :: header">&nbsp;</div>
-<div class="container">
-    <!-- /* Handle the flash message */-->
-    <th:block th:if="${message != null}">
-        <!-- /* The message code is returned from the @Controller */ -->
-        <div th:replace="fragments/alert :: alert (type=success, message=${message})">&nbsp;</div>
-    </th:block>
-    <p>
-        Witaj <font th:text="${name}"></font> w aplikacji OdroidX2!
-    </p>   
-    <table class="table table-striped">
-      <tr>
-        <th>Nazwa pinu</th>
-        <th>Adres</th>
-        <th>Otwarty</th>
-        <th>Kierunek</th>
-        <th>Wartość</th>
-        <th>Akcja</th>
-      </tr>
-      
-      <tr th:each="pin: ${pins}">
-        <td th:text="${pin.pinID}"></td>
-        <td th:text="${pin.address}"></td>
-        <td th:text="${pin.open}"></td>
-        <td th:text="${pin.direction}"></td>
-        <td th:text="${pin.value}"></td>   
-        <td>   
-	        <form action="leds" th:action="@{/leds}" th:object="${ledsToggleForm}" method="post">
-		        <input type="hidden" id="pinID" name="pinID"  th:object="${ledsToggleForm.pinID}" th:value="${pin.pinID}"/>
-		        <input type="hidden" id="pinValue" name="pinValue" th:object="${ledsToggleForm.pinID}" th:value="${pin.value}"/>
-		        <input class="btn btn-success" type="submit" value="toggle" />
-	  		</form>
-  		</td>
-      </tr>
-    </table>
-</div>
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+	<div class="container">
+		<!-- /* Handle the flash message */-->
+		<th:block th:if="${message != null}">
+			<!-- /* The message code is returned from the @Controller */ -->
+			<div
+				th:replace="fragments/alert :: alert (type=success, message=${message})">&nbsp;</div>
+		</th:block>
+		<p>
+			Witaj <font th:text="${name}"></font> w aplikacji OdroidX2!
+		</p>
+		<table class="table table-striped">
+			<tr>
+				<th>Nazwa pinu</th>
+				<th>Adres</th>
+				<th>Otwarty</th>
+				<th>Kierunek</th>
+				<th>Wartość</th>
+				<th  colspan="2">Akcja</th>
+			</tr>
+
+			<tr th:each="pin: ${pins}">
+				<td th:text="${pin.pinID}"></td>
+				<td th:text="${pin.address}"></td>
+				<td th:text="${pin.open}"></td>
+				<td th:text="${pin.direction}"></td>
+				<td th:text="${pin.value}"></td>
+				<td width="40px">
+					<form action="leds" th:action="@{/leds}"
+						th:object="${ledsToggleForm}" method="post">
+						<input type="hidden" id="pinID" name="pinID"
+							th:object="${ledsToggleForm.pinID}" th:value="${pin.pinID}" /> <input
+							type="hidden" id="pinValue" name="pinValue"
+							th:object="${ledsToggleForm.pinID}" th:value="!${pin.value}" /> <input
+							class="btn btn-info" type="submit" value="toggle" />
+					</form>
+				</td>
+				<td width="40px">					
+					<th:block th:switch="${pin.value}">
+						<form th:case="false" action="leds" th:action="@{/leds}"
+							th:object="${ledsToggleForm}" method="post">
+							<input type="hidden" id="pinID" name="pinID"
+								th:object="${ledsToggleForm.pinID}" th:value="${pin.pinID}" /> <input
+								type="hidden" id="pinValue" name="pinValue"
+								th:object="${ledsToggleForm.pinID}" th:value="true" /> <input
+								class="btn btn-success" type="submit" value="Włącz" />
+						</form>
+						<form th:case="true" action="leds" th:action="@{/leds}"
+							th:object="${ledsToggleForm}" method="post">
+							<input type="hidden" id="pinID" name="pinID"
+								th:object="${ledsToggleForm.pinID}" th:value="${pin.pinID}" /> <input
+								type="hidden" id="pinValue" name="pinValue"
+								th:object="${ledsToggleForm.pinID}" th:value="false" /> <input
+								class="btn btn-danger" type="submit" value="Wyłącz" />
+						</form>
+					</th:block>
+					</td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>
