@@ -21,15 +21,9 @@
 				th:replace="fragments/alert :: alert (type=success, message=${message})">&nbsp;</div>
 		</th:block>
 		<p>
-			Witaj <font th:text="${name}"></font> w module ADC aplikacji OdroidX2!
+			Witaj <font th:text="${name}"></font> w aplikacji OdroidX2!
 		</p>
-		<form action="adc" th:action="@{/adc}" th:object="${adcForm}" method="post">
-			<input type="text" id="bytesNumber" name="bytesNumber" th:object="${adcForm.bytesNumber}" th:value="1000" /> 
-			<select id="portName" name="portName" th:object="${adcForm.portName}">
-					<option th:each="port : ${avaiblePorts}" th:value="${port}"	th:text="${port}">portName</option>
-			</select> 
-			<input class="btn btn-info" type="submit" value="Rozpocznij pomiar" />
-		</form>
+		ADC MODULE
 	</div>
 </body>
 </html>

@@ -22,10 +22,10 @@ public class UserService implements UserDetailsService {
 	
 	@PostConstruct
 	public void initialize() {
-		Account acc1 = new Account("user", "demo", "ROLE_USER");
-		Account acc2 = new Account("admin", "admin", "ROLE_ADMIN");
-		accountRepository.save(acc1);
-		accountRepository.save(acc2);	
+//		Account acc1 = new Account("user", "demo", "ROLE_USER");
+//		Account acc2 = new Account("admin", "admin", "ROLE_ADMIN");
+//		accountRepository.save(acc1);
+//		accountRepository.save(acc2);	
 		gpio.GPIO.INSTANCE.initPins();
 	}
 
