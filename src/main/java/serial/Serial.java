@@ -26,7 +26,8 @@ public class Serial {
 		byte[] buffer = null;
 		serialPort.openPort();// Open serial port
 		serialPort.setParams(bauadRate, dataBits, stopBits, parity);
-		serialPort.writeBytes(startCode.getBytes());
+		String startMessage = (startCode+String.valueOf(bytesNumber));
+		serialPort.writeBytes(startMessage.getBytes());
 		buffer = serialPort.readBytes(bytesNumber);
 		serialPort.closePort();// Close serial port
 		return buffer;
