@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import jssc.SerialPortException;
+import jssc.SerialPortList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import serial.Serial;
-import serial.jssc.SerialPortException;
-import serial.jssc.SerialPortList;
 import spring.mvc.account.AccountRepository;
 import spring.mvc.measurement.Measurement;
 import spring.mvc.measurement.MeasurementRepository;

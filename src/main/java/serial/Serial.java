@@ -1,7 +1,7 @@
 package serial;
 
-import serial.jssc.SerialPort;
-import serial.jssc.SerialPortException;
+import jssc.SerialPort;
+import jssc.SerialPortException;
 
 /**
  * Jssc class adapter
@@ -17,6 +17,7 @@ public class Serial {
 	private static final int parity = SerialPort.PARITY_NONE;	
 	
 	private SerialPort serialPort;
+	
 	public Serial(String portName) {
 		serialPort = new SerialPort(portName);
 	}

@@ -21,8 +21,12 @@
  *
  * e-mail: scream3r.org@gmail.com
  * web-site: http://scream3r.org | http://code.google.com/p/java-simple-serial-connector/
+ * 
+ * 
+ * THIS VERISON IS MODIFIED (REMOVE METHODS RESPONSIBLE FOR INSTALLING THE LIB
+ * ORGINAL VERSION IS AVAIBLE AT PROJECT PAGE
  */
-package serial.jssc;
+package jssc;
 
 
 /**
@@ -75,12 +79,12 @@ public class SerialNativeInterface {
 	static {
 		String osName = System.getProperty("os.name");
 		String javaLibPath = System.getProperty("java.library.path");
-		System.out.println(javaLibPath);
+		System.out.println("Try to load the lib from : " + javaLibPath);
 		if (osName.equals("Linux")) {
 			osName = "linux";
 			osType = OS_LINUX;
 		}
-		System.loadLibrary("jSSC-2.8"); // make sure you have proper version of
+		System.loadLibrary("jSSC-2.8_armhf"); // make sure you have proper version of
 										// library in java library path
 		String versionBase = getLibraryBaseVersion();
 		System.out.println(versionBase);
