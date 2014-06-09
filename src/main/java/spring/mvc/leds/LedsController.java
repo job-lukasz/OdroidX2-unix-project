@@ -36,8 +36,7 @@ public class LedsController {
 	@RequestMapping(value = "leds", method = RequestMethod.POST)
 	public String toggleLeds(Principal principal, Model model, @ModelAttribute("ledsToggleForm") LedsToggleForm ledsForm) {
 		if (principal != null) {
-			System.out.println(ledsForm.getPinID());
-			if(!ledsForm.getPinValue()){
+			if(ledsForm.getPinValue()){
 				gpio.GPIO.INSTANCE.setHigh(ledsForm.getPinID());
 			}
 			else{
