@@ -10,7 +10,8 @@ import jssc.SerialPortException;
  * 
  */
 public class Serial {
-	private static final String startCode = "ADCSTART";
+	private static final String ADCstartCode = "ADCSTART";
+	private static final String DACstartCode = "DACSTART";
 	private static final int bauadRate = SerialPort.BAUDRATE_115200;
 	private static final int dataBits = SerialPort.DATABITS_8;
 	private static final int stopBits = SerialPort.STOPBITS_1;
@@ -26,7 +27,16 @@ public class Serial {
 		byte[] buffer = null;
 		serialPort.openPort();// Open serial port
 		serialPort.setParams(bauadRate, dataBits, stopBits, parity);
-		serialPort.writeBytes(startCode.getBytes());
+		serialPort.writeBytes(ADCstartCode.getBytes());
+		buffer = serialPort.readBytes(bytesNumber);
+		serialPort.closePort();// Close serial port
+		return buffer;
+	}
+	public byte[] setDAC(int voltagePercenet) throws SerialPortException {
+		byte[] buffer = null;
+		serialPort.openPort();// Open serial port
+		serialPort.setParams(bauadRate, dataBits, stopBits, parity);
+		serialPort.writeBytes(DACstartCode.getBytes());
 		buffer = serialPort.readBytes(bytesNumber);
 		serialPort.closePort();// Close serial port
 		return buffer;
