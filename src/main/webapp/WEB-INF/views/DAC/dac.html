@@ -20,10 +20,18 @@
 			<div
 				th:replace="fragments/alert :: alert (type=success, message=${message})">&nbsp;</div>
 		</th:block>
-		<p>
-			Witaj <font th:text="${name}"></font> w aplikacji OdroidX2!
-		</p>
-		DAC MODULE
+		<th:block th:if="${allert != null}">
+			<!-- /* The message code is returned from the @Controller */ -->
+			<div th:replace="fragments/alert :: alert (type=danger, message=${allert})">&nbsp;</div>
+		</th:block>
+		<form action="dac" th:action="@{/dac}" th:object="${dacForm}" method="post">
+			Wartosc DAC: <input type="text" id="voltagePercent" name="voltagePercent" th:object="${dacForm.voltagePercent}" th:value="100" />
+			<br /> Port komunikacji szeregowej: 
+			<select id="portName" name="portName" th:object="${dacForm.portName}">
+				<option th:each="port : ${avaiblePorts}" th:value="${port}" th:text="${port}">portName</option>
+			</select> 
+			<br /> <input class="btn btn-info" type="submit" value="Ustaw wartosc DAC" />
+		</form>
 	</div>
 </body>
 </html>

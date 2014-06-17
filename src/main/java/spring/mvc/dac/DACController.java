@@ -7,6 +7,7 @@ import java.util.Set;
 
 import jssc.SerialPortException;
 import jssc.SerialPortList;
+import jssc.SerialPortTimeoutException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import serial.Serial;
 import spring.mvc.account.AccountRepository;
-import spring.mvc.adc.ADCParamtersForm;
-import spring.mvc.measurement.Measurement;
 import spring.mvc.signup.SignupForm;
 
 @Controller
@@ -32,7 +31,8 @@ public class DACController {
 		new SignupForm();
 		if (principal != null) {
 			String[] portNames = SerialPortList.getPortNames();
-			Set<String> avaiblePorts = new HashSet<String>(Arrays.asList(portNames)); 
+			Set<String> avaiblePorts = new HashSet<String>(
+					Arrays.asList(portNames));
 			model.addAttribute("avaiblePorts", avaiblePorts);
 			model.addAttribute("name", principal.getName());
 			model.addAttribute("dacForm", new DACParamtersForm());
@@ -42,17 +42,24 @@ public class DACController {
 	}
 
 	@RequestMapping(value = "dac", method = RequestMethod.POST)
-	public String turnDAC(Principal principal, Model model,@ModelAttribute("dacForm") DACParamtersForm dacForm) {
+	public String turnDAC(Principal principal, Model model,
+			@ModelAttribute("dacForm") DACParamtersForm dacForm) {
 		if (principal != null) {
+			String[] portNames = SerialPortList.getPortNames();
+			Set<String> avaiblePorts = new HashSet<String>(Arrays.asList(portNames));
+			model.addAttribute("avaiblePorts", avaiblePorts);
 			try {
-				byte[] buffer;
 				Serial serial = new Serial(dacForm.getPortName());
-				buffer = serial.startMeasure(dacForm.getBytesNumber());
-				Measurement measure = new Measurement(buffer, accountRepository.findByEmail(principal.getName()));
-			    measureRepository.save(measure);
-			} catch (SerialPortException e) {
-				model.addAttribute("allert",e.toString());
-				return "ADC/adc";
+				boolean status = serial.setDAC(dacForm.getVoltagePercent());
+				if(status){
+					model.addAttribute("message","na: "+dacForm.getPortName() + " ustawiono wartość " + String.valueOf(dacForm.getVoltagePercent()));
+				}
+				else {
+					model.addAttribute("allert", "Nie udalo sie ustawic wartosci DAC");
+				}
+			} catch (SerialPortException | SerialPortTimeoutException e) {
+				model.addAttribute("allert", e.toString());
+				return "DAC/dac";
 			}
 		}
 		return "/";

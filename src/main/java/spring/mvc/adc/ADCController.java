@@ -7,6 +7,7 @@ import java.util.Set;
 
 import jssc.SerialPortException;
 import jssc.SerialPortList;
+import jssc.SerialPortTimeoutException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,13 +48,16 @@ public class ADCController {
 	@RequestMapping(value = "adc", method = RequestMethod.POST)
 	public String turnADC(Principal principal, Model model,@ModelAttribute("adcForm") ADCParamtersForm adcForm) {
 		if (principal != null) {
+			String[] portNames = SerialPortList.getPortNames();
+			Set<String> avaiblePorts = new HashSet<String>(Arrays.asList(portNames));
+			model.addAttribute("avaiblePorts", avaiblePorts);
 			try {
 				byte[] buffer;
 				Serial serial = new Serial(adcForm.getPortName());
 				buffer = serial.startMeasure(adcForm.getBytesNumber());
 				Measurement measure = new Measurement(buffer, accountRepository.findByEmail(principal.getName()));
 			    measureRepository.save(measure);
-			} catch (SerialPortException e) {
+			} catch (SerialPortException | SerialPortTimeoutException e) {
 				model.addAttribute("allert",e.toString());
 				return "ADC/adc";
 			}
