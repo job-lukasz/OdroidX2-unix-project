@@ -18,7 +18,7 @@ function togglePin(_pinID) {
       type: 'POST',
       data: ({pinID : _pinID}),
       success: function(data) {
-        if(data = "1"){
+        if(data == true) {
         	$("#"+_pinID).attr("class", "button button-success").text("wyłącz");
         }
         else {
