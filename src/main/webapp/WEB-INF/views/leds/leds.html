@@ -18,11 +18,12 @@ function togglePin(_pinID) {
       type: 'POST',
       data: ({pinID : _pinID}),
       success: function(data) {
-        if(data == true) {
-        	$("#"+_pinID).attr("class", "button button-success").text("wyłącz");
+      	$("td#value_"+_pinID).text(data);
+        if(data == true){
+        	$("button#"+_pinID).attr("class", "btn btn-danger").text("Wyłącz");
         }
         else {
-        	$("#"+_pinID).attr("class", "button button-danger").text("włącz");
+        	$("button#"+_pinID).attr("class", "btn btn-success").text("Włącz");
         }
       }
     });
@@ -53,9 +54,17 @@ function togglePin(_pinID) {
 				<td th:text="${pin.address}"></td>
 				<td th:text="${pin.open}"></td>
 				<td th:text="${pin.direction}"></td>
+<<<<<<< HEAD
 				<td th:text="${pin.value}"></td>
 				<td width="40px">
 				<button class="btn btn-success" id="${pin.pinID}" onclick="togglePin(${pin.pinID})">Włącz</button>					
+=======
+				<td th:id="value_+${pin.pinID}" th:text="${pin.value}"></td>
+				<td th:switch="${pin.value}" width="90px">
+				<button th:case="true" class="btn btn-danger" th:id="${pin.pinID}" onclick="togglePin(this.id)">Wyłącz</button>
+				<button th:case="false" class="btn btn-success" th:id="${pin.pinID}" onclick="togglePin(this.id)">Włącz</button>
+														
+>>>>>>> 49a88900152be1f364cedd299fa9d4dae8d99ed7
 				<!--   <form action="leds" th:action="@{/leds}" th:object="${ledsToggleForm}" method="post">
 							<input type="hidden" id="pinID" name="pinID"
 								th:object="${ledsToggleForm.pinID}" th:value="" /> <input
@@ -63,7 +72,11 @@ function togglePin(_pinID) {
 								th:object="${ledsToggleForm.pinID}" th:value="true" /> <input
 								class="btn btn-success" type="submit" value="Włącz" />
 						</form>-->	
+<<<<<<< HEAD
 					</td>
+=======
+				</td>
+>>>>>>> 49a88900152be1f364cedd299fa9d4dae8d99ed7
 			</tr>
 		</table>
 	</div>
