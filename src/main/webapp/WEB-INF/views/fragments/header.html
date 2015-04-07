@@ -18,6 +18,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#" th:href="@{/}">Home</a></li>
                 <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/leds" th:href="@{/leds}">Ledy</a></li>
+                <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/temperature" th:href="@{/temperature}">Temperature</a></li>
                 <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/DAC" th:href="@{/dac}">DAC</a></li>
                 <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/ADC" th:href="@{/adc}">ADC</a></li>                                 
             </ul>

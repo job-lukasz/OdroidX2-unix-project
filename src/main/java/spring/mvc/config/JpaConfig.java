@@ -48,8 +48,7 @@ class JpaConfig {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource);
 		sessionFactory.setPackagesToScan(new String[] {"spring.mvc.account", "spring.mvc.measurement"});
-		sessionFactory
-				.setHibernateProperties(hibernateProperties().getObject());
+		sessionFactory.setHibernateProperties(hibernateProperties().getObject());
 
 		return sessionFactory;
 	}

@@ -47,21 +47,6 @@ public class SerialPortList {
                 PORTNAMES_PATH = "/dev/";
                 break;
             }
-            case SerialNativeInterface.OS_SOLARIS: {
-                PORTNAMES_REGEXP = Pattern.compile("[0-9]*|[a-z]*");
-                PORTNAMES_PATH = "/dev/term/";
-                break;
-            }
-            case SerialNativeInterface.OS_MAC_OS_X: {
-                PORTNAMES_REGEXP = Pattern.compile("tty.(serial|usbserial|usbmodem).*");
-                PORTNAMES_PATH = "/dev/";
-                break;
-            }
-            case SerialNativeInterface.OS_WINDOWS: {
-                PORTNAMES_REGEXP = Pattern.compile("");
-                PORTNAMES_PATH = "";
-                break;
-            }
             default: {
                 PORTNAMES_REGEXP = null;
                 PORTNAMES_PATH = null;
