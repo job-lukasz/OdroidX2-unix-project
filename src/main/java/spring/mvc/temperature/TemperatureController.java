@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import serial.drivers.DS18b20;
+import serial.drivers.DS1820;
 import spring.mvc.account.AccountRepository;
 import spring.mvc.signup.SignupForm;
 
@@ -22,7 +22,7 @@ public class TemperatureController {
 	public String index(Principal principal, Model model) {
 		new SignupForm();
 		if (principal != null) {
-			DS18b20 termo = new DS18b20();
+			DS1820 termo = new DS1820();
 		    termo.InitCOM("/dev/ttyUSB0");
 		    termo.setReadTime(750);
 		    termo.InitBus();

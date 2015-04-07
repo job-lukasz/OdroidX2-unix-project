@@ -5,7 +5,7 @@ import java.util.List;
 
 import jssc.*;
 
-public class DS18b20 {
+public class DS1820 {
 	private static final int bauadRate = SerialPort.BAUDRATE_115200;
 	private static final int dataBits = SerialPort.DATABITS_8;
 	private static final int stopBits = SerialPort.STOPBITS_1;
@@ -19,7 +19,7 @@ public class DS18b20 {
     private char SerialNum[];
 	private int read_time;
 	
-	public DS18b20()
+	public DS1820()
 	{
 		unknown = new char[8];
 		SerialNum = new char [8];
