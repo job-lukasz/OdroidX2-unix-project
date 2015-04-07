@@ -90,7 +90,13 @@ public enum GPIO {
 		openPin(odroidPin);
 		pins.get(odroidPin).setValue(false);
 	}
-
+	
+	public boolean toggle(OdroidX2PIN odroidPin){
+		openPin(odroidPin);
+		GpioPin pin = pins.get(odroidPin);
+		pin.setValue(!pin.getValue());
+		return pin.getValue();
+	}
 	public void setPWM(OdroidX2PIN odroidPin, long high_microS, long freq_microS) {
 		openPin(odroidPin);
 		if (pwmPins.containsKey(odroidPin)) {
