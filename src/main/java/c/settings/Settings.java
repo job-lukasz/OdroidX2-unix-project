@@ -47,7 +47,7 @@ public class Settings {
 			model.addAttribute("name", principal.getName());
 			model.addAttribute("settingsForm", new SettingsForm());
 			m.settings.Settings.setTemperaturePortSensor(settingsForm.getTemperaturePortName());
-			return "settings/settings";
+			return "Settings/settings";
 		}
 		return "home/homeNotSignedIn";
 	}

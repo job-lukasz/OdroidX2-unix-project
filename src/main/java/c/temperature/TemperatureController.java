@@ -3,6 +3,7 @@ package c.temperature;
 import java.security.Principal;
 
 import m.serial.drivers.DS1820;
+import m.settings.Settings;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class TemperatureController {
 		new SignupForm();
 		if (principal != null) {
 			DS1820 termo = new DS1820();
-		    termo.InitCOM("/dev/ttyUSB0");
+		    termo.InitCOM(Settings.getTemperaturePortSensor());
 		    termo.setReadTime(750);
 		    termo.InitBus();
 			model.addAttribute("temperature", termo.GetTemperature(0));
