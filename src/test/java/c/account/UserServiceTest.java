@@ -1,4 +1,4 @@
-package spring.mvc.account;
+package c.account;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.when;

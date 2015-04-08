@@ -1,4 +1,4 @@
-package spring.mvc.signup;
+package c.signup;
 
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.Test;
 
-import spring.mvc.config.WebAppConfigurationAware;
+import c.config.WebAppConfigurationAware;
 
 public class SignupControllerTest extends WebAppConfigurationAware {
 	@Test

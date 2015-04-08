@@ -1,4 +1,4 @@
-package spring.mvc.config;
+package c.config;
 
 import javax.sql.DataSource;
 

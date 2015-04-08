@@ -1,4 +1,4 @@
-package spring.mvc.account;
+package c.account;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -7,13 +7,13 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
 
+import c.config.WebSecurityConfigurationAware;
+
 import javax.servlet.http.HttpSession;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-
-import spring.mvc.config.WebSecurityConfigurationAware;
 
 public class UserAuthenticationIntegrationTest extends WebSecurityConfigurationAware {
 

@@ -1,4 +1,4 @@
-package spring.mvc.config;
+package c.config;
 
 import org.junit.Before;
 import org.springframework.security.web.FilterChainProxy;
