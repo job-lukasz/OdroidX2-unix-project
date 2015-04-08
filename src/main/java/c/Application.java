@@ -1,3 +1,3 @@
-package spring.mvc;
+package c;
 
 public interface Application {}

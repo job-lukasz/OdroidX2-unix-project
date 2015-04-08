@@ -13,7 +13,7 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import spring.mvc.Application;
+import c.Application;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
