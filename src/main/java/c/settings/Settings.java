@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import c.Log;
 import c.account.AccountRepository;
-import c.config.ApplicationConfig;
 import c.measurement.MeasurementRepository;
 
 @Controller
@@ -45,7 +45,7 @@ public class Settings {
 	public String saveSettings(Principal principal, Model model,@ModelAttribute("settingsForm") SettingsForm settingsForm) {
 		if (principal != null) {
 			m.settings.Settings.setTemperaturePortSensor(settingsForm.getTemperaturePortName());
-			ApplicationConfig.rootLogger.debug("Set temperature port name: "+settingsForm.getTemperaturePortName());
+			Log.rootLogger.debug("Set temperature port name: "+settingsForm.getTemperaturePortName());
 			model.addAttribute("avaiblePorts", getAvailblePort());
 			model.addAttribute("name", principal.getName());
 			model.addAttribute("settingsForm", new SettingsForm());

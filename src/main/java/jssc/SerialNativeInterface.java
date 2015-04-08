@@ -29,6 +29,9 @@
 package jssc;
 
 
+import c.Log;
+
+
 /**
  * 
  * @author scream3r
@@ -43,7 +46,7 @@ public class SerialNativeInterface {
 	public static final int OS_WINDOWS = 1;
 	public static final int OS_SOLARIS = 2;// since 0.9.0
 	public static final int OS_MAC_OS_X = 3;// since 0.9.0
-
+	
 	private static int osType = -1;
 
 	/**
@@ -79,7 +82,6 @@ public class SerialNativeInterface {
 	static {
 		String osName = System.getProperty("os.name");
 		String javaLibPath = System.getProperty("java.library.path");
-		System.out.println("Try to load the lib from : " + javaLibPath);
 		if (osName.equals("Linux")) {
 			osName = "linux";
 			osType = OS_LINUX;
@@ -87,10 +89,10 @@ public class SerialNativeInterface {
 		System.loadLibrary("jSSC-2.8_armhf"); // make sure you have proper version of
 										// library in java library path
 		String versionBase = getLibraryBaseVersion();
-		System.out.println(versionBase);
+		Log.rootLogger.debug("Loadded library: jSSC-2.8_armhf from: "+javaLibPath+" version: "+ versionBase);
 		String versionNative = getNativeLibraryVersion();
 		if (!versionBase.equals(versionNative)) {
-			System.err.println("Warning! jSSC Java and Native versions mismatch (Java: " + versionBase + ", Native: " + versionNative + ")");
+			Log.rootLogger.warn("jSSC Java and Native versions mismatch (Java: " + versionBase + ", Native: " + versionNative + ")");
 		}
 	}
 
