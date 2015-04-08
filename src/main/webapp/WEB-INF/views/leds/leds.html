@@ -58,8 +58,7 @@ function togglePin(_pinID) {
 				<td th:id="value_+${pin.pinID}" th:text="${pin.value}"></td>
 				<td th:switch="${pin.value}" width="90px">
 				<button th:case="true" class="btn btn-danger" th:id="${pin.pinID}" onclick="togglePin(this.id)">Wyłącz</button>
-				<button th:case="false" class="btn btn-success" th:id="${pin.pinID}" onclick="togglePin(this.id)">Włącz</button>
-														
+				<button th:case="false" class="btn btn-success" th:id="${pin.pinID}" onclick="togglePin(this.id)">Włącz</button>									
 				<!--   <form action="leds" th:action="@{/leds}" th:object="${ledsToggleForm}" method="post">
 							<input type="hidden" id="pinID" name="pinID"
 								th:object="${ledsToggleForm.pinID}" th:value="" /> <input

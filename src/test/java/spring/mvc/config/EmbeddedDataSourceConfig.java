@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
+import c.config.DataSourceConfig;
+
 /**
  * The data source config that can be used in integration tests.
  */
