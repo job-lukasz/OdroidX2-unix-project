@@ -25,7 +25,7 @@
 		</th:block>
 		<form action="settings" th:action="@{/settings}" th:object="${settingsForm}" method="post">
 			Nazwa portu z czujnikiem temperatury: 
-			<select id="portName" name="portName" th:object="${settingsForm.temperaturePortName}">
+			<select id="temperaturePortName" name="temperaturePortName" th:object="${settingsForm.temperaturePortName}">
 					<option th:each="port : ${avaiblePorts}" th:value="${port}"	th:text="${port}">portName</option>
 			</select> <br />
 			<input class="btn btn-success" type="submit" value="Zapisz"/>

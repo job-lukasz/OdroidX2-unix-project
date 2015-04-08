@@ -43,10 +43,11 @@ public class Settings {
 	@RequestMapping(value = "settings", method = RequestMethod.POST)
 	public String saveSettings(Principal principal, Model model,@ModelAttribute("settingsForm") SettingsForm settingsForm) {
 		if (principal != null) {
+			m.settings.Settings.setTemperaturePortSensor(settingsForm.getTemperaturePortName());
+			System.out.println("Set temperature port name: "+settingsForm.getTemperaturePortName());
 			model.addAttribute("avaiblePorts", getAvailblePort());
 			model.addAttribute("name", principal.getName());
 			model.addAttribute("settingsForm", new SettingsForm());
-			m.settings.Settings.setTemperaturePortSensor(settingsForm.getTemperaturePortName());
 			return "Settings/settings";
 		}
 		return "home/homeNotSignedIn";
