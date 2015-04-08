@@ -2,7 +2,6 @@ package m.settings;
 
 public class Settings {
 	private static String temperaturePortSensor;
-
 	public static String getTemperaturePortSensor() {
 		return temperaturePortSensor;
 	}
