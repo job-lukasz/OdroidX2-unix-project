@@ -17,13 +17,19 @@
 		<!-- /* Handle the flash message */-->
 		<th:block th:if="${message != null}">
 			<!-- /* The message code is returned from the @Controller */ -->
-			<div
-				th:replace="fragments/alert :: alert (type=success, message=${message})">&nbsp;</div>
+			<div th:replace="fragments/alert :: alert (type=success, message=${message})">&nbsp;</div>
 		</th:block>
-		<p>
-			Witaj <font th:text="${name}"></font> w aplikacji OdroidX2!
-		</p>
-		ADC MODULE
+		<th:block th:if="${allert != null}">
+			<!-- /* The message code is returned from the @Controller */ -->
+			<div th:replace="fragments/alert :: alert (type=danger, message=${allert})">&nbsp;</div>
+		</th:block>
+		<form action="settings" th:action="@{/settings}" th:object="${settingsForm}" method="post">
+			Nazwa portu z czujnikiem temperatury: 
+			<select id="portName" name="portName" th:object="${settingsForm.temperaturePortName}">
+					<option th:each="port : ${avaiblePorts}" th:value="${port}"	th:text="${port}">portName</option>
+			</select> <br />
+			<input class="btn btn-success" type="submit" value="Zapisz"/>
+		</form>
 	</div>
 </body>
 </html>

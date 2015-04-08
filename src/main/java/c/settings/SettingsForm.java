@@ -2,13 +2,13 @@ package c.settings;
 
 public class SettingsForm {
 
-	private static String temperaturePortName;
+	private String temperaturePortName;
 	
-	public static String getTemperaturePortName() {
+	public String getTemperaturePortName() {
 		return temperaturePortName;
 	}
 
-	public static void setTemperaturePortName(String portName) {
-		temperaturePortName = portName;
+	public void setTemperaturePortName(String portName) {
+		this.temperaturePortName = portName;
 	}
 }
