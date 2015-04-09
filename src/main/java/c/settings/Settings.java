@@ -33,9 +33,7 @@ public class Settings {
 	@RequestMapping(value = "settings", method = RequestMethod.GET)
 	public String index(Principal principal, Model model) {
 		if (principal != null) {
-			model.addAttribute("avaiblePorts", getAvailblePort());
-			model.addAttribute("name", principal.getName());
-			model.addAttribute("settingsForm", new SettingsForm());
+			getSettingsModel(principal, model);
 			return "Settings/settings";
 		}
 		return "home/homeNotSignedIn";
@@ -44,13 +42,19 @@ public class Settings {
 	@RequestMapping(value = "settings", method = RequestMethod.POST)
 	public String saveSettings(Principal principal, Model model,@ModelAttribute("settingsForm") SettingsForm settingsForm) {
 		if (principal != null) {
-			m.settings.Settings.setTemperaturePortSensor(settingsForm.getTemperaturePortName());
+			m.settings.Settings.setTemperaturePortName(settingsForm.getTemperaturePortName());
 			Log.rootLogger.debug("Set temperature port name: "+settingsForm.getTemperaturePortName());
-			model.addAttribute("avaiblePorts", getAvailblePort());
-			model.addAttribute("name", principal.getName());
-			model.addAttribute("settingsForm", new SettingsForm());
+			getSettingsModel(principal, model);
 			return "Settings/settings";
 		}
 		return "home/homeNotSignedIn";
+	}
+	
+	private void getSettingsModel(Principal principal, Model model) {
+		model.addAttribute("avaiblePorts", getAvailblePort());
+		model.addAttribute("name", principal.getName());
+		model.addAttribute("settingsForm", new SettingsForm());
+		Set<m.gpio.PinState> pins = m.gpio.GPIO.INSTANCE.getAllPinStates();
+		model.addAttribute("pins", pins);
 	}
 }
