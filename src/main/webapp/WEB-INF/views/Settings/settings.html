@@ -47,7 +47,7 @@
 		        <td id="firstHeaterPin" th:text="${settingsForm.firstHeaterPin}"></td>
 		        <td>
 			        <select id="firstHeaterPin" th:object="${settingsForm.firstHeaterPin}">
-						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.firstHeaterPin}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.firstHeaterPin.pinID}"></option>
 					</select>
 				</td>
 		      </tr>
