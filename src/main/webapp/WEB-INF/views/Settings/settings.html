@@ -37,8 +37,17 @@
 		        <td>Port czujnika temperatury</td>
 		        <td id="temperaturePortName" th:text="${settingsForm.temperaturePortName}"></td>
 		        <td>
-			        <select id="temperaturePortName" name="temperaturePortName" th:object="${settingsForm.temperaturePortName}">
+			        <select id="temperaturePortName" th:object="${settingsForm.temperaturePortName}">
 						<option th:each="port : ${avaiblePorts}" th:value="${port}"	th:text="${port}" th:selected="${port == settingsForm.temperaturePortName}"></option>
+					</select>
+				</td>
+		      </tr>
+		      <tr>
+		        <td>Pin sterowania grzałką - 1 </td>
+		        <td id="firstHeaterPin" th:text="${settingsForm.firstHeaterPin}"></td>
+		        <td>
+			        <select id="firstHeaterPin" th:object="${settingsForm.firstHeaterPin}">
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.firstHeaterPin}"></option>
 					</select>
 				</td>
 		      </tr>

@@ -43,6 +43,7 @@ public class Settings {
 	public String saveSettings(Principal principal, Model model,@ModelAttribute("settingsForm") SettingsForm settingsForm) {
 		if (principal != null) {
 			m.settings.Settings.setTemperaturePortName(settingsForm.getTemperaturePortName());
+			m.settings.Settings.setFirstHeaterPin(settingsForm.getFirstHeaterPin());
 			Log.rootLogger.debug("Set temperature port name: "+settingsForm.getTemperaturePortName());
 			getSettingsModel(principal, model);
 			return "Settings/settings";
