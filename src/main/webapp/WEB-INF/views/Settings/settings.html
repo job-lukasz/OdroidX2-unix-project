@@ -37,8 +37,8 @@
 		        <td>Port czujnika temperatury</td>
 		        <td id="temperaturePortName" th:text="${settingsForm.temperaturePortName}"></td>
 		        <td>
-			        <select id="temperaturePortName" name="temperaturePortName" th:object="${settingsForm.temperaturePortName}" th:value="${settingsForm.temperaturePortName}">
-						<option th:each="port : ${avaiblePorts}" th:value="${port}"	th:text="${port}" th:selected="${settingsForm.temperaturePortName}"></option>
+			        <select id="temperaturePortName" name="temperaturePortName" th:object="${settingsForm.temperaturePortName}">
+						<option th:each="port : ${avaiblePorts}" th:value="${port}"	th:text="${port}" th:selected="${port == settingsForm.temperaturePortName}"></option>
 					</select>
 				</td>
 		      </tr>
