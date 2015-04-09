@@ -24,11 +24,27 @@
 			<div th:replace="fragments/alert :: alert (type=danger, message=${allert})">&nbsp;</div>
 		</th:block>
 		<form action="settings" th:action="@{/settings}" th:object="${settingsForm}" method="post">
-			Nazwa portu z czujnikiem temperatury: 
-			<select id="temperaturePortName" name="temperaturePortName" th:object="${settingsForm.temperaturePortName}">
-					<option th:each="port : ${avaiblePorts}" th:value="${port}"	th:text="${port}">portName</option>
-			</select> <br />
-			<input class="btn btn-success" type="submit" value="Zapisz"/>
+		<table class="table table-condensed">
+		    <thead>
+		      <tr>
+		        <th>Ustawienie</th>
+		        <th>Aktualna wartość</th>
+		        <th>Nowa wartość</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr>
+		        <td>Port czujnika temperatury</td>
+		        <td th:text="${settingsForm.temperaturePortName}"></td>
+		        <td>
+			        <select id="temperaturePortName" name="temperaturePortName" th:object="${settingsForm.temperaturePortName}" th:value="${settingsForm.temperaturePortName}">
+						<option th:each="port : ${avaiblePorts}" th:value="${port}"	th:text="${port}">portName</option>
+					</select>
+				</td>
+		      </tr>
+		    </tbody>
+		  </table>
+		<input class="btn btn-success" type="submit" value="Zapisz"/>
 		</form>
 	</div>
 </body>
