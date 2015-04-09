@@ -8,8 +8,13 @@
 <link href="../../../resources/css/core.css" rel="stylesheet"
 	media="screen" th:href="@{/resources/css/core.css}" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="../../../resources/js/bootstrap.min.js"
-	th:src="@{/resources/js/bootstrap.min.js}"></script>
+<script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    var portName = $("#temperaturePortName").text();
+    $("option[value="+portName+"]").attr("selected","true");
+});
+</script>
 </head>
 <body>
 	<div th:replace="fragments/header :: header">&nbsp;</div>
@@ -35,7 +40,7 @@
 		    <tbody>
 		      <tr>
 		        <td>Port czujnika temperatury</td>
-		        <td th:text="${settingsForm.temperaturePortName}"></td>
+		        <td id="temperaturePortName" th:text="${settingsForm.temperaturePortName}"></td>
 		        <td>
 			        <select id="temperaturePortName" name="temperaturePortName" th:object="${settingsForm.temperaturePortName}" th:value="${settingsForm.temperaturePortName}">
 						<option th:each="port : ${avaiblePorts}" th:value="${port}"	th:text="${port}">portName</option>
