@@ -42,8 +42,24 @@ public class Settings {
 	@RequestMapping(value = "settings", method = RequestMethod.POST)
 	public String saveSettings(Principal principal, Model model,@ModelAttribute("settingsForm") SettingsForm settingsForm) {
 		if (principal != null) {
+			
 			m.settings.Settings.setTemperaturePortName(settingsForm.getTemperaturePortName());
 			m.settings.Settings.setFirstHeaterPin(settingsForm.getFirstHeaterPin());
+			m.settings.Settings.setSecondHeaterPin(settingsForm.getSecondHeaterPin());
+			m.settings.Settings.setCleanWaterValvePin(settingsForm.getCleanWaterValvePin());
+			m.settings.Settings.setMainValvePin(settingsForm.getMainValvePin());
+			m.settings.Settings.setRunningWaterValvePin(settingsForm.getRunningWaterValvePin());
+			m.settings.Settings.setWortPompPin(settingsForm.getWortPompPin());
+			m.settings.Settings.setWortValvePin(settingsForm.getWortValvePin());
+			m.settings.Settings.setFirstCleanCapacityLevel(settingsForm.getFirstCleanCapacityLevel());
+			m.settings.Settings.setSecondCleanCapacityLevel(settingsForm.getSecondCleanCapacityLevel());
+			m.settings.Settings.setThirdCleanCapacityLevel(settingsForm.getThirdCleanCapacityLevel());
+			m.settings.Settings.setFourthCleanCapacityLevel(settingsForm.getFourthCleanCapacityLevel());
+			m.settings.Settings.setFirstMainCapacityLevel(settingsForm.getFirstMainCapacityLevel());
+			m.settings.Settings.setSecondMainCapacityLevel(settingsForm.getSecondMainCapacityLevel());
+			m.settings.Settings.setThirdMainCapacityLevel(settingsForm.getThirdMainCapacityLevel());
+			m.settings.Settings.setFourthMainCapacityLevel(settingsForm.getFourthMainCapacityLevel());
+			
 			Log.rootLogger.debug("Set temperature port name: "+settingsForm.getTemperaturePortName());
 			getSettingsModel(principal, model);
 			return "Settings/settings";
