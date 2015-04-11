@@ -1,15 +1,16 @@
 package m.gpio;
 
-public class GPIO_PWM implements Runnable {
+import m.gpio.StaticValues.OdroidX2PIN;
+
+public class GPIO_PWM extends GPIO_Pin implements Runnable{
 	private long valueLow_microS=0;
 	private long valueHigh_microS=0;
-	private GpioPin pwmPin;
 	private boolean pwmActivie = false;
 	
-	public GPIO_PWM(long timeSpan_microS, long hightValue_microS, GpioPin pwnPin){
+	public GPIO_PWM(long timeSpan_microS, long hightValue_microS, OdroidX2PIN pwnPin){
+		super(pwnPin);
 		valueLow_microS=timeSpan_microS-hightValue_microS;
 		valueHigh_microS=hightValue_microS;
-		this.pwmPin = pwnPin;
 	}
 	
 	private void sleep_us(long usSleep) {
@@ -25,9 +26,9 @@ public class GPIO_PWM implements Runnable {
 			Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
 			pwmActivie=true;
 			while(pwmActivie){
-				pwmPin.setValue(true);
+				setValue(true);
 				sleep_us(valueHigh_microS);
-				pwmPin.setValue(false);
+				setValue(false);
 				sleep_us(valueLow_microS);
 			}
 		}

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import c.Log;
 import c.account.AccountRepository;
 import c.measurement.MeasurementRepository;
 
@@ -51,16 +50,17 @@ public class Settings {
 			m.settings.Settings.setRunningWaterValvePin(settingsForm.getRunningWaterValvePin());
 			m.settings.Settings.setWortPompPin(settingsForm.getWortPompPin());
 			m.settings.Settings.setWortValvePin(settingsForm.getWortValvePin());
+			
 			m.settings.Settings.setFirstCleanCapacityLevel(settingsForm.getFirstCleanCapacityLevel());
 			m.settings.Settings.setSecondCleanCapacityLevel(settingsForm.getSecondCleanCapacityLevel());
 			m.settings.Settings.setThirdCleanCapacityLevel(settingsForm.getThirdCleanCapacityLevel());
 			m.settings.Settings.setFourthCleanCapacityLevel(settingsForm.getFourthCleanCapacityLevel());
+			
 			m.settings.Settings.setFirstMainCapacityLevel(settingsForm.getFirstMainCapacityLevel());
 			m.settings.Settings.setSecondMainCapacityLevel(settingsForm.getSecondMainCapacityLevel());
 			m.settings.Settings.setThirdMainCapacityLevel(settingsForm.getThirdMainCapacityLevel());
 			m.settings.Settings.setFourthMainCapacityLevel(settingsForm.getFourthMainCapacityLevel());
 			
-			Log.rootLogger.debug("Set temperature port name: "+settingsForm.getTemperaturePortName());
 			getSettingsModel(principal, model);
 			return "Settings/settings";
 		}
@@ -71,7 +71,7 @@ public class Settings {
 		model.addAttribute("avaiblePorts", getAvailblePort());
 		model.addAttribute("name", principal.getName());
 		model.addAttribute("settingsForm", new SettingsForm());
-		Set<m.gpio.PinState> pins = m.gpio.GPIO.INSTANCE.getAllPinStates();
+		Set<m.gpio.GPIO_Pin> pins = m.gpio.GPIO.INSTANCE.getAllPinStates();
 		model.addAttribute("pins", pins);
 	}
 }

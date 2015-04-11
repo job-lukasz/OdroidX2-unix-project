@@ -26,7 +26,7 @@ public class LedsController {
 	public String index(Principal principal, Model model) {
 		new SignupForm();
 		if (principal != null) {
-			Set<m.gpio.PinState> pins = m.gpio.GPIO.INSTANCE.getAllPinStates();
+			Set<m.gpio.GPIO_Pin> pins = m.gpio.GPIO.INSTANCE.getAllPinStates();
 			model.addAttribute("pins", pins);
 			model.addAttribute("ledsToggleForm", new LedsToggleForm());
 			model.addAttribute("name", principal.getName());

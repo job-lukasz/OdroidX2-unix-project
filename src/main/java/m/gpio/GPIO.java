@@ -1,6 +1,5 @@
 package m.gpio;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -42,10 +41,10 @@ import m.gpio.StaticValues.OdroidX2PIN;
  */
 //GPIO Singleton
 
-public enum GPIO {
+public enum GPIO{
 	INSTANCE;
 
-	private Map<OdroidX2PIN, GpioPin> pins = new HashMap<OdroidX2PIN, GpioPin>();
+	private Map<OdroidX2PIN, GPIO_Pin> pins = new HashMap<OdroidX2PIN, GPIO_Pin>();
 	private Map<OdroidX2PIN, GPIO_PWM> pwmPins = new HashMap<OdroidX2PIN, GPIO_PWM>();
 	private boolean initializedPins = false;
 
@@ -54,29 +53,19 @@ public enum GPIO {
 			Iterator<Entry<OdroidX2PIN, String>> pinsIterator = StaticValues.pinMap.entrySet().iterator();
 			while (pinsIterator.hasNext()) {
 				Entry<OdroidX2PIN, String> pin = pinsIterator.next();
-				pins.put(pin.getKey(), new GpioPin(pin.getKey()));
+				pins.put(pin.getKey(), new GPIO_Pin(pin.getKey()));
 			}
 			initializedPins = true;
 		}
 	}
 
-	public Set<PinState> getAllPinStates() {
-		Set<PinState> tmpSet = new TreeSet<PinState>(new Comparator<PinState>() {
-			@Override
-			public int compare(PinState o1, PinState o2) {
-				if (Integer.parseInt(o1.getPinID().toString().substring(3)) < Integer.parseInt(o2.getPinID().toString().substring(3))) {
-					return -1;
-				}
-				else if (Integer.parseInt(o1.getPinID().toString().substring(3)) > Integer.parseInt(o2.getPinID().toString().substring(3))){
-					return 1;
-				}
-				return 0;
-			}
-		});
-		Iterator<Entry<OdroidX2PIN, GpioPin>> pinsIterator = pins.entrySet().iterator();
+	public Set<GPIO_Pin> getAllPinStates() {
+		Set<GPIO_Pin> tmpSet = new TreeSet<GPIO_Pin>();
+		
+		Iterator<Entry<OdroidX2PIN, GPIO_Pin>> pinsIterator = pins.entrySet().iterator();
 		while (pinsIterator.hasNext()) {
-			Entry<OdroidX2PIN, GpioPin> pin = pinsIterator.next();
-			tmpSet.add(pin.getValue().pinState);
+			Entry<OdroidX2PIN, GPIO_Pin> pin = pinsIterator.next();
+			tmpSet.add(pin.getValue());
 		}
 		return tmpSet;
 	}
@@ -93,31 +82,32 @@ public enum GPIO {
 	
 	public boolean toggle(OdroidX2PIN odroidPin){
 		openPin(odroidPin);
-		GpioPin pin = pins.get(odroidPin);
+		GPIO_Pin pin = pins.get(odroidPin);
 		pin.setValue(!pin.getValue());
 		return pin.getValue();
 	}
+	
 	public void setPWM(OdroidX2PIN odroidPin, long high_microS, long freq_microS) {
 		openPin(odroidPin);
 		if (pwmPins.containsKey(odroidPin)) {
 			pwmPins.get(odroidPin).stop();
 			pwmPins.remove(odroidPin);
 		}
-		pwmPins.put(odroidPin, new GPIO_PWM(freq_microS, high_microS, pins.get(odroidPin)));
+		pwmPins.put(odroidPin, new GPIO_PWM(freq_microS, high_microS, odroidPin));
 		Thread pwmThread = new Thread(pwmPins.get(odroidPin));
 		pwmThread.start();
 	}
 
 	public void closeAllPins() {
 		closeAllPWMPins();
-		Iterator<Entry<OdroidX2PIN, GpioPin>> pinsIterator = pins.entrySet().iterator();
+		Iterator<Entry<OdroidX2PIN, GPIO_Pin>> pinsIterator = pins.entrySet().iterator();
 		while (pinsIterator.hasNext()) {
-			Entry<OdroidX2PIN, GpioPin> temp = pinsIterator.next();
-			if (temp.getValue().pinState.getOpen()) {
+			Entry<OdroidX2PIN, GPIO_Pin> temp = pinsIterator.next();
+			if (temp.getValue().isOpen()) {
 				temp.getValue().close();
 			}
 		}
-		pwmPins.clear();
+		pins.clear();
 	}
 
 	private void closeAllPWMPins() {
@@ -126,20 +116,19 @@ public enum GPIO {
 			Entry<OdroidX2PIN, GPIO_PWM> temp = iterator.next();
 			temp.getValue().stop();
 		}
-		pins.clear();
+		pwmPins.clear();
 	}
-
+//TODO READ FROM PIN
 	private void openPin(OdroidX2PIN odroidPin) {
 		if (pins.containsKey(odroidPin)) {
-			if (pins.get(odroidPin).pinState.getOpen()) {
-				if (pins.get(odroidPin).pinState.getDirection() != Direction.out) {
+			if (pins.get(odroidPin).isOpen()) {
+				if (pins.get(odroidPin).getDirection() != Direction.out) {
 					pins.get(odroidPin).close();
 					pins.get(odroidPin).open(Direction.out);
 				}
 				if (pwmPins.containsKey(odroidPin)) {
 					pwmPins.get(odroidPin).stop();
 					pwmPins.remove(odroidPin);
-					System.out.println("zamykam");
 				}
 			} else {
 				pins.get(odroidPin).open(Direction.out);

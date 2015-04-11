@@ -1,5 +1,6 @@
 package c.settings;
 
+import c.Log;
 import m.gpio.StaticValues.OdroidX2PIN;
 import m.settings.Settings;
 
@@ -45,7 +46,7 @@ public class SettingsForm {
 		firstCleanCapacityLevel = Settings.getFirstCleanCapacityLevel();
 		secondCleanCapacityLevel = Settings.getSecondCleanCapacityLevel();
 		thirdCleanCapacityLevel = Settings.getThirdCleanCapacityLevel();
-		fourthCleanCapacityLevel = Settings.getFirstCleanCapacityLevel();
+		fourthCleanCapacityLevel = Settings.getFourthCleanCapacityLevel();
 	}
 	
 	public OdroidX2PIN getRunningWaterValvePin() {
@@ -54,6 +55,7 @@ public class SettingsForm {
 
 	public void setRunningWaterValvePin(OdroidX2PIN runningWaterValvePin) {
 		this.runningWaterValvePin = runningWaterValvePin;
+		Log.rootLogger.debug("Set runningWaterValvePin ");
 	}
 
 	public OdroidX2PIN getWortPompPin() {

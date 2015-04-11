@@ -54,7 +54,6 @@ function togglePin(_pinID) {
 				<td th:text="${pin.address}"></td>
 				<td th:text="${pin.open}"></td>
 				<td th:text="${pin.direction}"></td>
-				<td th:text="${pin.value}"></td>
 				<td th:id="value_+${pin.pinID}" th:text="${pin.value}"></td>
 				<td th:switch="${pin.value}" width="90px">
 				<button th:case="true" class="btn btn-danger" th:id="${pin.pinID}" onclick="togglePin(this.id)">Wyłącz</button>

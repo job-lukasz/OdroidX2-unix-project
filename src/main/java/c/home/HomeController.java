@@ -1,8 +1,6 @@
 package c.home;
 
 import java.security.Principal;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +19,8 @@ public class HomeController {
 	public String index(Principal principal, Model model) {
 		new SignupForm();
 		if(principal != null){
-			Set<m.gpio.PinState> pins = m.gpio.GPIO.INSTANCE.getAllPinStates();
-			model.addAttribute("pins",pins);
+//			Set<m.gpio.PinState> pins = m.gpio.GPIO.INSTANCE.getAllPinStates();
+//			model.addAttribute("pins",pins);
 			model.addAttribute("name",principal.getName());
 			return "home/homeSignedIn";
 		}
