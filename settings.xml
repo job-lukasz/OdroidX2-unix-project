@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0" class="java.beans.XMLDecoder">
+ <object class="m.settings.Settings">
+  <void property="cleanWaterValvePin">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>m.gpio.StaticValues$OdroidX2PIN</class>
+    <string>PIN4</string>
+   </object>
+  </void>
+  <void property="firstCleanCapacityLevel">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>m.gpio.StaticValues$OdroidX2PIN</class>
+    <string>PIN13</string>
+   </object>
+  </void>
+  <void property="firstHeaterPin">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>m.gpio.StaticValues$OdroidX2PIN</class>
+    <string>PIN1</string>
+   </object>
+  </void>
+  <void property="firstMainCapacityLevel">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>m.gpio.StaticValues$OdroidX2PIN</class>
+    <string>PIN8</string>
+   </object>
+  </void>
+  <void property="fourthCleanCapacityLevel">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>m.gpio.StaticValues$OdroidX2PIN</class>
+    <string>PIN16</string>
+   </object>
+  </void>
+  <void property="fourthMainCapacityLevel">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>m.gpio.StaticValues$OdroidX2PIN</class>
+    <string>PIN11</string>
+   </object>
+  </void>
+  <void property="mainValvePin">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>m.gpio.StaticValues$OdroidX2PIN</class>
+    <string>PIN3</string>
+   </object>
+  </void>
+  <void property="runningWaterValvePin">
+   <object class="java.lang.Enum" id="StaticValues$OdroidX2PIN0" method="valueOf">
+    <class>m.gpio.StaticValues$OdroidX2PIN</class>
+    <string>PIN5</string>
+   </object>
+  </void>
+  <void property="secondCleanCapacityLevel">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>m.gpio.StaticValues$OdroidX2PIN</class>
+    <string>PIN14</string>
+   </object>
+  </void>
+  <void property="secondHeaterPin">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>m.gpio.StaticValues$OdroidX2PIN</class>
+    <string>PIN2</string>
+   </object>
+  </void>
+  <void property="secondMainCapacityLevel">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>m.gpio.StaticValues$OdroidX2PIN</class>
+    <string>PIN9</string>
+   </object>
+  </void>
+  <void property="temperaturePortName">
+   <string>/dev/ttyUSB0</string>
+  </void>
+  <void property="thirdCleanCapacityLevel">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>m.gpio.StaticValues$OdroidX2PIN</class>
+    <string>PIN15</string>
+   </object>
+  </void>
+  <void property="thirdMainCapacityLevel">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>m.gpio.StaticValues$OdroidX2PIN</class>
+    <string>PIN10</string>
+   </object>
+  </void>
+  <void property="wortPompPin">
+   <object idref="StaticValues$OdroidX2PIN0"/>
+  </void>
+  <void property="wortValvePin">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>m.gpio.StaticValues$OdroidX2PIN</class>
+    <string>PIN33</string>
+   </object>
+  </void>
+ </object>
+</java>

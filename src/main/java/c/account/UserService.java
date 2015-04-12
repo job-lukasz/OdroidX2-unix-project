@@ -4,6 +4,8 @@ import java.util.Collections;
 
 import javax.annotation.PostConstruct;
 
+import m.settings.Settings;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,6 +29,7 @@ public class UserService implements UserDetailsService {
 //		accountRepository.save(acc1);
 //		accountRepository.save(acc2);	
 		m.gpio.GPIO.INSTANCE.initPins();
+		Settings.readSettingsFromFile();
 	}
 
 	@Override

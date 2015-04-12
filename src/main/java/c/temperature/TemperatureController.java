@@ -25,7 +25,7 @@ public class TemperatureController {
 		new SignupForm();
 		if (principal != null) {
 			DS1820 termo = new DS1820();
-		    termo.InitCOM(Settings.getTemperaturePortName());
+		    termo.InitCOM(Settings.getInstance().getTemperaturePortName());
 		    termo.setReadTime(750);
 		    termo.InitBus();
 			model.addAttribute("temperature", termo.GetTemperature(0));

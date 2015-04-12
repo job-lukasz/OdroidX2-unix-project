@@ -28,25 +28,25 @@ public class SettingsForm {
 	
 
 	public SettingsForm(){
-		temperaturePortName = Settings.getTemperaturePortName();
-		firstHeaterPin = Settings.getFirstHeaterPin();
-		secondHeaterPin = Settings.getSecondHeaterPin();
+		temperaturePortName = Settings.getInstance().getTemperaturePortName();
+		firstHeaterPin = Settings.getInstance().getFirstHeaterPin();
+		secondHeaterPin = Settings.getInstance().getSecondHeaterPin();
 		
-		mainValvePin = Settings.getMainValvePin();
-		cleanWaterValvePin = Settings.getCleanWaterValvePin();
-		runningWaterValvePin = Settings.getRunningWaterValvePin();
-		wortValvePin = Settings.getWortValvePin();
+		mainValvePin = Settings.getInstance().getMainValvePin();
+		cleanWaterValvePin = Settings.getInstance().getCleanWaterValvePin();
+		runningWaterValvePin = Settings.getInstance().getRunningWaterValvePin();
+		wortValvePin = Settings.getInstance().getWortValvePin();
 		
-		wortPompPin = Settings.getWortPompPin();
+		wortPompPin = Settings.getInstance().getWortPompPin();
 		
-		firstMainCapacityLevel = Settings.getFirstMainCapacityLevel();
-		secondMainCapacityLevel = Settings.getSecondMainCapacityLevel();
-		thirdMainCapacityLevel = Settings.getThirdMainCapacityLevel();
-		fourthMainCapacityLevel = Settings.getFourthMainCapacityLevel();
-		firstCleanCapacityLevel = Settings.getFirstCleanCapacityLevel();
-		secondCleanCapacityLevel = Settings.getSecondCleanCapacityLevel();
-		thirdCleanCapacityLevel = Settings.getThirdCleanCapacityLevel();
-		fourthCleanCapacityLevel = Settings.getFourthCleanCapacityLevel();
+		firstMainCapacityLevel = Settings.getInstance().getFirstMainCapacityLevel();
+		secondMainCapacityLevel = Settings.getInstance().getSecondMainCapacityLevel();
+		thirdMainCapacityLevel = Settings.getInstance().getThirdMainCapacityLevel();
+		fourthMainCapacityLevel = Settings.getInstance().getFourthMainCapacityLevel();
+		firstCleanCapacityLevel = Settings.getInstance().getFirstCleanCapacityLevel();
+		secondCleanCapacityLevel = Settings.getInstance().getSecondCleanCapacityLevel();
+		thirdCleanCapacityLevel = Settings.getInstance().getThirdCleanCapacityLevel();
+		fourthCleanCapacityLevel = Settings.getInstance().getFourthCleanCapacityLevel();
 	}
 	
 	public OdroidX2PIN getRunningWaterValvePin() {

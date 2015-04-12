@@ -3,6 +3,7 @@ package c.dac;
 public class DACParamtersForm {
 	private String portName;
 	private int voltagePercent;
+	
 	public String getPortName() {
 		return portName;
 	}

@@ -39,4 +39,40 @@ body {
 	-webkit-box-shadow: 5px 5px 5px black;
 	box-shadow: 5px 5px 5px black;
 }
+th.id {
+	width: 50px;
+}
+th.info{
+	width: 80px;
+}
+.title{
+	font-size: 25px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 7px;
+}
+.action{
+	width: 72px;
+}
+button{
+	background-repeat: no-repeat;
+	background-position: center; 
+}
+button.edit{
+	width: 26px;
+	height: 26px;
+	background-image: url("images/edit-icon.png");
+}
+button.add{
+	width: 26px;
+	height: 26px;
+	background-image: url("images/add-icon.png");
+	float: right;
+}
+button.delete{
+	width: 26px;
+	height: 26px;
+	background-image: url("images/delete-icon.png");
+	float: right;
 }

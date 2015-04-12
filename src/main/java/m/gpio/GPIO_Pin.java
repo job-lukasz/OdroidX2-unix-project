@@ -27,6 +27,16 @@ public class GPIO_Pin implements Comparable<GPIO_Pin>{
 		address = StaticValues.pinMap.get(odroidX2PIN);
 	}
 
+	public GPIO_Pin(String pinName) {
+		OdroidX2PIN odroidX2PIN = OdroidX2PIN.valueOf(pinName);
+		pinID = odroidX2PIN;
+		setDirection(Direction.out);
+		value =false;
+		isSoftPWN = false;
+		isOpen = false;
+		address = StaticValues.pinMap.get(odroidX2PIN);
+	}
+	
 	public boolean open(Direction direction) {
 		exportPin();
 		setDirection(direction);

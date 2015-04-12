@@ -42,24 +42,25 @@ public class Settings {
 	public String saveSettings(Principal principal, Model model,@ModelAttribute("settingsForm") SettingsForm settingsForm) {
 		if (principal != null) {
 			
-			m.settings.Settings.setTemperaturePortName(settingsForm.getTemperaturePortName());
-			m.settings.Settings.setFirstHeaterPin(settingsForm.getFirstHeaterPin());
-			m.settings.Settings.setSecondHeaterPin(settingsForm.getSecondHeaterPin());
-			m.settings.Settings.setCleanWaterValvePin(settingsForm.getCleanWaterValvePin());
-			m.settings.Settings.setMainValvePin(settingsForm.getMainValvePin());
-			m.settings.Settings.setRunningWaterValvePin(settingsForm.getRunningWaterValvePin());
-			m.settings.Settings.setWortPompPin(settingsForm.getWortPompPin());
-			m.settings.Settings.setWortValvePin(settingsForm.getWortValvePin());
+			m.settings.Settings.getInstance().setTemperaturePortName(settingsForm.getTemperaturePortName());
+			m.settings.Settings.getInstance().setFirstHeaterPin(settingsForm.getFirstHeaterPin());
+			m.settings.Settings.getInstance().setSecondHeaterPin(settingsForm.getSecondHeaterPin());
+			m.settings.Settings.getInstance().setCleanWaterValvePin(settingsForm.getCleanWaterValvePin());
+			m.settings.Settings.getInstance().setMainValvePin(settingsForm.getMainValvePin());
+			m.settings.Settings.getInstance().setRunningWaterValvePin(settingsForm.getRunningWaterValvePin());
+			m.settings.Settings.getInstance().setWortPompPin(settingsForm.getWortPompPin());
+			m.settings.Settings.getInstance().setWortValvePin(settingsForm.getWortValvePin());
 			
-			m.settings.Settings.setFirstCleanCapacityLevel(settingsForm.getFirstCleanCapacityLevel());
-			m.settings.Settings.setSecondCleanCapacityLevel(settingsForm.getSecondCleanCapacityLevel());
-			m.settings.Settings.setThirdCleanCapacityLevel(settingsForm.getThirdCleanCapacityLevel());
-			m.settings.Settings.setFourthCleanCapacityLevel(settingsForm.getFourthCleanCapacityLevel());
+			m.settings.Settings.getInstance().setFirstCleanCapacityLevel(settingsForm.getFirstCleanCapacityLevel());
+			m.settings.Settings.getInstance().setSecondCleanCapacityLevel(settingsForm.getSecondCleanCapacityLevel());
+			m.settings.Settings.getInstance().setThirdCleanCapacityLevel(settingsForm.getThirdCleanCapacityLevel());
+			m.settings.Settings.getInstance().setFourthCleanCapacityLevel(settingsForm.getFourthCleanCapacityLevel());
 			
-			m.settings.Settings.setFirstMainCapacityLevel(settingsForm.getFirstMainCapacityLevel());
-			m.settings.Settings.setSecondMainCapacityLevel(settingsForm.getSecondMainCapacityLevel());
-			m.settings.Settings.setThirdMainCapacityLevel(settingsForm.getThirdMainCapacityLevel());
-			m.settings.Settings.setFourthMainCapacityLevel(settingsForm.getFourthMainCapacityLevel());
+			m.settings.Settings.getInstance().setFirstMainCapacityLevel(settingsForm.getFirstMainCapacityLevel());
+			m.settings.Settings.getInstance().setSecondMainCapacityLevel(settingsForm.getSecondMainCapacityLevel());
+			m.settings.Settings.getInstance().setThirdMainCapacityLevel(settingsForm.getThirdMainCapacityLevel());
+			m.settings.Settings.getInstance().setFourthMainCapacityLevel(settingsForm.getFourthMainCapacityLevel());
+			m.settings.Settings.getInstance().saveSettingsToFile();
 			
 			getSettingsModel(principal, model);
 			return "Settings/settings";
