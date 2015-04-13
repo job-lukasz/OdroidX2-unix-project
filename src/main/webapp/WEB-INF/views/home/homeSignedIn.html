@@ -10,6 +10,58 @@
         <!-- /* The message code is returned from the @Controller */ -->
         <div th:replace="fragments/alert :: alert (type=${#strings.toLowerCase(message.type)}, message=#{${message.message}(${#authentication.name})})">&nbsp;</div>
     </th:block>
+    		<div style="width:100%">
+			<div>
+				<canvas id="canvas" height="300" width="800"></canvas>
+			</div>
+		</div>
+	<script>
+		var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+		var i = 0;
+		var a = [];
+		var b = [];
+		var c = [];
+		for(i=0;i!=100;i++){
+			a.push(randomScalingFactor());
+			b.push(randomScalingFactor());
+			c.push(i);
+		}
+		var lineChartData = {
+			labels : c,
+			datasets : [
+				{
+					label: "My First dataset",
+					fillColor : "rgba(220,220,220,0.2)",
+					strokeColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,220,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(220,220,220,1)",
+					data : a
+				},
+				{
+					label: "My Second dataset",
+					fillColor : "rgba(151,187,205,0.2)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(151,187,205,1)",
+					data : b
+				}
+			]
+		}
+	window.onload = function(){
+		var ctx = document.getElementById("canvas").getContext("2d");
+		window.myLine = new Chart(ctx).Line(lineChartData, {
+			responsive: true,
+			bezierCurve : false,
+			animation: false,
+			showScale: true,
+			showTooltips: true,
+		});
+	}
+		</script>
     <p>
         Witaj <font th:text="${name}"></font> w aplikacji OdroidX2!
     </p>   

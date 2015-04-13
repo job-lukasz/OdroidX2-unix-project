@@ -25,17 +25,17 @@
 						<th class="action"></th>
 					</tr>
 					<tr th:each="malt: ${malts}">
-						<td th:text="${malt.id}"></td>
+						<td th:text="${malt.maltId}"></td>
 						<td th:text="${malt.name}"></td>
 						<td th:text="${malt.color}"></td>
 						<td th:text="${malt.description}"></td>
 						<td>
 							<button data-type="malt"
-								th:attr="data-id=${malt.id},data-name=${malt.name},data-info=${malt.color}, data-description=${malt.description}"
+								th:attr="data-id=${malt.maltId},data-name=${malt.name},data-info=${malt.color}, data-description=${malt.description}"
 								type="button" class="edit btn" data-toggle="modal"
 								data-target="#editModal" />
 							<button data-type="malt"
-								th:attr="data-id=${malt.id},data-name=${malt.name}"
+								th:attr="data-id=${malt.maltId},data-name=${malt.name}"
 								type="button" class="delete btn" data-toggle="modal"
 								data-target="#deleteModal" />
 						</td>
@@ -57,17 +57,17 @@
 						<th class="action"></th>
 					</tr>
 					<tr th:each="hop: ${hops}">
-						<td th:text="${hop.id}"></td>
+						<td th:text="${hop.hopId}"></td>
 						<td th:text="${hop.name}"></td>
 						<td th:text="${hop.acid}"></td>
 						<td th:text="${hop.description}"></td>
 						<td>
 							<button data-type="hop"
-								th:attr="data-id=${hop.id},data-name=${hop.name},data-info=${hop.acid}, data-description=${hop.description}"
+								th:attr="data-id=${hop.hopId},data-name=${hop.name},data-info=${hop.acid}, data-description=${hop.description}"
 								type="button" class="edit btn" data-toggle="modal"
 								data-target="#editModal" />
 							<button data-type="hop"
-								th:attr="data-id=${hop.id},data-name=${hop.name}" type="button"
+								th:attr="data-id=${hop.hopId},data-name=${hop.name}" type="button"
 								class="delete btn" data-toggle="modal"
 								data-target="#deleteModal" />
 						</td>
@@ -89,16 +89,16 @@
 						<th class="action"></th>
 					</tr>
 					<tr th:each="addon: ${addons}">
-						<td th:text="${addon.id}"></td>
+						<td th:text="${addon.addonId}"></td>
 						<td th:text="${addon.name}"></td>
 						<td th:text="${addon.info}"></td>
 						<td th:text="${addon.description}"></td>
 						<td>
 							<button data-type="addon"
-								th:attr="data-id=${addon.id},data-name=${addon.name},data-info=${addon.info}, data-description=${addon.description}"
+								th:attr="data-id=${addon.addonId},data-name=${addon.name},data-info=${addon.info}, data-description=${addon.description}"
 								type="button" class="edit btn" data-toggle="modal"
 								data-target="#editModal" />
-								<button data-type="addon"	th:attr="data-id=${addon.id},data-name=${addon.name}" type="button" class="delete btn" data-toggle="modal"	data-target="#deleteModal" />
+								<button data-type="addon" th:attr="data-id=${addon.addonId},data-name=${addon.name}" type="button" class="delete btn" data-toggle="modal"	data-target="#deleteModal" />
 						</td>
 					</tr>
 				</table>

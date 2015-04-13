@@ -1,10 +1,17 @@
 package c.beerSources;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import c.brew.BrewHop;
 
 @SuppressWarnings("serial")
 @Entity
@@ -13,7 +20,7 @@ public class Hop implements java.io.Serializable {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue
-	private Long id;
+	private Long hopId;
 
 	@Column
 	private String name;
@@ -24,6 +31,17 @@ public class Hop implements java.io.Serializable {
 	@Column
 	private String description;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "hop")
+	private List<BrewHop> Brewing = new ArrayList<BrewHop>();
+
+	public List<BrewHop> getBrewing() {
+		return Brewing;
+	}
+
+	public void setBrewing(List<BrewHop> brewing) {
+		Brewing = brewing;
+	}
+	
 	public Hop(String name, double acid){
 		this.name=name;
 		this.acid = acid;
@@ -33,12 +51,12 @@ public class Hop implements java.io.Serializable {
 	protected Hop(){
 		
 	}
-	public Long getId() {
-		return id;
+	public Long getHopId() {
+		return hopId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setHopId(Long id) {
+		this.hopId = id;
 	}
 
 	public String getName() {

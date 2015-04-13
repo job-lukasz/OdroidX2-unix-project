@@ -50,7 +50,7 @@ public class BeerSourcesController {
 			Log.rootLogger.debug("Save malt: id: " + id +", name: "+name+", info: "+info+", description: "+description);
 			Malt malt = new Malt(name, info);
 			malt.setDescription(description);
-			malt.setId(id);
+			malt.setMaltId(id);
 			maltRepository.save(malt);
 			return true;
 		}
@@ -71,7 +71,7 @@ public class BeerSourcesController {
 			Log.rootLogger.debug("Save hop: id: " + id +", name: "+name+", info: "+info+", description: "+description);
 			Hop hop = new Hop(name, info);
 			hop.setDescription(description);
-			hop.setId(id);
+			hop.setHopId(id);
 			hopRepository.save(hop);
 			return true;
 		}
@@ -92,7 +92,7 @@ public class BeerSourcesController {
 			Log.rootLogger.debug("Save hop: id: " + id +", name: "+name+", info: "+info+", description: "+description);
 			Addons addons = new Addons(name, info);
 			addons.setDescription(description);
-			addons.setId(id);
+			addons.setAddonId(id);
 			addonsRepository.save(addons);
 			return true;
 		}

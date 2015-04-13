@@ -1,10 +1,17 @@
 package c.beerSources;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import c.brew.BrewMalt;
 
 @SuppressWarnings("serial")
 @Entity
@@ -13,7 +20,7 @@ public class Malt implements java.io.Serializable {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue
-	private Long id;
+	private Long maltId;
 
 	@Column
 	private String name;
@@ -24,6 +31,9 @@ public class Malt implements java.io.Serializable {
 	@Column
 	private String description;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "malt")
+	private List<BrewMalt> Brewing = new ArrayList<BrewMalt>();
+
 	public String getDescription() {
 		return description;
 	}
@@ -41,12 +51,12 @@ public class Malt implements java.io.Serializable {
 	protected Malt(){
 		
 	}
-	public Long getId() {
-		return id;
+	public Long getMaltId() {
+		return maltId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setMaltId(Long id) {
+		this.maltId = id;
 	}
 
 	public String getName() {
