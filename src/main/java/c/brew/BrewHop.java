@@ -47,6 +47,17 @@ public class BrewHop implements java.io.Serializable {
 	@Column
 	private String description;
 	
+	@Column
+	private double quantity;
+	
+	public double getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(double quantity) {
+		this.quantity = quantity;
+	}
+	
 	public Long getBrewHopId() {
 		return brewHopId;
 	}

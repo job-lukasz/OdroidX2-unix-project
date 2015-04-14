@@ -14,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 public class HopRepository {
 
-	// @PersistenceContext
-	// private EntityManager entityManager;
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -44,7 +42,8 @@ public class HopRepository {
 			return null;
 		}
 	}
-
+	
+	@Transactional
 	public void delete(Long id) {
 		Hop hop = (Hop) sessionFactory.getCurrentSession().get(Hop.class, id);
 		sessionFactory.getCurrentSession().delete(hop);

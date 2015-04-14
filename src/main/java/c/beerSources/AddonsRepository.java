@@ -45,6 +45,7 @@ public class AddonsRepository {
 		}
 	}
 
+	@Transactional
 	public void delete(Long id) {
 		Addons addons = (Addons) sessionFactory.getCurrentSession().get(Addons.class, id);
 		sessionFactory.getCurrentSession().delete(addons);

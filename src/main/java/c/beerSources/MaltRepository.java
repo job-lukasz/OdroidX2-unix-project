@@ -44,7 +44,8 @@ public class MaltRepository {
 			return null;
 		}
 	}
-
+	
+	@Transactional
 	public void delete(Long id) {
 		Malt malt = (Malt) sessionFactory.getCurrentSession().get(Malt.class, id);
 		sessionFactory.getCurrentSession().delete(malt);

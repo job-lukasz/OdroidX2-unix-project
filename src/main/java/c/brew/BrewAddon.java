@@ -30,22 +30,6 @@ public class BrewAddon implements java.io.Serializable {
 	@Column
 	private String name;
 	
-	public Long getBrewAddonId() {
-		return brewAddonId;
-	}
-
-	public void setBrewAddonId(Long brewAddonId) {
-		this.brewAddonId = brewAddonId;
-	}
-
-	public Addons getAddon() {
-		return addon;
-	}
-
-	public void setAddon(Addons addon) {
-		this.addon = addon;
-	}
-
 	@ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "BrewAddons_Brewing", joinColumns = { @JoinColumn(name = "brewingId") }, inverseJoinColumns = { @JoinColumn(name = "brewAddonId") })
 	private Set<Brewing> brewing = new HashSet<Brewing>();
@@ -62,6 +46,45 @@ public class BrewAddon implements java.io.Serializable {
 	
 	@Column
 	private String description;
+	
+	@Column
+	private double quantity;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "addonUsingId", nullable = false)
+	private AddonUsingTime usingTime;
+	
+	public AddonUsingTime getUsingTime() {
+		return usingTime;
+	}
+
+	public void setUsingTime(AddonUsingTime usingTime) {
+		this.usingTime = usingTime;
+	}
+
+	public double getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(double quantity) {
+		this.quantity = quantity;
+	}
+
+	public Long getBrewAddonId() {
+		return brewAddonId;
+	}
+
+	public void setBrewAddonId(Long brewAddonId) {
+		this.brewAddonId = brewAddonId;
+	}
+
+	public Addons getAddon() {
+		return addon;
+	}
+
+	public void setAddon(Addons addon) {
+		this.addon = addon;
+	}
 	
 	public String getName() {
 		return name;
