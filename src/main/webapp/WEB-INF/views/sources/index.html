@@ -13,8 +13,7 @@
 			<div class="col-md-6 malt">
 				<div class="title">
 					Słody
-					<button data-type="malt" type="button" class="add btn"
-						data-toggle="modal" data-target="#editModal" />
+					<button data-type="malt" data-action="sources/saveMalt" type="button" class="add btn" data-toggle="modal" data-target="#editModal" />
 				</div>
 				<table class="table table-striped">
 					<tr>
@@ -30,12 +29,10 @@
 						<td th:text="${malt.color}"></td>
 						<td th:text="${malt.description}"></td>
 						<td>
-							<button data-type="malt"
-								th:attr="data-id=${malt.maltId},data-name=${malt.name},data-info=${malt.color}, data-description=${malt.description}"
+							<button th:attr="data-type='malt',data-action='sources/saveMalt',data-id=${malt.maltId},data-name=${malt.name},data-info=${malt.color}, data-description=${malt.description}"
 								type="button" class="edit btn" data-toggle="modal"
 								data-target="#editModal" />
-							<button data-type="malt"
-								th:attr="data-id=${malt.maltId},data-name=${malt.name}"
+							<button th:attr="data-action='sources/deleteMalt',data-id=${malt.maltId},data-name=${malt.name}"
 								type="button" class="delete btn" data-toggle="modal"
 								data-target="#deleteModal" />
 						</td>
@@ -45,7 +42,7 @@
 			<div class="col-md-6 hop">
 				<div class="title">
 					Chmiele
-					<button data-type="hop" type="button" class="add btn"
+					<button data-type="hop" data-action="sources/saveHop" type="button" class="add btn"
 						data-toggle="modal" data-target="#editModal" />
 				</div>
 				<table class="table table-striped">
@@ -62,22 +59,22 @@
 						<td th:text="${hop.acid}"></td>
 						<td th:text="${hop.description}"></td>
 						<td>
-							<button data-type="hop"
-								th:attr="data-id=${hop.hopId},data-name=${hop.name},data-info=${hop.acid}, data-description=${hop.description}"
+							<button th:attr="data-type='hop',data-action='sources/saveHop',data-id=${hop.hopId},data-name=${hop.name},data-info=${hop.acid}, data-description=${hop.description}"
 								type="button" class="edit btn" data-toggle="modal"
 								data-target="#editModal" />
-							<button data-type="hop"
-								th:attr="data-id=${hop.hopId},data-name=${hop.name}" type="button"
-								class="delete btn" data-toggle="modal"
+							<button th:attr="data-action='sources/deleteHop',data-id=${hop.hopId},data-name=${hop.name}"
+								type="button" class="delete btn" data-toggle="modal"
 								data-target="#deleteModal" />
 						</td>
 					</tr>
 				</table>
 			</div>
+		</div>
+		<div class="row">
 			<div class="col-md-6 addon">
 				<div class="title">
 					Dodatki
-					<button data-type="addon" type="button" class="add btn"
+					<button data-type="addon" data-action="sources/saveAddon" type="button" class="add btn"
 						data-toggle="modal" data-target="#editModal" />
 				</div>
 				<table class="table table-striped">
@@ -94,79 +91,50 @@
 						<td th:text="${addon.info}"></td>
 						<td th:text="${addon.description}"></td>
 						<td>
-							<button data-type="addon"
-								th:attr="data-id=${addon.addonId},data-name=${addon.name},data-info=${addon.info}, data-description=${addon.description}"
+							<button th:attr="data-type='addon', data-action='sources/saveAddon',data-id=${addon.addonId},data-name=${addon.name},data-info=${addon.info}, data-description=${addon.description}"
 								type="button" class="edit btn" data-toggle="modal"
 								data-target="#editModal" />
-								<button data-type="addon" th:attr="data-id=${addon.addonId},data-name=${addon.name}" type="button" class="delete btn" data-toggle="modal"	data-target="#deleteModal" />
+							<button th:attr="data-action='sources/deleteAddon',data-id=${addon.addonId},data-name=${addon.name}"
+								type="button" class="delete btn" data-toggle="modal"
+								data-target="#deleteModal" />
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-md-6 break">
+				<div class="title">
+					Przerwy
+					<button data-type="break" data-action="sources/saveBreak" type="button" class="add btn"
+						data-toggle="modal" data-target="#editModal" />
+				</div>
+				<table class="table table-striped">
+					<tr>
+						<th class="id">ID</th>
+						<th class="name">Nazwa</th>
+						<th class="temp_low">Temp dolna</th>
+						<th class="temp_high">Temp gorna</th>
+						<th class="description">Opis</th>
+						<th class="action"></th>
+					</tr>
+					<tr th:each="break: ${breaks}">
+						<td th:text="${break.breakId}"></td>
+						<td th:text="${break.name}"></td>
+						<td th:text="${break.temp_low}"></td>
+						<td th:text="${break.temp_high}"></td>
+						<td th:text="${break.description}"></td>
+						<td>
+							<button th:attr="data-type='break',data-action='sources/saveBreak',data-id=${break.breakId},data-name=${break.name},data-templow=${break.temp_low},data-temphigh=${break.temp_high}, data-description=${break.description}"
+								type="button" class="edit btn" data-toggle="modal"
+								data-target="#editModal" />
+							<button	th:attr="data-action='sources/deleteBreak',data-id=${break.breakId},data-name=${break.name}"
+								type="button" class="delete btn" data-toggle="modal"
+								data-target="#deleteModal" />
 						</td>
 					</tr>
 				</table>
 			</div>
 		</div>
 	</div>
-	<!-- Add Modal -->
-	<div class="modal fade" id="editModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">Edytuj</h4>
-				</div>
-				<div class="edit-modal-body modal-body">
-					<form>
-						<input type="hidden" value="" id="id" /> <input type="hidden"
-							value="" id="type" />
-						<div class="form-group">
-							<label for="name" class="control-label">Nazwa:</label> <input
-								type="text" class="form-control" id="name" />
-						</div>
-						<div class="form-group">
-							<label for="info" class="control-label">Informacja
-								dodatkowa:</label> <input type="text" class="form-control" id="info" />
-						</div>
-						<div class="form-group">
-							<label for="message-text" class="control-label">Opis:</label>
-							<textarea class="form-control" id="description"></textarea>
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
-					<button type="button" class="btn btn-primary" id="save"
-						onClick="saveSources()">Zapisz</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Delete Modal -->
-	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">Usuń!</h4>
-				</div>
-				<div class="delete-modal-body modal-body">
-					<input type="hidden" value="" id="id" /> <input type="hidden"
-						value="" id="type" /> Czy na pewno chcesz usunąć: <span id="name"></span>?
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
-					<button type="button" class="btn btn-primary" id="delete"
-						onClick="deleteSources()">Tak</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	<div th:replace="fragments/modals"> </div>
 </body>
 </html>

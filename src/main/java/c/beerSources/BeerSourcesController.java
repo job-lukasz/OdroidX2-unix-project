@@ -18,36 +18,41 @@ import c.Log;
 @Secured("ROLE_USER")
 public class BeerSourcesController {
 
-    private HopRepository hopRepository;
-    private MaltRepository maltRepository;
-    private AddonsRepository addonsRepository;
+	private HopRepository hopRepository;
+	private MaltRepository maltRepository;
+	private AddonsRepository addonsRepository;
+	private BreakRepository breakRepository;
 
-    @Autowired
-	    public BeerSourcesController(HopRepository hopRepository, MaltRepository maltRepository, AddonsRepository addonsRepository) {
-	        this.hopRepository = hopRepository;
-	        this.maltRepository = maltRepository;
-	        this.addonsRepository = addonsRepository;
-	    }
-    
+	@Autowired
+	public BeerSourcesController(HopRepository hopRepository, MaltRepository maltRepository, AddonsRepository addonsRepository, BreakRepository breakRepository) {
+		this.hopRepository = hopRepository;
+		this.maltRepository = maltRepository;
+		this.addonsRepository = addonsRepository;
+		this.breakRepository = breakRepository;
+	}
+
 	@RequestMapping(value = "sources", method = RequestMethod.GET)
 	public String sources(Principal principal, Model model) {
 		if (principal != null) {
 			List<Hop> hops = hopRepository.getAllHops();
 			List<Malt> malts = maltRepository.getAllMalts();
 			List<Addons> addons = addonsRepository.getAllAddonss();
+			List<Break> breaks = breakRepository.getAllBreaks();
 			model.addAttribute("hops", hops);
 			model.addAttribute("malts", malts);
-			model.addAttribute("addons",addons);
+			model.addAttribute("addons", addons);
+			model.addAttribute("breaks", breaks);
 			model.addAttribute(new BeerSourcesForm());
 			return "sources/index";
 		}
 		return "home/homeNotSignedIn";
 	}
-	
+
 	@RequestMapping(value = "sources/saveMalt", method = RequestMethod.POST)
-	public @ResponseBody boolean saveMalt(Principal principal, @RequestParam Long id, @RequestParam String name, @RequestParam double info, @RequestParam String description) {
+	public @ResponseBody
+	boolean saveMalt(Principal principal, @RequestParam Long id, @RequestParam String name, @RequestParam double info, @RequestParam String description) {
 		if (principal != null) {
-			Log.rootLogger.debug("Save malt: id: " + id +", name: "+name+", info: "+info+", description: "+description);
+			Log.rootLogger.debug("Save malt: id: " + id + ", name: " + name + ", info: " + info + ", description: " + description);
 			Malt malt = new Malt(name, info);
 			malt.setDescription(description);
 			malt.setMaltId(id);
@@ -56,8 +61,10 @@ public class BeerSourcesController {
 		}
 		return false;
 	}
+
 	@RequestMapping(value = "sources/deleteMalt", method = RequestMethod.POST)
-	public @ResponseBody boolean deleteMalt(Principal principal, @RequestParam Long id) {
+	public @ResponseBody
+	boolean deleteMalt(Principal principal, @RequestParam Long id) {
 		if (principal != null) {
 			Log.rootLogger.debug("Delete malt: id: " + id);
 			maltRepository.delete(id);
@@ -65,10 +72,38 @@ public class BeerSourcesController {
 		}
 		return false;
 	}
-	@RequestMapping(value = "sources/saveHop", method = RequestMethod.POST)
-	public @ResponseBody boolean saveHop(Principal principal, @RequestParam Long id, @RequestParam String name, @RequestParam double info, @RequestParam String description) {
+
+	@RequestMapping(value = "sources/saveBreak", method = RequestMethod.POST)
+	public @ResponseBody
+	boolean saveBreak(Principal principal, @RequestParam Long id, @RequestParam String name, @RequestParam double temp_low, @RequestParam double temp_high,
+			@RequestParam String description) {
 		if (principal != null) {
-			Log.rootLogger.debug("Save hop: id: " + id +", name: "+name+", info: "+info+", description: "+description);
+			Log.rootLogger.debug("Save malt: id: " + id + ", name: " + name + ", temp_low: " + temp_low + ", temp_high: " + temp_high + ", description: "
+					+ description);
+			Break _break = new Break(name, temp_low, temp_high, description);
+			_break.setBreakId(id);
+			breakRepository.save(_break);
+			return true;
+		}
+		return false;
+	}
+
+	@RequestMapping(value = "sources/deleteBreak", method = RequestMethod.POST)
+	public @ResponseBody
+	boolean deleteBreak(Principal principal, @RequestParam Long id) {
+		if (principal != null) {
+			Log.rootLogger.debug("Delete break: id: " + id);
+			breakRepository.delete(id);
+			return true;
+		}
+		return false;
+	}
+
+	@RequestMapping(value = "sources/saveHop", method = RequestMethod.POST)
+	public @ResponseBody
+	boolean saveHop(Principal principal, @RequestParam Long id, @RequestParam String name, @RequestParam double info, @RequestParam String description) {
+		if (principal != null) {
+			Log.rootLogger.debug("Save hop: id: " + id + ", name: " + name + ", info: " + info + ", description: " + description);
 			Hop hop = new Hop(name, info);
 			hop.setDescription(description);
 			hop.setHopId(id);
@@ -77,8 +112,10 @@ public class BeerSourcesController {
 		}
 		return false;
 	}
+
 	@RequestMapping(value = "sources/deleteHop", method = RequestMethod.POST)
-	public @ResponseBody boolean deleteHop(Principal principal, @RequestParam Long id) {
+	public @ResponseBody
+	boolean deleteHop(Principal principal, @RequestParam Long id) {
 		if (principal != null) {
 			Log.rootLogger.debug("Delete hop: id: " + id);
 			hopRepository.delete(id);
@@ -86,10 +123,12 @@ public class BeerSourcesController {
 		}
 		return false;
 	}
+
 	@RequestMapping(value = "sources/saveAddon", method = RequestMethod.POST)
-	public @ResponseBody boolean saveAddon(Principal principal, @RequestParam Long id, @RequestParam String name, @RequestParam String info, @RequestParam String description) {
+	public @ResponseBody
+	boolean saveAddon(Principal principal, @RequestParam Long id, @RequestParam String name, @RequestParam String info, @RequestParam String description) {
 		if (principal != null) {
-			Log.rootLogger.debug("Save hop: id: " + id +", name: "+name+", info: "+info+", description: "+description);
+			Log.rootLogger.debug("Save hop: id: " + id + ", name: " + name + ", info: " + info + ", description: " + description);
 			Addons addons = new Addons(name, info);
 			addons.setDescription(description);
 			addons.setAddonId(id);
@@ -98,9 +137,10 @@ public class BeerSourcesController {
 		}
 		return false;
 	}
-	
+
 	@RequestMapping(value = "sources/deleteAddon", method = RequestMethod.POST)
-	public @ResponseBody boolean deleteAddon(Principal principal, @RequestParam Long id) {
+	public @ResponseBody
+	boolean deleteAddon(Principal principal, @RequestParam Long id) {
 		if (principal != null) {
 			Log.rootLogger.debug("Delete addon: id: " + id);
 			addonsRepository.delete(id);

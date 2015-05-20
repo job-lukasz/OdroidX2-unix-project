@@ -17,7 +17,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="#" th:href="@{/}">Strona domowa</a></li>
-                <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/leds" th:href="@{/leds}">Warzenie</a></li>
+                <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/brews" th:href="@{/brews}">Warzenie</a></li>
                 <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/sources" th:href="@{/sources}">Surowce</a></li>
                 <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/DAC" th:href="@{/dac}">Historia</a></li>
                 <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/settings" th:href="@{/settings}">Ustawienia</a></li>                                 

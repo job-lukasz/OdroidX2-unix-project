@@ -31,8 +31,50 @@ public class Brewing implements java.io.Serializable {
 	@ManyToMany(mappedBy = "brewing")
 	private List<BrewAddon> addons = new ArrayList<BrewAddon>();
 	
+	@ManyToMany(mappedBy = "brewing")
+	private List<BrewBreak> breaks = new ArrayList<BrewBreak>();
+	
 	@Column
 	private String description;
+
+	@Column 
+	private String type;
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	private double ibu;
+	
+	private double color;
+	
+	public List<BrewBreak> getBreaks() {
+		return breaks;
+	}
+
+	public void setBreaks(List<BrewBreak> breaks) {
+		this.breaks = breaks;
+	}
+
+	public double getIbu() {
+		return ibu;
+	}
+
+	public void setIbu(double iBU) {
+		ibu = iBU;
+	}
+
+	public double getColor() {
+		return color;
+	}
+
+	public void setColor(double color) {
+		this.color = color;
+	}
 
 	public List<BrewMalt> getMalts() {
 		return malts;

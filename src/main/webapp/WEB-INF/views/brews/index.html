@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head th:include="fragments/head">
+</head>
+<body>
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+	<div class="container">
+		<!-- /* Handle the flash message */-->
+		<th:block th:if="${message != null}">
+			<!-- /* The message code is returned from the @Controller */ -->
+			<div th:replace="fragments/alert :: alert (type=success, message=${message})">&nbsp;</div>
+		</th:block>
+		<div class="row">
+			<div class="brews">
+				<div class="title">
+					Warki
+					<button data-type="malt" type="button" class="add btn" data-toggle="modal" data-target="#editModal" />
+				</div>
+				<table class="table table-striped">
+					<tr>
+						<th class="id">ID</th>
+						<th class="name">Nazwa</th>
+						<th class="type">Typ</th>
+						<th class="ibu">IBU</th>
+						<th class="color">Kolor</th>
+						<th class="description">Opis</th>
+						<th class="actions">Akcje</th>
+					</tr>
+					<tr th:each="brew: ${brews}">
+						<td th:text="${brew.brewingId}"></td>
+						<td th:text="${brew.name}"></td>
+						<td th:text="${brew.type}"></td>
+						<td th:text="${brew.ibu}"></td>
+						<td th:text="${brew.color}"></td>
+						<td th:text="${brew.description}"></td>
+						<td>
+							<button data-type="brewing"
+								th:attr="data-id=${brew.brewingId},data-name=${brew.name},data-brewType=${brew.type}, data-description=${brew.description}"
+								type="button" class="edit btn" data-toggle="modal"
+								data-target="#editModal" />
+							<button data-type="brewing"
+								th:attr="data-id=${brew.brewingId},data-name=${brew.name}"
+								type="button" class="delete btn" data-toggle="modal"
+								data-target="#deleteModal" />
+							<a class="btn" th:href="@{/details(id=${brew.brewingId})}">+</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- Delete Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Usuń!</h4>
+				</div>
+				<div class="delete-modal-body modal-body">
+					<input type="hidden" value="" id="id" /> <input type="hidden"
+						value="" id="type" /> Czy na pewno chcesz usunąć: <span id="name"></span>?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
+					<button type="button" class="btn btn-primary" id="delete" onClick="deleteSources()">Tak</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
