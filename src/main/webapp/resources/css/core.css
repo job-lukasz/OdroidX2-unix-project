@@ -76,3 +76,57 @@ button.delete{
 	background-image: url("images/delete-icon.png");
 	float: right;
 }
+.more{
+	width: 26px;
+	height: 26px;
+	background-image: url("images/more-icon.png");
+	background-color: buttonface;
+}
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: relative;
+    height: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 40px;
+    overflow-y: auto;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#page-content-wrapper {
+    width: 90%;
+    position: absolute;
+    padding: 15px;
+    margin-left: 20px;
+}
+
+
+/* Sidebar Styles */
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+    #sidebar-wrapper {
+        position: fixed;
+        width: 150px;
+        margin-left: -170px;
+    }
+}

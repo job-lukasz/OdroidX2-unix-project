@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head th:include="fragments/head">
+</head>
+<body>
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+	<!-- /* Handle the flash message */-->
+	<th:block th:if="${message != null}">
+		<!-- /* The message code is returned from the @Controller */ -->
+		<div
+			th:replace="fragments/alert :: alert (type=success, message=${message})">&nbsp;</div>
+	</th:block>
+	<div id="wrapper">
+		<div class="title">
+		<span th:text="${brew.name}"></span> <span style="float: right; margin-right:90px">1.1.2015</span>
+	</div>
+		<div id="sidebar-wrapper">
+			<table class="table table-striped">
+				<tr>
+					<td>Typ:</td>
+					<td th:text="${brew.type}"></td>
+				</tr>
+				<tr>
+					<td>IBU:</td>
+					<td th:text="${brew.type}"></td>
+				</tr>
+				<tr>
+					<td>Color:</td>
+					<td th:text="${brew.type}"></td>
+				</tr>
+				<tr>
+					<td>Blg pocz.:</td>
+					<td th:text="${brew.type}"></td>
+				</tr>
+				<tr>
+					<td>Blg kon.:</td>
+					<td th:text="${brew.type}"></td>
+				</tr>
+				<tr>
+					<td>Alkohol:</td>
+					<td th:text="${brew.type}"></td>
+				</tr>
+				<tr>
+					<td>Wydajność:</td>
+					<td th:text="${brew.type}"></td>
+				</tr>
+			</table>
+		</div>
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-4 malt">
+						<div>Słody</div>
+						<button data-type="addmalt" th:attr="data-id=${brew.brewingId}" data-action="addMalt" type="button" class="add btn" data-toggle="modal" data-target="#editModal" />
+						<table class="table table-striped">
+							<tr>
+								<th class="name">Nazwa</th>
+								<th class="quantity">Ilość</th>
+							</tr>
+						</table>
+					</div>
+					<div class="col-md-4 malt">
+						<div>Zacieranie</div>
+						<table class="table table-striped">
+							<tr>
+								<th class="name">Nazwa</th>
+								<th class="time">Czas</th>
+								<th class="start">Start</th>
+							</tr>
+						</table>
+					</div>
+					<div class="col-md-4 malt">
+						<div>Chmielenie</div>
+						<table class="table table-striped">
+							<tr>
+								<th class="name">Nazwa</th>
+								<th class="time">Czas</th>
+								<th class="start">Start</th>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 malt">
+						<div>Fermentacja</div>
+						<table class="table table-striped">
+							<tr>
+								<th class="name">Nazwa</th>
+								<th class="quantity">Ilość</th>
+							</tr>
+						</table>
+					</div>
+					<div class="col-md-4 malt">
+						<div>Refermentacja</div>
+						<table class="table table-striped">
+							<tr>
+								<th class="name">Nazwa</th>
+								<th class="time">Czas</th>
+								<th class="start">Start</th>
+							</tr>
+						</table>
+					</div>
+					<div class="col-md-4 malt">
+						<div>Rozlew</div>
+						<table class="table table-striped">
+							<tr>
+								<th class="name">Nazwa</th>
+								<th class="time">Czas</th>
+								<th class="start">Start</th>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modals -->
+	<div th:replace="fragments/modals"></div>
+</body>
+</html>

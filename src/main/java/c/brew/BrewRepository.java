@@ -1,6 +1,7 @@
 package c.brew;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.PersistenceException;
 
@@ -92,7 +93,7 @@ public class BrewRepository {
 	}
 
 	public Brewing getBrewing(Long id) {
-		Brewing brewing = (Brewing) sessionFactory.getCurrentSession().get(BrewHop.class, id);
+		Brewing brewing = (Brewing) sessionFactory.getCurrentSession().get(Brewing.class, id);
 		return brewing;
 	}
 
@@ -136,5 +137,41 @@ public class BrewRepository {
 	public void deleteBrewBreak(Long id) {
 		BrewBreak brewBreak = (BrewBreak) sessionFactory.getCurrentSession().get(BrewBreak.class, id);
 		sessionFactory.getCurrentSession().delete(brewBreak);
+	}
+	
+	@Transactional
+	public void addMalt(Long brewId, BrewMalt brewMalt) {
+		Brewing brewing = (Brewing) sessionFactory.getCurrentSession().get(Brewing.class, brewId);
+		Set<BrewMalt> malts = brewing.getMalts();
+		malts.add(brewMalt);
+		brewing.setMalts(malts);
+		sessionFactory.getCurrentSession().saveOrUpdate(brewing);
+	}
+	
+	@Transactional
+	public void addBreak(Long brewId, BrewBreak brewBreak) {
+		Brewing brewing = (Brewing) sessionFactory.getCurrentSession().get(Brewing.class, brewId);
+		Set<BrewBreak> breaks = brewing.getBreaks();
+		breaks.add(brewBreak);
+		brewing.setBreaks(breaks);
+		sessionFactory.getCurrentSession().saveOrUpdate(brewing);
+	}
+	
+	@Transactional
+	public void addAddon(Long brewId, BrewAddon brewAddon) {
+		Brewing brewing = (Brewing) sessionFactory.getCurrentSession().get(Brewing.class, brewId);
+		Set<BrewAddon> breaks = brewing.getAddons();
+		breaks.add(brewAddon);
+		brewing.setAddons(breaks);
+		sessionFactory.getCurrentSession().saveOrUpdate(brewing);
+	}
+	
+	@Transactional
+	public void addHop(Long brewId, BrewHop brewHop) {
+		Brewing brewing = (Brewing) sessionFactory.getCurrentSession().get(Brewing.class, brewId);
+		Set<BrewHop> hops = brewing.getHops();
+		hops.add(brewHop);
+		brewing.setHops(hops);
+		sessionFactory.getCurrentSession().saveOrUpdate(brewing);
 	}
 }

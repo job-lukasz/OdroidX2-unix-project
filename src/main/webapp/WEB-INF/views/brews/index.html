@@ -14,62 +14,44 @@
 			<div class="brews">
 				<div class="title">
 					Warki
-					<button data-type="malt" type="button" class="add btn" data-toggle="modal" data-target="#editModal" />
+					<button data-type="brew" data-action="brews/saveBrew" type="button" class="add btn"
+						data-toggle="modal" data-target="#editModal" />
 				</div>
 				<table class="table table-striped">
 					<tr>
-						<th class="id">ID</th>
-						<th class="name">Nazwa</th>
-						<th class="type">Typ</th>
-						<th class="ibu">IBU</th>
-						<th class="color">Kolor</th>
-						<th class="description">Opis</th>
-						<th class="actions">Akcje</th>
+						<th class="id col-sm-1">ID</th>
+						<th class="name col-sm-2">Nazwa</th>
+						<th class="type col-sm-1">Typ</th>
+						<th class="ibu col-sm-1">IBU</th>
+						<th class="color col-sm-1">Kolor</th>
+						<th class="description col-sm-5">Opis</th>
+						<th class="actions col-sm-1"></th>
 					</tr>
-					<tr th:each="brew: ${brews}">
-						<td th:text="${brew.brewingId}"></td>
+					<tr th:each="brew: ${brews}" >
+						<td ><a th:href="@{/brews/details(id=${brew.brewingId})}" class="more btn"> </a> <span th:text="${brew.brewingId}" ></span></td>
 						<td th:text="${brew.name}"></td>
 						<td th:text="${brew.type}"></td>
 						<td th:text="${brew.ibu}"></td>
 						<td th:text="${brew.color}"></td>
 						<td th:text="${brew.description}"></td>
-						<td>
-							<button data-type="brewing"
-								th:attr="data-id=${brew.brewingId},data-name=${brew.name},data-brewType=${brew.type}, data-description=${brew.description}"
+						<td class="actions" >
+							<button data-type="brew"
+								th:attr="data-action='brews/saveBrew',data-id=${brew.brewingId},data-name=${brew.name},data-brewtype=${brew.type}, data-description=${brew.description}"
 								type="button" class="edit btn" data-toggle="modal"
 								data-target="#editModal" />
-							<button data-type="brewing"
-								th:attr="data-id=${brew.brewingId},data-name=${brew.name}"
+							<button data-type="brew"
+								th:attr="data-action='brews/deleteBrew',data-id=${brew.brewingId},data-name=${brew.name}"
 								type="button" class="delete btn" data-toggle="modal"
 								data-target="#deleteModal" />
-							<a class="btn" th:href="@{/details(id=${brew.brewingId})}">+</a>
 						</td>
 					</tr>
 				</table>
 			</div>
 		</div>
 	</div>
-	<!-- Delete Modal -->
-	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">Usuń!</h4>
-				</div>
-				<div class="delete-modal-body modal-body">
-					<input type="hidden" value="" id="id" /> <input type="hidden"
-						value="" id="type" /> Czy na pewno chcesz usunąć: <span id="name"></span>?
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
-					<button type="button" class="btn btn-primary" id="delete" onClick="deleteSources()">Tak</button>
-				</div>
-			</div>
-		</div>
+	<!-- Modals -->
+	<div th:replace="fragments/modals">
+		
 	</div>
 </body>
 </html>

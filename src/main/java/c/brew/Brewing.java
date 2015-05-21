@@ -1,12 +1,16 @@
 package c.brew;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -22,17 +26,21 @@ public class Brewing implements java.io.Serializable {
 	@Column
 	private String name;
 
-	@ManyToMany(mappedBy = "brewing")
-	private List<BrewHop> hops = new ArrayList<BrewHop>();
+	@ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "BrewHops_Brewing", joinColumns = { @JoinColumn(name = "brewingId") }, inverseJoinColumns = { @JoinColumn(name = "brewHopId") })
+	private Set<BrewHop> hops;
 
-	@ManyToMany(mappedBy = "brewing")
-	private List<BrewMalt> malts = new ArrayList<BrewMalt>();
+	@ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "BrewMalts_Brewing", joinColumns = { @JoinColumn(name = "brewingId") }, inverseJoinColumns = { @JoinColumn(name = "brewMaltId") })
+	private Set<BrewMalt> malts;
 	
-	@ManyToMany(mappedBy = "brewing")
-	private List<BrewAddon> addons = new ArrayList<BrewAddon>();
+	@ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "BrewAddons_Brewing", joinColumns = { @JoinColumn(name = "brewingId") }, inverseJoinColumns = { @JoinColumn(name = "brewAddonId") })
+	private Set<BrewAddon> addons;
 	
-	@ManyToMany(mappedBy = "brewing")
-	private List<BrewBreak> breaks = new ArrayList<BrewBreak>();
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "BrewBreaks_Brewing", joinColumns = { @JoinColumn(name = "brewingId") }, inverseJoinColumns = { @JoinColumn(name = "brewBreakId") })
+	private Set<BrewBreak> breaks;
 	
 	@Column
 	private String description;
@@ -40,6 +48,18 @@ public class Brewing implements java.io.Serializable {
 	@Column 
 	private String type;
 	
+	public Brewing(String name, String type, String description){
+		this.name = name;
+		this.type = type;
+		this.description = description;
+		hops = new HashSet<BrewHop>();
+		malts = new HashSet<BrewMalt>();
+		addons = new HashSet<BrewAddon>();
+		breaks = new HashSet<BrewBreak>();		
+	}
+	protected Brewing(){
+		
+	}
 	public String getType() {
 		return type;
 	}
@@ -52,11 +72,11 @@ public class Brewing implements java.io.Serializable {
 	
 	private double color;
 	
-	public List<BrewBreak> getBreaks() {
+	public Set<BrewBreak> getBreaks() {
 		return breaks;
 	}
 
-	public void setBreaks(List<BrewBreak> breaks) {
+	public void setBreaks(Set<BrewBreak> breaks) {
 		this.breaks = breaks;
 	}
 
@@ -76,19 +96,19 @@ public class Brewing implements java.io.Serializable {
 		this.color = color;
 	}
 
-	public List<BrewMalt> getMalts() {
+	public Set<BrewMalt> getMalts() {
 		return malts;
 	}
 
-	public void setMalts(List<BrewMalt> malts) {
+	public void setMalts(Set<BrewMalt> malts) {
 		this.malts = malts;
 	}
 
-	public List<BrewAddon> getAddons() {
+	public Set<BrewAddon> getAddons() {
 		return addons;
 	}
 
-	public void setAddons(List<BrewAddon> addons) {
+	public void setAddons(Set<BrewAddon> addons) {
 		this.addons = addons;
 	}
 
@@ -108,11 +128,11 @@ public class Brewing implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public List<BrewHop> getHops() {
+	public Set<BrewHop> getHops() {
 		return hops;
 	}
 
-	public void setHops(List<BrewHop> hops) {
+	public void setHops(Set<BrewHop> hops) {
 		this.hops = hops;
 	}
 

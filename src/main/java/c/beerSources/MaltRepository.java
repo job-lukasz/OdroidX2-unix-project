@@ -50,4 +50,8 @@ public class MaltRepository {
 		Malt malt = (Malt) sessionFactory.getCurrentSession().get(Malt.class, id);
 		sessionFactory.getCurrentSession().delete(malt);
 	}
+
+	public Malt getMalt(Long maltId) {
+		return (Malt) sessionFactory.getCurrentSession().get(Malt.class, maltId);
+	}
 }

@@ -13,16 +13,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import c.Log;
+import c.beerSources.Malt;
+import c.beerSources.MaltRepository;
 
 @Controller
 @Secured("ROLE_USER")
 public class BrewController {
 
 	private BrewRepository brewRepository;
-
+	private MaltRepository maltRepository;
+	
 	@Autowired
-	public BrewController(BrewRepository brewRepository) {
+	public BrewController(BrewRepository brewRepository, MaltRepository maltRepository) {
 		this.brewRepository = brewRepository;
+		this.maltRepository = maltRepository;
 	}
 
 	@RequestMapping(value = "brews", method = RequestMethod.GET)
@@ -35,7 +39,7 @@ public class BrewController {
 		return "home/homeNotSignedIn";
 	}
 
-	@RequestMapping(value = "brews/deleteBrewing", method = RequestMethod.POST)
+	@RequestMapping(value = "brews/deleteBrew", method = RequestMethod.POST)
 	public @ResponseBody boolean deleteBrew(Principal principal, @RequestParam Long id) {
 		if (principal != null) {
 			Log.rootLogger.debug("Delete brewing: id: " + id);
@@ -47,8 +51,32 @@ public class BrewController {
 	@RequestMapping(value = "brews/saveBrew", method = RequestMethod.POST)
 	public @ResponseBody boolean saveBrew(Principal principal, @RequestParam Long id, @RequestParam String name, @RequestParam String type, @RequestParam String description) {
 		if (principal != null) {
-			Log.rootLogger.debug("Delete brewing: id: " + id);
-			brewRepository.deleteBrewing(id);
+			Brewing brew = new Brewing(name,type,description);
+			brew.setBrewingId(id);
+			Log.rootLogger.debug("Save brewing: id: " + id +" name: "+ name + " type: "+ type + " description: "+ description);
+			brewRepository.save(brew);
+			return true;
+		}
+		return false;
+	}
+	
+	@RequestMapping(value = "brews/details", method = RequestMethod.GET)
+	public String showBrew(Principal principal, Model model, @RequestParam Long id) {
+		if (principal != null) {
+			Brewing brew = brewRepository.getBrewing(id);
+			model.addAttribute("brew", brew);
+			return "brews/details";
+		}
+		return "home/homeNotSignedIn";
+	}
+	
+	@RequestMapping(value = "brews/addMalt", method = RequestMethod.POST)
+	public @ResponseBody boolean addMalt(Principal principal, @RequestParam Long id, @RequestParam Long maltId, @RequestParam double quantity) {
+		if (principal != null) {
+			Malt malt = maltRepository.getMalt(maltId);
+			BrewMalt brewMalt = new BrewMalt(malt,quantity);
+			brewMalt = brewRepository.save(brewMalt);
+			brewRepository.addMalt(id, brewMalt);
 			return true;
 		}
 		return false;
