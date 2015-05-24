@@ -20,7 +20,7 @@ public class Malt implements java.io.Serializable {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue
-	private Long maltId;
+	private Long id;
 
 	@Column
 	private String name;
@@ -51,12 +51,12 @@ public class Malt implements java.io.Serializable {
 	protected Malt(){
 		
 	}
-	public Long getMaltId() {
-		return maltId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setMaltId(Long id) {
-		this.maltId = id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {

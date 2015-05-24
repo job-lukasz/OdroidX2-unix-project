@@ -1,50 +1,58 @@
 <!-- Add Modal -->
-	<div class="modal fade" id="editModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">Edytuj</h4>
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">Edytuj</h4>
+			</div>
+			<div class="edit-modal-body modal-body">
+				<div class="row">
+					<div class="inputs col-md-12">
+						<form>
+							<input type="hidden" value="" id="id" /> <input type="hidden"
+								value="" id="action" /> <input type="hidden" value="" id="type" />
+						</form>
+					</div>
+					<div class="properties">
+						
+					</div>
 				</div>
-				<div class="edit-modal-body modal-body">
-					<form>
-						<input type="hidden" value="" id="id" /> 
-						<input type="hidden" value="" id="action" /> 
-						<input type="hidden" value="" id="type" />
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
-					<button type="button" class="btn btn-primary" id="save"
-						onClick="saveSources()">Zapisz</button>
-				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+				<button type="button" class="btn btn-primary" id="save"
+					onClick="saveSources()">Zapisz</button>
 			</div>
 		</div>
 	</div>
-	<!-- Delete Modal -->
-	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">Usuń!</h4>
-				</div>
-				<div class="delete-modal-body modal-body">
-					<input type="hidden" value="" id="id" /> 
-					<input type="hidden" value="" id="action" /> 
-					Czy na pewno chcesz usunąć: <span id="name"></span>?
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
-					<button type="button" class="btn btn-primary" id="delete" onClick="deleteSources()">Tak</button>
-				</div>
+</div>
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">Usuń!</h4>
+			</div>
+			<div class="delete-modal-body modal-body">
+				<input type="hidden" value="" id="id"/> <input type="hidden"
+					value="" id="action" /> Czy na pewno chcesz usunąć: <span
+					id="name"></span>?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
+				<button type="button" class="btn btn-primary" id="delete"
+					onClick="deleteSources()">Tak</button>
 			</div>
 		</div>
 	</div>
+</div>

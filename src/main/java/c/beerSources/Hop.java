@@ -20,7 +20,7 @@ public class Hop implements java.io.Serializable {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue
-	private Long hopId;
+	private Long id;
 
 	@Column
 	private String name;
@@ -51,12 +51,12 @@ public class Hop implements java.io.Serializable {
 	protected Hop(){
 		
 	}
-	public Long getHopId() {
-		return hopId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setHopId(Long id) {
-		this.hopId = id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {

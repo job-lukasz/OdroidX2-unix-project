@@ -27,7 +27,7 @@ public class BrewMalt implements java.io.Serializable {
 	@ManyToMany(mappedBy = "malts")
 	private Set<Brewing> brewing = new HashSet<Brewing>();
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "maltId", nullable = false)
 	private Malt malt;
 	

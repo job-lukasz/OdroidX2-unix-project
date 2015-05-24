@@ -24,15 +24,15 @@
 						<th class="action"></th>
 					</tr>
 					<tr th:each="malt: ${malts}">
-						<td th:text="${malt.maltId}"></td>
+						<td th:text="${malt.id}"></td>
 						<td th:text="${malt.name}"></td>
 						<td th:text="${malt.color}"></td>
 						<td th:text="${malt.description}"></td>
 						<td>
-							<button th:attr="data-type='malt',data-action='sources/saveMalt',data-id=${malt.maltId},data-name=${malt.name},data-info=${malt.color}, data-description=${malt.description}"
+							<button th:attr="data-type='malt',data-action='sources/saveMalt',data-id=${malt.id},data-name=${malt.name},data-info=${malt.color}, data-description=${malt.description}"
 								type="button" class="edit btn" data-toggle="modal"
 								data-target="#editModal" />
-							<button th:attr="data-action='sources/deleteMalt',data-id=${malt.maltId},data-name=${malt.name}"
+							<button th:attr="data-action='sources/deleteMalt',data-id=${malt.id},data-name=${malt.name}"
 								type="button" class="delete btn" data-toggle="modal"
 								data-target="#deleteModal" />
 						</td>
@@ -54,15 +54,15 @@
 						<th class="action"></th>
 					</tr>
 					<tr th:each="hop: ${hops}">
-						<td th:text="${hop.hopId}"></td>
+						<td th:text="${hop.id}"></td>
 						<td th:text="${hop.name}"></td>
 						<td th:text="${hop.acid}"></td>
 						<td th:text="${hop.description}"></td>
 						<td>
-							<button th:attr="data-type='hop',data-action='sources/saveHop',data-id=${hop.hopId},data-name=${hop.name},data-info=${hop.acid}, data-description=${hop.description}"
+							<button th:attr="data-type='hop',data-action='sources/saveHop',data-id=${hop.id},data-name=${hop.name},data-info=${hop.acid}, data-description=${hop.description}"
 								type="button" class="edit btn" data-toggle="modal"
 								data-target="#editModal" />
-							<button th:attr="data-action='sources/deleteHop',data-id=${hop.hopId},data-name=${hop.name}"
+							<button th:attr="data-action='sources/deleteHop',data-id=${hop.id},data-name=${hop.name}"
 								type="button" class="delete btn" data-toggle="modal"
 								data-target="#deleteModal" />
 						</td>
@@ -86,15 +86,15 @@
 						<th class="action"></th>
 					</tr>
 					<tr th:each="addon: ${addons}">
-						<td th:text="${addon.addonId}"></td>
+						<td th:text="${addon.id}"></td>
 						<td th:text="${addon.name}"></td>
 						<td th:text="${addon.info}"></td>
 						<td th:text="${addon.description}"></td>
 						<td>
-							<button th:attr="data-type='addon', data-action='sources/saveAddon',data-id=${addon.addonId},data-name=${addon.name},data-info=${addon.info}, data-description=${addon.description}"
+							<button th:attr="data-type='addon', data-action='sources/saveAddon',data-id=${addon.id},data-name=${addon.name},data-info=${addon.info}, data-description=${addon.description}"
 								type="button" class="edit btn" data-toggle="modal"
 								data-target="#editModal" />
-							<button th:attr="data-action='sources/deleteAddon',data-id=${addon.addonId},data-name=${addon.name}"
+							<button th:attr="data-action='sources/deleteAddon',data-id=${addon.id},data-name=${addon.name}"
 								type="button" class="delete btn" data-toggle="modal"
 								data-target="#deleteModal" />
 						</td>
@@ -117,16 +117,16 @@
 						<th class="action"></th>
 					</tr>
 					<tr th:each="break: ${breaks}">
-						<td th:text="${break.breakId}"></td>
+						<td th:text="${break.id}"></td>
 						<td th:text="${break.name}"></td>
 						<td th:text="${break.temp_low}"></td>
 						<td th:text="${break.temp_high}"></td>
 						<td th:text="${break.description}"></td>
 						<td>
-							<button th:attr="data-type='break',data-action='sources/saveBreak',data-id=${break.breakId},data-name=${break.name},data-templow=${break.temp_low},data-temphigh=${break.temp_high}, data-description=${break.description}"
+							<button th:attr="data-type='break',data-action='sources/saveBreak',data-id=${break.id},data-name=${break.name},data-templow=${break.temp_low},data-temphigh=${break.temp_high}, data-description=${break.description}"
 								type="button" class="edit btn" data-toggle="modal"
 								data-target="#editModal" />
-							<button	th:attr="data-action='sources/deleteBreak',data-id=${break.breakId},data-name=${break.name}"
+							<button	th:attr="data-action='sources/deleteBreak',data-id=${break.id},data-name=${break.name}"
 								type="button" class="delete btn" data-toggle="modal"
 								data-target="#deleteModal" />
 						</td>

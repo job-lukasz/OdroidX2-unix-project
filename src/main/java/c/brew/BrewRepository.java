@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.PersistenceException;
 
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -84,8 +85,12 @@ public class BrewRepository {
 	@SuppressWarnings("unchecked")
 	public List<Brewing> getAllBrewings() {
 		try {
-			List<Brewing> brewing = sessionFactory.getCurrentSession()
-					.createCriteria(Brewing.class).list();
+			List<Brewing> brewing = sessionFactory.getCurrentSession().createCriteria(Brewing.class)
+					.setFetchMode("malts", FetchMode.SELECT)
+					.setFetchMode("hops", FetchMode.SELECT)
+					.setFetchMode("addons", FetchMode.SELECT)
+					.setFetchMode("breaks", FetchMode.SELECT)
+					.list();
 			return brewing;
 		} catch (PersistenceException e) {
 			return null;
@@ -115,8 +120,15 @@ public class BrewRepository {
 	}
 
 	@Transactional
-	public void deleteMalt(Long id) {
-		BrewMalt brewMalt = (BrewMalt) sessionFactory.getCurrentSession().get(BrewMalt.class, id);
+	public void deleteMalt(Long id, Long maltId) {
+		Brewing brewing = (Brewing) sessionFactory.getCurrentSession().get(Brewing.class, id);
+		BrewMalt brewMalt = (BrewMalt) sessionFactory.getCurrentSession().get(BrewMalt.class, maltId);
+		Set<BrewMalt> malts = brewing.getMalts();
+		System.out.println(malts.size());
+		malts.remove(brewMalt);
+		System.out.println(malts.size());
+		brewing.setMalts(malts);
+		sessionFactory.getCurrentSession().saveOrUpdate(brewing);
 		sessionFactory.getCurrentSession().delete(brewMalt);
 	}
 

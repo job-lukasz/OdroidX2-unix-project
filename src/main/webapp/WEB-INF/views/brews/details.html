@@ -12,8 +12,9 @@
 	</th:block>
 	<div id="wrapper">
 		<div class="title">
-		<span th:text="${brew.name}"></span> <span style="float: right; margin-right:90px">1.1.2015</span>
-	</div>
+			<span th:text="${brew.name}"> </span> <span
+				style="float: right; margin-right: 90px">1.1.2015</span>
+		</div>
 		<div id="sidebar-wrapper">
 			<table class="table table-striped">
 				<tr>
@@ -50,17 +51,38 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-4 malt">
-						<div>Słody</div>
-						<button data-type="addmalt" th:attr="data-id=${brew.brewingId}" data-action="addMalt" type="button" class="add btn" data-toggle="modal" data-target="#editModal" />
+						<div>
+							Słody
+							<button data-type="brewmalt" th:attr="data-id=${brew.brewingId}"
+								data-action="addMalt" type="button" class="add btn"
+								data-toggle="modal" data-target="#editModal" />
+						</div>
+
 						<table class="table table-striped">
 							<tr>
 								<th class="name">Nazwa</th>
 								<th class="quantity">Ilość</th>
+								<th class="actions"></th>
+							</tr>
+							<tr th:each="malt: ${brew.malts}">
+								<td th:text="${malt.malt.name}"></td>
+								<td th:text="${malt.quantity}"></td>
+								<td class="actions">
+									<button data-type="brewmalt"
+										th:attr="data-action='saveMalt',data-id=${malt.brewMaltId},data-maltid=${malt.malt.id},data-quantity=${malt.quantity}"
+										type="button" class="edit btn" data-toggle="modal"
+										data-target="#editModal" />
+									<button th:attr="data-action='deleteMalt',data-maltid=${malt.brewMaltId},data-id=${brew.brewingId}, data-type='brewmalt'"
+										type="button" class="delete btn" data-toggle="modal"
+										data-target="#deleteModal" />
+								</td>
 							</tr>
 						</table>
 					</div>
 					<div class="col-md-4 malt">
-						<div>Zacieranie</div>
+						<div>Zacieranie <button data-type="addbreak" th:attr="data-id=${brew.brewingId}"
+								data-action="addBreak" type="button" class="add btn"
+								data-toggle="modal" data-target="#editModal" /></div>
 						<table class="table table-striped">
 							<tr>
 								<th class="name">Nazwa</th>

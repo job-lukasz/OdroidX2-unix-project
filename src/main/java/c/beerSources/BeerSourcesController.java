@@ -55,7 +55,7 @@ public class BeerSourcesController {
 			Log.rootLogger.debug("Save malt: id: " + id + ", name: " + name + ", info: " + info + ", description: " + description);
 			Malt malt = new Malt(name, info);
 			malt.setDescription(description);
-			malt.setMaltId(id);
+			malt.setId(id);
 			maltRepository.save(malt);
 			return true;
 		}
@@ -81,7 +81,7 @@ public class BeerSourcesController {
 			Log.rootLogger.debug("Save malt: id: " + id + ", name: " + name + ", temp_low: " + temp_low + ", temp_high: " + temp_high + ", description: "
 					+ description);
 			Break _break = new Break(name, temp_low, temp_high, description);
-			_break.setBreakId(id);
+			_break.setId(id);
 			breakRepository.save(_break);
 			return true;
 		}
@@ -106,7 +106,7 @@ public class BeerSourcesController {
 			Log.rootLogger.debug("Save hop: id: " + id + ", name: " + name + ", info: " + info + ", description: " + description);
 			Hop hop = new Hop(name, info);
 			hop.setDescription(description);
-			hop.setHopId(id);
+			hop.setId(id);
 			hopRepository.save(hop);
 			return true;
 		}
@@ -131,7 +131,7 @@ public class BeerSourcesController {
 			Log.rootLogger.debug("Save hop: id: " + id + ", name: " + name + ", info: " + info + ", description: " + description);
 			Addons addons = new Addons(name, info);
 			addons.setDescription(description);
-			addons.setAddonId(id);
+			addons.setId(id);
 			addonsRepository.save(addons);
 			return true;
 		}
@@ -147,5 +147,29 @@ public class BeerSourcesController {
 			return true;
 		}
 		return false;
+	}
+	
+	@RequestMapping(value = "sources/getMalts", method = RequestMethod.GET)
+	public @ResponseBody List<Malt> getMalts(Principal principal) {
+		if (principal != null) {
+			return maltRepository.getAllMalts();
+		}
+		return null;
+	}
+	
+	@RequestMapping(value = "sources/getMaltColor", method = RequestMethod.GET)
+	public @ResponseBody double getMaltColor(Principal principal, long id) {
+		if (principal != null) {
+			return maltRepository.getMalt(id).getColor();
+		}
+		return 0.0;
+	}
+	
+	@RequestMapping(value = "sources/getMaltDescription", method = RequestMethod.GET)
+	public @ResponseBody String[] getMaltDescription(Principal principal, long id) {
+		if (principal != null) {
+			return new String[]{maltRepository.getMalt(id).getDescription()};
+		}
+		return new String[]{""};
 	}
 }

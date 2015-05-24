@@ -21,7 +21,7 @@ public class Break implements java.io.Serializable {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue
-	private Long breakId;
+	private Long id;
 
 	@Column
 	private String name;
@@ -39,12 +39,12 @@ public class Break implements java.io.Serializable {
 	private List<BrewBreak> Brewing = new ArrayList<BrewBreak>();
 
 	
-	public Long getBreakId() {
-		return breakId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setBreakId(Long breakId) {
-		this.breakId = breakId;
+	public void setId(Long breakId) {
+		this.id = breakId;
 	}
 
 	public String getName() {

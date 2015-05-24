@@ -21,7 +21,7 @@ public class Addons implements java.io.Serializable {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue
-	private Long addonId;
+	private Long id;
 
 	@Column
 	private String name;
@@ -41,12 +41,12 @@ public class Addons implements java.io.Serializable {
 	protected Addons(){
 		
 	}
-	public Long getAddonId() {
-		return addonId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setAddonId(Long id) {
-		this.addonId = id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {

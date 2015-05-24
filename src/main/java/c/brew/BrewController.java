@@ -81,4 +81,27 @@ public class BrewController {
 		}
 		return false;
 	}
+	
+	@RequestMapping(value = "brews/saveMalt", method = RequestMethod.POST)
+	public @ResponseBody boolean saveMalt(Principal principal, @RequestParam Long id, @RequestParam Long maltId, @RequestParam double quantity) {
+		if (principal != null) {
+			Malt malt = maltRepository.getMalt(maltId);
+			BrewMalt brewMalt = new BrewMalt(malt,quantity);
+			brewMalt.setBrewMaltId(id);
+			brewMalt = brewRepository.save(brewMalt);
+			return true;
+		}
+		return false;
+	}
+	
+	@RequestMapping(value = "brews/deleteMalt", method = RequestMethod.POST)
+	public @ResponseBody
+	boolean deleteMalt(Principal principal, @RequestParam Long id, @RequestParam Long maltId) {
+		if (principal != null) {
+			Log.rootLogger.debug("Delete brewmalt - id: " + id);
+			brewRepository.deleteMalt(id,maltId);
+			return true;
+		}
+		return false;
+	}
 }

@@ -112,7 +112,9 @@ button.delete{
     margin-left: 20px;
 }
 
-
+td.actions {
+	width: 70px;
+}
 /* Sidebar Styles */
 
 @media(min-width:768px) {
