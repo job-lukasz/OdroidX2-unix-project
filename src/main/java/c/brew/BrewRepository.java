@@ -114,8 +114,13 @@ public class BrewRepository {
 	}
 
 	@Transactional
-	public void deleteHop(Long id) {
-		BrewHop brewHop = (BrewHop) sessionFactory.getCurrentSession().get(BrewHop.class, id);
+	public void deleteHop(Long id, Long hopId) {
+		Brewing brewing = (Brewing) sessionFactory.getCurrentSession().get(Brewing.class, id);
+		BrewHop brewHop = (BrewHop) sessionFactory.getCurrentSession().get(BrewHop.class, hopId);
+		Set<BrewHop> hops = brewing.getHops();
+		hops.remove(brewHop);
+		brewing.setHops(hops);
+		sessionFactory.getCurrentSession().saveOrUpdate(brewing);
 		sessionFactory.getCurrentSession().delete(brewHop);
 	}
 
@@ -124,18 +129,30 @@ public class BrewRepository {
 		Brewing brewing = (Brewing) sessionFactory.getCurrentSession().get(Brewing.class, id);
 		BrewMalt brewMalt = (BrewMalt) sessionFactory.getCurrentSession().get(BrewMalt.class, maltId);
 		Set<BrewMalt> malts = brewing.getMalts();
-		System.out.println(malts.size());
 		malts.remove(brewMalt);
-		System.out.println(malts.size());
 		brewing.setMalts(malts);
 		sessionFactory.getCurrentSession().saveOrUpdate(brewing);
 		sessionFactory.getCurrentSession().delete(brewMalt);
 	}
-
 	@Transactional
-	public void deleteAddon(Long id) {
-		BrewAddon brewAddon = (BrewAddon) sessionFactory.getCurrentSession()
-				.get(BrewAddon.class, id);
+	public void deleteBreak(Long id, Long breakId) {
+		Brewing brewing = (Brewing) sessionFactory.getCurrentSession().get(Brewing.class, id);
+		BrewBreak brewBreak = (BrewBreak) sessionFactory.getCurrentSession().get(BrewBreak.class, breakId);
+		Set<BrewBreak> breaks = brewing.getBreaks();
+		breaks.remove(brewBreak);
+		brewing.setBreaks(breaks);
+		sessionFactory.getCurrentSession().saveOrUpdate(brewing);
+		sessionFactory.getCurrentSession().delete(brewBreak);
+	}
+	
+	@Transactional
+	public void deleteAddon(Long id, Long addonId) {
+		Brewing brewing = (Brewing) sessionFactory.getCurrentSession().get(Brewing.class, id);
+		BrewAddon brewAddon = (BrewAddon) sessionFactory.getCurrentSession().get(BrewAddon.class, addonId);
+		Set<BrewAddon> addons = brewing.getAddons();
+		addons.remove(brewAddon);
+		brewing.setAddons(addons);
+		sessionFactory.getCurrentSession().saveOrUpdate(brewing);
 		sessionFactory.getCurrentSession().delete(brewAddon);
 	}
 
@@ -143,12 +160,6 @@ public class BrewRepository {
 	public void deleteBrewing(Long id) {
 		Brewing brewing = (Brewing) sessionFactory.getCurrentSession().get(Brewing.class, id);
 		sessionFactory.getCurrentSession().delete(brewing);
-	}
-	
-	@Transactional
-	public void deleteBrewBreak(Long id) {
-		BrewBreak brewBreak = (BrewBreak) sessionFactory.getCurrentSession().get(BrewBreak.class, id);
-		sessionFactory.getCurrentSession().delete(brewBreak);
 	}
 	
 	@Transactional

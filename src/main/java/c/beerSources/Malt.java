@@ -17,6 +17,7 @@ import c.brew.BrewMalt;
 @Entity
 @Table(name = "Malt")
 public class Malt implements java.io.Serializable {
+	
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue
@@ -31,8 +32,8 @@ public class Malt implements java.io.Serializable {
 	@Column
 	private String description;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "malt")
-	private List<BrewMalt> Brewing = new ArrayList<BrewMalt>();
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "malt")
+	private List<BrewMalt> brewing = new ArrayList<BrewMalt>();
 
 	public String getDescription() {
 		return description;

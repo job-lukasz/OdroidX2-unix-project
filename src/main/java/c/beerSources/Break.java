@@ -35,9 +35,19 @@ public class Break implements java.io.Serializable {
 	@Column
 	private String description;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "_break")
-	private List<BrewBreak> Brewing = new ArrayList<BrewBreak>();
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "_break")
+	private List<BrewBreak> brewing = new ArrayList<BrewBreak>();
 
+	public Break(String name, double temp_low, double temp_high, String description) {
+		this.name = name;
+		this.temp_low = temp_low;
+		this.temp_high = temp_high;
+		this.description = description;
+	}
+
+	protected Break() {
+
+	}
 	
 	public Long getId() {
 		return id;
@@ -77,24 +87,5 @@ public class Break implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
-	public List<BrewBreak> getBrewing() {
-		return Brewing;
-	}
-
-	public void setBrewing(List<BrewBreak> brewing) {
-		Brewing = brewing;
-	}
-
-	public Break(String name, double temp_low, double temp_high, String description) {
-		this.name = name;
-		this.temp_low = temp_low;
-		this.temp_high = temp_high;
-		this.description = description;
-	}
-
-	protected Break() {
-
 	}
 }

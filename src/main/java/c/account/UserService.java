@@ -17,17 +17,30 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import c.beerSources.AddonUsingTime;
+import c.beerSources.AddonUsingTimeRepository;
+
 public class UserService implements UserDetailsService {
 
 	@Autowired
 	private AccountRepository accountRepository;
 	
+	@Autowired
+	private AddonUsingTimeRepository addonUsingTimeRepository;
 	@PostConstruct
 	public void initialize() {
 //		Account acc1 = new Account("user", "demo", "ROLE_USER");
 //		Account acc2 = new Account("admin", "admin", "ROLE_ADMIN");
 //		accountRepository.save(acc1);
 //		accountRepository.save(acc2);	
+
+//		AddonUsingTime add1 = new AddonUsingTime("Warzenie");
+//		AddonUsingTime add2 = new AddonUsingTime("Chmielenie");
+//		AddonUsingTime add3 = new AddonUsingTime("Fermentacja");
+//		addonUsingTimeRepository.save(add1);
+//		addonUsingTimeRepository.save(add2);
+//		addonUsingTimeRepository.save(add3);
+		
 		m.gpio.GPIO.INSTANCE.initPins();
 		Settings.readSettingsFromFile();
 	}

@@ -1,6 +1,5 @@
 package c.brew;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import c.beerSources.AddonUsingTime;
 import c.beerSources.Addons;
 
 @SuppressWarnings("serial")
@@ -23,40 +23,41 @@ public class BrewAddon implements java.io.Serializable {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue
-	private Long brewAddonId;
+	private Long id;
 
-	@Column
-	private String name;
-	
 	@ManyToMany(mappedBy = "addons")
 	private Set<Brewing> brewing = new HashSet<Brewing>();
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "addonId", nullable = false)
 	private Addons addon;
 	
 	@Column
-	private Date start;
-	
-	@Column
-	private Date end;
-	
-	@Column
-	private String description;
+	private int startMinute;
 	
 	@Column
 	private double quantity;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "addonUsingId", nullable = false)
-	private AddonUsingTime usingTime;
+	private AddonUsingTime addonUsingTime;
 	
-	public AddonUsingTime getUsingTime() {
-		return usingTime;
+	
+	public BrewAddon(Addons addon, int startMinute, double quantity, AddonUsingTime usingTime){
+		this.addon = addon;
+		this.startMinute = startMinute;
+		this.quantity = quantity;
+		this.addonUsingTime = usingTime;
+	}
+	
+	protected BrewAddon(){};
+	
+	public AddonUsingTime getAddonUsingTime() {
+		return addonUsingTime;
 	}
 
-	public void setUsingTime(AddonUsingTime usingTime) {
-		this.usingTime = usingTime;
+	public void setAddonUsingTime(AddonUsingTime usingTime) {
+		this.addonUsingTime = usingTime;
 	}
 
 	public double getQuantity() {
@@ -67,12 +68,12 @@ public class BrewAddon implements java.io.Serializable {
 		this.quantity = quantity;
 	}
 
-	public Long getBrewAddonId() {
-		return brewAddonId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setBrewAddonId(Long brewAddonId) {
-		this.brewAddonId = brewAddonId;
+	public void setId(Long brewAddonId) {
+		this.id = brewAddonId;
 	}
 
 	public Addons getAddon() {
@@ -83,14 +84,6 @@ public class BrewAddon implements java.io.Serializable {
 		this.addon = addon;
 	}
 	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Set<Brewing> getBrewing() {
 		return brewing;
 	}
@@ -99,27 +92,11 @@ public class BrewAddon implements java.io.Serializable {
 		this.brewing = brewing;
 	}
 
-	public Date getStart() {
-		return start;
+	public int getStartMinute() {
+		return startMinute;
 	}
 
-	public void setStart(Date start) {
-		this.start = start;
-	}
-
-	public Date getEnd() {
-		return end;
-	}
-
-	public void setEnd(Date end) {
-		this.end = end;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setStartMinute(int startMinute) {
+		this.startMinute = startMinute;
 	}
 }

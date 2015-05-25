@@ -48,5 +48,9 @@ public class HopRepository {
 		Hop hop = (Hop) sessionFactory.getCurrentSession().get(Hop.class, id);
 		sessionFactory.getCurrentSession().delete(hop);
 	}
+	
+	public Hop getHop(Long id) {
+		return (Hop) sessionFactory.getCurrentSession().get(Hop.class, id);
+	}
 }
 

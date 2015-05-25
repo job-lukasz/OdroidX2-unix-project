@@ -22,13 +22,14 @@ public class BeerSourcesController {
 	private MaltRepository maltRepository;
 	private AddonsRepository addonsRepository;
 	private BreakRepository breakRepository;
-
+	private AddonUsingTimeRepository addonUsingTimeRepository;
 	@Autowired
-	public BeerSourcesController(HopRepository hopRepository, MaltRepository maltRepository, AddonsRepository addonsRepository, BreakRepository breakRepository) {
+	public BeerSourcesController(HopRepository hopRepository, MaltRepository maltRepository, AddonsRepository addonsRepository, BreakRepository breakRepository,AddonUsingTimeRepository addonUsingTimeRepository) {
 		this.hopRepository = hopRepository;
 		this.maltRepository = maltRepository;
 		this.addonsRepository = addonsRepository;
 		this.breakRepository = breakRepository;
+		this.addonUsingTimeRepository = addonUsingTimeRepository;
 	}
 
 	@RequestMapping(value = "sources", method = RequestMethod.GET)
@@ -36,7 +37,7 @@ public class BeerSourcesController {
 		if (principal != null) {
 			List<Hop> hops = hopRepository.getAllHops();
 			List<Malt> malts = maltRepository.getAllMalts();
-			List<Addons> addons = addonsRepository.getAllAddonss();
+			List<Addons> addons = addonsRepository.getAllAddons();
 			List<Break> breaks = breakRepository.getAllBreaks();
 			model.addAttribute("hops", hops);
 			model.addAttribute("malts", malts);
@@ -158,7 +159,7 @@ public class BeerSourcesController {
 	}
 	
 	@RequestMapping(value = "sources/getMaltColor", method = RequestMethod.GET)
-	public @ResponseBody double getMaltColor(Principal principal, long id) {
+	public @ResponseBody double getMaltColor(Principal principal, Long id) {
 		if (principal != null) {
 			return maltRepository.getMalt(id).getColor();
 		}
@@ -166,10 +167,95 @@ public class BeerSourcesController {
 	}
 	
 	@RequestMapping(value = "sources/getMaltDescription", method = RequestMethod.GET)
-	public @ResponseBody String[] getMaltDescription(Principal principal, long id) {
+	public @ResponseBody String[] getMaltDescription(Principal principal, Long id) {
 		if (principal != null) {
 			return new String[]{maltRepository.getMalt(id).getDescription()};
 		}
 		return new String[]{""};
+	}
+	
+	@RequestMapping(value = "sources/getBreaks", method = RequestMethod.GET)
+	public @ResponseBody List<Break> getBreaks(Principal principal) {
+		if (principal != null) {
+			return breakRepository.getAllBreaks();
+			
+		}
+		return null;
+	}
+	
+	@RequestMapping(value = "sources/getBreakTemp_Low", method = RequestMethod.GET)
+	public @ResponseBody double getBreakTempLow(Principal principal, Long id) {
+		if (principal != null) {
+			return breakRepository.getBreak(id).getTemp_low();
+		}
+		return 0.0;
+	}
+	
+	@RequestMapping(value = "sources/getBreakTemp_High", method = RequestMethod.GET)
+	public @ResponseBody double getBreakTempHigh(Principal principal, Long id) {
+		if (principal != null) {
+			return breakRepository.getBreak(id).getTemp_high();
+		}
+		return 0.0;
+	}
+	
+	@RequestMapping(value = "sources/getBreakDescription", method = RequestMethod.GET)
+	public @ResponseBody String[] getBreakDescription(Principal principal, Long id) {
+		if (principal != null) {
+			return new String[]{breakRepository.getBreak(id).getDescription()};
+		}
+		return new String[]{""};
+	}
+	
+	@RequestMapping(value = "sources/getHops", method = RequestMethod.GET)
+	public @ResponseBody List<Hop> getHops(Principal principal) {
+		if (principal != null) {
+			return hopRepository.getAllHops();
+			
+		}
+		return null;
+	}
+	
+	@RequestMapping(value = "sources/getHopAcid", method = RequestMethod.GET)
+	public @ResponseBody double getHopAcid(Principal principal, Long id) {
+		if (principal != null) {
+			return hopRepository.getHop(id).getAcid();
+		}
+		return 0.0;
+	}
+	
+	@RequestMapping(value = "sources/getHopDescription", method = RequestMethod.GET)
+	public @ResponseBody String[] getHopDescription(Principal principal, Long id) {
+		if (principal != null) {
+			return new String[]{hopRepository.getHop(id).getDescription()};
+		}
+		return new String[]{""};
+	}
+	
+	
+	
+	@RequestMapping(value = "sources/getAddons", method = RequestMethod.GET)
+	public @ResponseBody List<Addons> getAddons(Principal principal) {
+		if (principal != null) {
+			return addonsRepository.getAllAddons();
+			
+		}
+		return null;
+	}
+	
+	@RequestMapping(value = "sources/getAddonDescription", method = RequestMethod.GET)
+	public @ResponseBody String[] getAddonDescription(Principal principal, Long id) {
+		if (principal != null) {
+			return new String[]{addonsRepository.getAddon(id).getDescription()};
+		}
+		return new String[]{""};
+	}
+	
+	@RequestMapping(value = "sources/getAddonsUsingTime", method = RequestMethod.GET)
+	public @ResponseBody List<AddonUsingTime> getAddonsUsingTime(Principal principal) {
+		if (principal != null) {
+			return addonUsingTimeRepository.getAllAddonUsingTimes();
+		}
+		return null;
 	}
 }

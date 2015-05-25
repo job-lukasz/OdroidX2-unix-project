@@ -128,7 +128,7 @@ td.actions {
     }
     #sidebar-wrapper {
         position: fixed;
-        width: 150px;
+        width: 200px;
         margin-left: -170px;
     }
 }

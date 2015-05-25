@@ -22,7 +22,7 @@ public class BrewMalt implements java.io.Serializable {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue
-	private Long brewMaltId;
+	private Long id;
 
 	@ManyToMany(mappedBy = "malts")
 	private Set<Brewing> brewing = new HashSet<Brewing>();
@@ -49,12 +49,12 @@ public class BrewMalt implements java.io.Serializable {
 		this.quantity = quantity;
 	}
 	
-	public Long getBrewMaltId() {
-		return brewMaltId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setBrewMaltId(Long brewMaltId) {
-		this.brewMaltId = brewMaltId;
+	public void setId(Long brewMaltId) {
+		this.id = brewMaltId;
 	}
 
 	public Malt getMalt() {

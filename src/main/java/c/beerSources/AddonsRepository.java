@@ -26,7 +26,7 @@ public class AddonsRepository {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Addons> getAllAddonss(){
+	public List<Addons> getAllAddons(){
 		try {
 			List<Addons> Addons = sessionFactory.getCurrentSession().createCriteria(Addons.class).list();	
 			return Addons;
@@ -49,6 +49,10 @@ public class AddonsRepository {
 	public void delete(Long id) {
 		Addons addons = (Addons) sessionFactory.getCurrentSession().get(Addons.class, id);
 		sessionFactory.getCurrentSession().delete(addons);
+	}
+	
+	public Addons getAddon(Long id) {
+		return (Addons) sessionFactory.getCurrentSession().get(Addons.class, id);
 	}
 }
 

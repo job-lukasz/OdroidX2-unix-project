@@ -31,17 +31,9 @@ public class Hop implements java.io.Serializable {
 	@Column
 	private String description;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "hop")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "hop")
 	private List<BrewHop> Brewing = new ArrayList<BrewHop>();
 
-	public List<BrewHop> getBrewing() {
-		return Brewing;
-	}
-
-	public void setBrewing(List<BrewHop> brewing) {
-		Brewing = brewing;
-	}
-	
 	public Hop(String name, double acid){
 		this.name=name;
 		this.acid = acid;

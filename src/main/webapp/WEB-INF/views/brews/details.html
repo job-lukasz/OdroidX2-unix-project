@@ -11,47 +11,60 @@
 			th:replace="fragments/alert :: alert (type=success, message=${message})">&nbsp;</div>
 	</th:block>
 	<div id="wrapper">
-		<div class="title">
-			<span th:text="${brew.name}"> </span> <span
-				style="float: right; margin-right: 90px">1.1.2015</span>
-		</div>
+
 		<div id="sidebar-wrapper">
+			<div class="title">
+				<span th:text="${brew.name}"> </span>
+				<button data-type="editbrew" th:attr="data-id=${brew.brewingId}, data-name=${brew.name}, 
+				data-brewdate=${brew.date}, data-brewtype=${brew.type}, data-startdensity=${brew.startDensity},
+				data-enddensity=${brew.endDensity}, data-description=${brew.description}"
+					data-action="editBrew" type="button" class="edit btn"
+					data-toggle="modal" data-target="#editModal" />
+			</div>
+
 			<table class="table table-striped">
+				<tr>
+					<td>Data:</td>
+					<td th:text="${brew.date}"></td>
+				</tr>
 				<tr>
 					<td>Typ:</td>
 					<td th:text="${brew.type}"></td>
 				</tr>
 				<tr>
 					<td>IBU:</td>
-					<td th:text="${brew.type}"></td>
+					<td th:text="${brew.ibu}"></td>
 				</tr>
 				<tr>
 					<td>Color:</td>
-					<td th:text="${brew.type}"></td>
+					<td th:text="${brew.color}"></td>
 				</tr>
 				<tr>
 					<td>Blg pocz.:</td>
-					<td th:text="${brew.type}"></td>
+					<td th:text="${brew.startDensity}"></td>
 				</tr>
 				<tr>
 					<td>Blg kon.:</td>
-					<td th:text="${brew.type}"></td>
+					<td th:text="${brew.endDensity}"></td>
 				</tr>
 				<tr>
 					<td>Alkohol:</td>
-					<td th:text="${brew.type}"></td>
+					<td th:text="${brew.alkohol}"></td>
 				</tr>
 				<tr>
 					<td>Wydajność:</td>
-					<td th:text="${brew.type}"></td>
+					<td th:text="${brew.efficiency}"></td>
 				</tr>
 			</table>
 		</div>
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
+				<div class="title">Opis</div>
+				<div class="text" th:text="${brew.description}"></div>
+
 				<div class="row">
-					<div class="col-md-4 malt">
-						<div>
+					<div class="col-md-6 malt">
+						<div class="title">
 							Słody
 							<button data-type="brewmalt" th:attr="data-id=${brew.brewingId}"
 								data-action="addMalt" type="button" class="add btn"
@@ -69,66 +82,186 @@
 								<td th:text="${malt.quantity}"></td>
 								<td class="actions">
 									<button data-type="brewmalt"
-										th:attr="data-action='saveMalt',data-id=${malt.brewMaltId},data-maltid=${malt.malt.id},data-quantity=${malt.quantity}"
+										th:attr="data-action='saveMalt',data-id=${malt.id},data-maltid=${malt.malt.id},data-quantity=${malt.quantity}"
 										type="button" class="edit btn" data-toggle="modal"
 										data-target="#editModal" />
-									<button th:attr="data-action='deleteMalt',data-maltid=${malt.brewMaltId},data-id=${brew.brewingId}, data-type='brewmalt'"
+									<button
+										th:attr="data-action='deleteMalt',data-maltid=${malt.id},data-id=${brew.brewingId}, data-type='brewmalt'"
 										type="button" class="delete btn" data-toggle="modal"
 										data-target="#deleteModal" />
 								</td>
 							</tr>
 						</table>
 					</div>
-					<div class="col-md-4 malt">
-						<div>Zacieranie <button data-type="addbreak" th:attr="data-id=${brew.brewingId}"
+					<div class="col-md-6 malt">
+						<div class="title">
+							Zacieranie
+							<button data-type="brewbreak" th:attr="data-id=${brew.brewingId}"
 								data-action="addBreak" type="button" class="add btn"
-								data-toggle="modal" data-target="#editModal" /></div>
+								data-toggle="modal" data-target="#editModal" />
+						</div>
 						<table class="table table-striped">
 							<tr>
 								<th class="name">Nazwa</th>
-								<th class="time">Czas</th>
 								<th class="start">Start</th>
+								<th class="time">Czas</th>
+								<th class="actions"></th>
 							</tr>
-						</table>
-					</div>
-					<div class="col-md-4 malt">
-						<div>Chmielenie</div>
-						<table class="table table-striped">
-							<tr>
-								<th class="name">Nazwa</th>
-								<th class="time">Czas</th>
-								<th class="start">Start</th>
+							<tr th:each="break: ${brew.breaks}">
+								<td th:text="${break._break.name}"></td>
+								<td th:text="${break.startMinute}"></td>
+								<td th:text="${break.duration}"></td>
+								<td class="actions">
+									<button data-type="brewbreak"
+										th:attr="data-action='saveBreak',data-id=${break.id},data-breakid=${break._break.id},data-startMinute=${break.startMinute},data-duration=${break.duration}"
+										type="button" class="edit btn" data-toggle="modal"
+										data-target="#editModal" />
+									<button data-type="brewbreak"
+										th:attr="data-action='deleteBreak',data-breakid=${break.id},data-id=${brew.brewingId}"
+										type="button" class="delete btn" data-toggle="modal"
+										data-target="#deleteModal" />
+								</td>
 							</tr>
 						</table>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-4 malt">
-						<div>Fermentacja</div>
+					<div class="col-md-6 malt">
+						<div class="title">
+							Chmielenie
+							<button data-type="brewhop" th:attr="data-id=${brew.brewingId}"
+								data-action="addHop" type="button" class="add btn"
+								data-toggle="modal" data-target="#editModal" />
+						</div>
 						<table class="table table-striped">
 							<tr>
-								<th class="name">Nazwa</th>
-								<th class="quantity">Ilość</th>
+								<th class="name">Chmiel</th>
+								<th class="time">Start</th>
+								<th class="start">Ilość</th>
+								<th class="actions"></th>
+							</tr>
+							<tr th:each="hop: ${brew.hops}">
+								<td th:text="${hop.hop.name}"></td>
+								<td th:text="${hop.startMinute}"></td>
+								<td th:text="${hop.quantity}"></td>
+								<td class="actions">
+									<button data-type="brewhop"
+										th:attr="data-action='saveHop',data-id=${hop.id},data-hopid=${hop.hop.id},data-startMinute=${hop.startMinute},data-quantity=${hop.quantity}"
+										type="button" class="edit btn" data-toggle="modal"
+										data-target="#editModal" />
+									<button data-type="brewhop"
+										th:attr="data-action='deleteHop',data-hopid=${hop.id},data-id=${brew.brewingId}"
+										type="button" class="delete btn" data-toggle="modal"
+										data-target="#deleteModal" />
+								</td>
 							</tr>
 						</table>
 					</div>
-					<div class="col-md-4 malt">
-						<div>Refermentacja</div>
+
+					<div class="col-md-6 malt">
+						<div class="title">
+							Dodatki
+							<button data-type="brewaddon" th:attr="data-id=${brew.brewingId}"
+								data-action="addAddon" type="button" class="add btn"
+								data-toggle="modal" data-target="#editModal" />
+						</div>
 						<table class="table table-striped">
 							<tr>
 								<th class="name">Nazwa</th>
-								<th class="time">Czas</th>
 								<th class="start">Start</th>
+								<th class="start">Ilość</th>
+								<th class="start">Podczas</th>
+								<th class="actions"></th>
+							</tr>
+							<tr th:each="addon: ${brew.addons}">
+								<td th:text="${addon.addon.name}"></td>
+								<td th:text="${addon.startMinute}"></td>
+								<td th:text="${addon.quantity}"></td>
+								<td th:text="${addon.addonUsingTime.name}"></td>
+								<td class="actions">
+									<button data-type="brewaddon"
+										th:attr="data-action='saveAddon',data-id=${addon.id},data-addonid=${addon.addon.id},data-addonusingtimeid=${addon.addonUsingTime.id},data-startMinute=${addon.startMinute},data-quantity=${addon.quantity}"
+										type="button" class="edit btn" data-toggle="modal"
+										data-target="#editModal" />
+									<button data-type="brewaddon"
+										th:attr="data-action='deleteAddon',data-addonid=${addon.id},data-id=${brew.brewingId}"
+										type="button" class="delete btn" data-toggle="modal"
+										data-target="#deleteModal" />
+								</td>
 							</tr>
 						</table>
 					</div>
-					<div class="col-md-4 malt">
-						<div>Rozlew</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 malt">
+						<div class="title">
+							Fermentacja
+							<button data-type="brewfermentation"
+								th:attr="data-id=${brew.brewingId}, data-name='Fermentacje', data-yeast=${brew.yeast}, data-yeastAddDate=${brew.yeastAddDate},
+								data-yeastorigin=${brew.yeastOrigin}, data-fermentationstartvolume=${brew.fermentationStartVolume},
+								data-fermantationtemperature=${brew.fermantationTemperature}, data-silentfermentationdate=${brew.silentFermantationDate},
+								data-silentFemrantationTemperature=${brew.silentFemrantationTemperature}"
+								data-action="editFermentation" type="button" class="edit btn"
+								data-toggle="modal" data-target="#editModal" />
+						</div>
 						<table class="table table-striped">
 							<tr>
-								<th class="name">Nazwa</th>
-								<th class="time">Czas</th>
-								<th class="start">Start</th>
+								<td>Drożdze</td>
+								<td th:text="${brew.yeast}"></td>
+							</tr>
+							<tr>
+								<td>Data dodania drożdy</td>
+								<td th:text="${brew.yeastAddDate}"></td>
+							</tr>
+							<tr>
+								<td>Pochodzenie drożdzy</td>
+								<td th:text="${brew.yeastOrigin}"></td>
+							</tr>
+							<tr>
+								<td>Początkowa objętość</td>
+								<td th:text="${brew.fermentationStartVolume}"></td>
+							</tr>
+							<tr>
+								<td>Temperatura fermentacji</td>
+								<td th:text="${brew.fermantationTemperature}"></td>
+							</tr>
+							<tr>
+								<td>Rozpoczęcie fermentacji cichej</td>
+								<td th:text="${brew.silentFermantationDate}"></td>
+							</tr>
+							<tr>
+								<td>Temperatura fermentacji cichej</td>
+								<td th:text="${brew.silentFemrantationTemperature}"></td>
+							</tr>
+						</table>
+					</div>
+					<div class="col-md-6 malt">
+						<div class="title">
+							Rozlew
+							<button data-type="brewbottling"
+								th:attr="data-id=${brew.brewingId}, data-name='Rozlew', 
+								data-endvolume=${brew.endVolume}, data-bottlingdate=${brew.bottlingDate},
+								data-refermentationsource=${brew.referementationSource},
+								data-referemntationsourcevolume=${brew.referemntationSourceVolume}"
+								data-action="editBottling" type="button" class="edit btn"
+								data-toggle="modal" data-target="#editModal" />
+						</div>
+						<table class="table table-striped">
+							<tr>
+								<td>Końcowa objętość</td>
+								<td th:text="${brew.endVolume}"></td>
+							</tr>
+							<tr>
+								<td>Data rozlewu</td>
+								<td th:text="${brew.bottlingDate}"></td>
+							</tr>
+							<tr>
+								<td>Surowiec refermentacji</td>
+								<td th:text="${brew.referementationSource}"></td>
+							</tr>
+							<tr>
+								<td>Ilość surowca refermentacji</td>
+								<td th:text="${brew.referemntationSourceVolume}"></td>
 							</tr>
 						</table>
 					</div>

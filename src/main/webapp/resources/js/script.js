@@ -196,7 +196,94 @@ $(document).ready(function() {
 				'action' : '../sources/getMaltDescription'
 			} ]);
 			break;
-		}
+		case "brewbreak":
+			var startMinute = button.data('startminute');
+			var duration = button.data('duration');
+			var breakId = button.data('breakid');
+			modal.find('form')[0].appendChild(generateSelectBox('breakId', 'Przerwa: ', '../sources/getBreaks', breakId));
+			modal.find('form')[0].appendChild(generateInput('startMinute', 'Start: ', startMinute));
+			modal.find('form')[0].appendChild(generateInput('duration', 'Czas trwania: ', duration));
+			showPropertyPanel("breakId", [ {
+				'property' : 'Temperatura dolna:',
+				'action' : '../sources/getBreakTemp_Low'
+			},{
+				'property' : 'Temperatura gorna:',
+				'action' : '../sources/getBreakTemp_High'
+			},{
+				'property' : 'Opis',
+				'action' : '../sources/getMaltDescription'
+			} ]);
+			break;
+	case "brewhop":
+		var startMinute = button.data('startminute');
+		var quantity = button.data('quantity');
+		var breakId = button.data('breakid');
+		modal.find('form')[0].appendChild(generateSelectBox('hopId', 'Chmiel: ', '../sources/getHops', breakId));
+		modal.find('form')[0].appendChild(generateInput('startMinute', 'Start: ', startMinute));
+		modal.find('form')[0].appendChild(generateInput('quantity', 'Ilość: ', quantity));
+		showPropertyPanel("hopId", [ {
+			'property' : 'Ilość alfa-kwasów',
+			'action' : '../sources/getHopAcid'
+		},{
+			'property' : 'Opis',
+			'action' : '../sources/getHopDescription'
+		} ]);
+		break;
+	case "brewaddon":
+		var startMinute = button.data('startminute');
+		var quantity = button.data('quantity');
+		var addonId = button.data('addonid');
+		var addonUsingTimeId = button.data('addonusingtimeid');
+		modal.find('form')[0].appendChild(generateSelectBox('addonId', 'Dodatek: ', '../sources/getAddons', addonId));
+		modal.find('form')[0].appendChild(generateSelectBox('addonUsingTimeId', 'Podczas: ', '../sources/getAddonsUsingTime', addonUsingTimeId));
+		modal.find('form')[0].appendChild(generateInput('startMinute', 'Start: ', startMinute));
+		modal.find('form')[0].appendChild(generateInput('quantity', 'Ilość: ', quantity));
+		showPropertyPanel("addonId", [ {
+			'property' : 'Opis',
+			'action' : '../sources/getAddonDescription'
+		} ]);
+		break;
+	case "editbrew":
+		var name = button.data('name');
+		var date = button.data('brewdate');
+		var type = button.data('brewtype');
+		var startDensity = button.data('startdensity');
+		var endDensity = button.data('enddensity');
+		var description = button.data('description');
+		modal.find('form')[0].appendChild(generateInput('name', 'Nazwa: ', name));
+		modal.find('form')[0].appendChild(generateInput('date', 'Data warzenia: ',date));
+		modal.find('form')[0].appendChild(generateInput('type', 'Typ: ', type));
+		modal.find('form')[0].appendChild(generateInput('startDensity', 'Gęstość początkowa: ', startDensity));
+		modal.find('form')[0].appendChild(generateInput('endDensity', 'Gęstość końcowa: ', endDensity));
+		modal.find('form')[0].appendChild(generateTextArea('description', 'Opis: ', description));
+		break;
+	case "brewfermentation":
+		var yeast = button.data('yeast');
+		var yeastAddDate = button.data('yeastadddate');
+		var yeastOrigin = button.data('yeastorigin');
+		var fermentationstartvolume = button.data('fermentationstartvolume');
+		var fermantationTemperature = button.data('fermantationtemperature');
+		var silentFermentationDate = button.data('silentfermentationdate');
+		var silentFemrantationTemperature = button.data('silentfemrantationtemperature');
+		modal.find('form')[0].appendChild(generateInput('yeast', 'Drożdże: ', yeast));
+		modal.find('form')[0].appendChild(generateInput('yeastAddDate', 'Data dodania drożdży ',yeastAddDate));
+		modal.find('form')[0].appendChild(generateInput('yeastOrigin', 'Pochodzenie drożdży: ', yeastOrigin));
+		modal.find('form')[0].appendChild(generateInput('fermentationStartVolume', 'Początkowa objętość: ', fermentationstartvolume));
+		modal.find('form')[0].appendChild(generateInput('fermantationTemperature', 'Temperatura fermentacji burzliwej: ', fermantationTemperature));
+		modal.find('form')[0].appendChild(generateInput('silentFermentationDate', 'Data rozpoczęcia fermentacji cichej: ', silentFermentationDate));
+		modal.find('form')[0].appendChild(generateInput('silentFemrantationTemperature', 'Temperatura fermentacji cichej: ', silentFemrantationTemperature));
+		break;
+	case "brewbooteling":
+		var endVolume = button.data('endvolume');
+		var bottlingDate = button.data('bottling');
+		var refermentationSource = button.data('refermentationsource');
+		var referemntationSourceVolume = button.data('referemntationsourcevolume');
+		modal.find('form')[0].appendChild(generateInput('endVolume', 'Końcowa objętość: ', endVolume));
+		modal.find('form')[0].appendChild(generateInput('bottlingDate', 'Data rozlewu: ',bottlingDate));
+		modal.find('form')[0].appendChild(generateInput('refermentationSource', 'Surowiec refermentacji: ',refermentationSource));
+		modal.find('form')[0].appendChild(generateInput('referemntationSourceVolume ', 'Ilość surowca refermentacji: ', referemntationSourceVolume ));
+		break;
+	}
 	});
 	$('#editModal').on('hide.bs.modal', function(event) {
 		var modal = $(this);
@@ -229,6 +316,39 @@ $(document).ready(function() {
 			input.setAttribute('type', 'hidden');
 			input.setAttribute('id', "maltId");
 			input.setAttribute('value', maltid);
+			div.appendChild(input);
+			modal.find(".delete-modal-body").append(div);
+			break;
+		case "brewbreak":
+			var breakid = button.data('breakid');
+			var input = document.createElement('input');
+			var div = document.createElement('div');
+			div.setAttribute('class', 'form-group extra-input');
+			input.setAttribute('type', 'hidden');
+			input.setAttribute('id', "breakId");
+			input.setAttribute('value', breakid);
+			div.appendChild(input);
+			modal.find(".delete-modal-body").append(div);
+			break;
+		case "brewhop":
+			var hopid = button.data('hopid');
+			var input = document.createElement('input');
+			var div = document.createElement('div');
+			div.setAttribute('class', 'form-group extra-input');
+			input.setAttribute('type', 'hidden');
+			input.setAttribute('id', "hopId");
+			input.setAttribute('value', hopid);
+			div.appendChild(input);
+			modal.find(".delete-modal-body").append(div);
+			break;
+		case "brewaddon":
+			var addonid = button.data('addonid');
+			var input = document.createElement('input');
+			var div = document.createElement('div');
+			div.setAttribute('class', 'form-group extra-input');
+			input.setAttribute('type', 'hidden');
+			input.setAttribute('id', "addonId");
+			input.setAttribute('value', addonid);
 			div.appendChild(input);
 			modal.find(".delete-modal-body").append(div);
 			break;

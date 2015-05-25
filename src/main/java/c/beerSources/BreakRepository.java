@@ -24,29 +24,31 @@ public class BreakRepository {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Break> getAllBreaks(){
+	public List<Break> getAllBreaks() {
 		try {
-			List<Break> _break = sessionFactory.getCurrentSession().createCriteria(Break.class).list();	
+			List<Break> _break = sessionFactory.getCurrentSession().createCriteria(Break.class).list();
 			return _break;
 		} catch (PersistenceException e) {
 			return null;
 		}
 	}
-	
+
 	public Break findById(String name) {
 		try {
-			Break _break = (Break) sessionFactory.getCurrentSession().createQuery("From Break Where name = :name")
-					.setParameter("name", name).uniqueResult();
+			Break _break = (Break) sessionFactory.getCurrentSession().createQuery("From Break Where name = :name").setParameter("name", name).uniqueResult();
 			return _break;
 		} catch (PersistenceException e) {
 			return null;
 		}
 	}
-	
+
 	@Transactional
 	public void delete(Long id) {
 		Break _break = (Break) sessionFactory.getCurrentSession().get(Break.class, id);
 		sessionFactory.getCurrentSession().delete(_break);
 	}
-}
 
+	public Break getBreak(Long id) {
+		return (Break) sessionFactory.getCurrentSession().get(Break.class, id);
+	}
+}

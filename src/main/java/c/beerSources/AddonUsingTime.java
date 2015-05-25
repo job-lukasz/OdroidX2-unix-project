@@ -1,4 +1,4 @@
-package c.brew;
+package c.beerSources;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import c.brew.BrewAddon;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "AddonUsingTime")
@@ -18,35 +20,32 @@ public class AddonUsingTime implements java.io.Serializable {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue
-	private Long addonUsingId;
+	private Long id;
 
 	@Column
-	private String timeName;
+	private String name;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usingTime")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "addonUsingTime")
 	private List<BrewAddon> brewAddons = new ArrayList<BrewAddon>();
 	
-	public List<BrewAddon> getBrewAddons() {
-		return brewAddons;
+	public Long getId() {
+		return id;
 	}
 
-	public void setBrewAddons(List<BrewAddon> brewAddons) {
-		this.brewAddons = brewAddons;
+	public void setId(Long addonUsingId) {
+		this.id = addonUsingId;
 	}
 
-	public Long getAddonUsingId() {
-		return addonUsingId;
+	public String getName(){
+		return name;
 	}
 
-	public void setAddonUsingId(Long addonUsingId) {
-		this.addonUsingId = addonUsingId;
+	public void setName(String timeName) {
+		this.name = timeName;
 	}
-
-	public String getTimeName() {
-		return timeName;
+	
+	public AddonUsingTime(String timeName){
+		this.name=timeName;
 	}
-
-	public void setTimeName(String timeName) {
-		this.timeName = timeName;
-	}
+	protected AddonUsingTime(){};
 }

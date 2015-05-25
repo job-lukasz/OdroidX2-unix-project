@@ -1,10 +1,17 @@
 package c.beerSources;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import c.brew.BrewAddon;
 
 @SuppressWarnings("serial")
 @Entity
@@ -31,6 +38,9 @@ public class Addons implements java.io.Serializable {
 	
 	@Column
 	private String description;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "addon")
+	private List<BrewAddon> brewing = new ArrayList<BrewAddon>();
 	
 	public Addons(String name, String info){
 		this.name=name;

@@ -1,6 +1,5 @@
 package c.brew;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,29 +22,30 @@ public class BrewHop implements java.io.Serializable {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue
-	private Long brewHopId;
+	private Long id;
 
-	@Column
-	private String name;
-	
 	@ManyToMany(mappedBy = "hops")
 	private Set<Brewing> brewing = new HashSet<Brewing>();
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "hopId", nullable = false)
 	private Hop hop;
 	
 	@Column
-	private Date start;
-	
-	@Column
-	private Date end;
-	
-	@Column
-	private String description;
+	private int startMinute;
 	
 	@Column
 	private double quantity;
+	
+	public BrewHop(Hop hop, int startMinute, double quantity){
+		this.hop = hop;
+		this.startMinute = startMinute;
+		this.quantity = quantity;
+	}
+	
+	protected BrewHop(){
+		
+	}
 	
 	public double getQuantity() {
 		return quantity;
@@ -55,28 +55,12 @@ public class BrewHop implements java.io.Serializable {
 		this.quantity = quantity;
 	}
 	
-	public Long getBrewHopId() {
-		return brewHopId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setBrewHopId(Long brewHopId) {
-		this.brewHopId = brewHopId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Set<Brewing> getBrewing() {
-		return brewing;
-	}
-
-	public void setBrewing(Set<Brewing> brewing) {
-		this.brewing = brewing;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Hop getHop() {
@@ -87,27 +71,19 @@ public class BrewHop implements java.io.Serializable {
 		this.hop = hop;
 	}
 
-	public Date getStart() {
-		return start;
+	public int getStartMinute() {
+		return startMinute;
 	}
 
-	public void setStart(Date start) {
-		this.start = start;
+	public void setStartMinute(int startMinute) {
+		this.startMinute = startMinute;
+	}
+	
+	public Set<Brewing> getBrewing() {
+		return brewing;
 	}
 
-	public Date getEnd() {
-		return end;
-	}
-
-	public void setEnd(Date end) {
-		this.end = end;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setBrewing(Set<Brewing> brewing) {
+		this.brewing = brewing;
 	}
 }

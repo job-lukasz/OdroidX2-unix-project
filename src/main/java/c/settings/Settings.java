@@ -24,6 +24,7 @@ public class Settings {
 
 	@Autowired
 	private MeasurementRepository measureRepository;
+	
 	private Set<String> getAvailblePort(){
 		String[] portNames = SerialPortList.getPortNames();
 		return new HashSet<String>(Arrays.asList(portNames));

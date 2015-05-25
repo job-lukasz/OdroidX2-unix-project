@@ -22,35 +22,43 @@ public class BrewBreak implements java.io.Serializable {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue
-	private Long brewBreakId;
-
-	@Column
-	private String name;
+	private Long id;
 
 	@ManyToMany(mappedBy = "breaks")
 	private Set<Brewing> brewing = new HashSet<Brewing>();
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "breakId", nullable = false)
 	private Break _break;
-
-	@Column
-	private String description;
 	
-	public Long getBrewBreakId() {
-		return brewBreakId;
+	@Column
+	private int startMinute;
+	
+	@Column
+	private int duration;
+	
+	public int getStartMinute() {
+		return startMinute;
 	}
 
-	public void setBrewBreakId(Long brewBreakId) {
-		this.brewBreakId = brewBreakId;
+	public void setStartMinute(int startTime) {
+		this.startMinute = startTime;
 	}
 
-	public String getName() {
-		return name;
+	public int getDuration() {
+		return duration;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long brewBreakId) {
+		this.id = brewBreakId;
 	}
 
 	public Set<Brewing> getBrewing() {
@@ -68,12 +76,14 @@ public class BrewBreak implements java.io.Serializable {
 	public void set_break(Break _break) {
 		this._break = _break;
 	}
-
-	public String getDescription() {
-		return description;
+	
+	public BrewBreak(Break _break, int startMinute, int duration){
+		this._break=_break;
+		this.startMinute=startMinute;
+		this.duration=duration;
 	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	
+	protected BrewBreak(){
+		
 	}
 }
