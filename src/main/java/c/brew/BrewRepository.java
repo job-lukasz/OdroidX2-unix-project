@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import c.beerSources.Yeast;
+
 @Repository
 @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 public class BrewRepository {
@@ -196,5 +198,12 @@ public class BrewRepository {
 		hops.add(brewHop);
 		brewing.setHops(hops);
 		sessionFactory.getCurrentSession().saveOrUpdate(brewing);
+	}
+	
+	@Transactional
+	public void setYeast(Long brewId, Yeast yeast) {
+		Brewing brewing = (Brewing) sessionFactory.getCurrentSession().get(Brewing.class, brewId);
+		brewing.setYeast(yeast);
+		sessionFactory.getCurrentSession().saveOrUpdate(brewing);		
 	}
 }

@@ -25,6 +25,8 @@ import c.beerSources.Hop;
 import c.beerSources.HopRepository;
 import c.beerSources.Malt;
 import c.beerSources.MaltRepository;
+import c.beerSources.Yeast;
+import c.beerSources.YeastRepository;
 
 @Controller
 @Secured("ROLE_USER")
@@ -36,16 +38,18 @@ public class BrewController {
 	private HopRepository hopRepository;
 	private AddonsRepository addonRepository;
 	private AddonUsingTimeRepository addonUsingTimeRepository;
+	private YeastRepository yeastRepository;
 	private static SimpleDateFormat dateParser = new SimpleDateFormat("yyyy.MM.dd");
 	
 	@Autowired
-	public BrewController(BrewRepository brewRepository, MaltRepository maltRepository, BreakRepository breakRepository, HopRepository hopRepository, AddonsRepository addonRepository,AddonUsingTimeRepository addonUsingTimeRepository) {
+	public BrewController(YeastRepository yeastRepository, BrewRepository brewRepository, MaltRepository maltRepository, BreakRepository breakRepository, HopRepository hopRepository, AddonsRepository addonRepository,AddonUsingTimeRepository addonUsingTimeRepository) {
 		this.brewRepository = brewRepository;
 		this.maltRepository = maltRepository;
 		this.breakRepository = breakRepository;
 		this.hopRepository = hopRepository;
 		this.addonRepository = addonRepository;
 		this.addonUsingTimeRepository = addonUsingTimeRepository;
+		this.yeastRepository = yeastRepository;
 	}
 
 	@RequestMapping(value = "brews", method = RequestMethod.GET)
@@ -231,7 +235,6 @@ public class BrewController {
 	@RequestMapping(value = "brews/editBrew", method = RequestMethod.POST)
 	public @ResponseBody boolean editBrew(Principal principal, @RequestParam Long id,@RequestParam String name, @RequestParam String date, @RequestParam String type, @RequestParam double startDensity, @RequestParam double endDensity, @RequestParam String description) {
 		if (principal != null) {
-			Log.rootLogger.debug("Delete brewAddon- id: " + id);
 			Brewing brew = brewRepository.getBrewing(id);
 			brew.setName(name);
 			
@@ -252,11 +255,11 @@ public class BrewController {
 	}
 	
 	@RequestMapping(value = "brews/editFermentation", method = RequestMethod.POST)
-	public @ResponseBody boolean editFermentation(Principal principal, @RequestParam Long id,@RequestParam String yeast, @RequestParam String yeastAddDate, @RequestParam String yeastOrigin, @RequestParam double fermentationStartVolume, @RequestParam double fermantationTemperature, @RequestParam String silentFermentationDate, @RequestParam double silentFemrantationTemperature) {
+	public @ResponseBody boolean editFermentation(Principal principal, @RequestParam Long id,@RequestParam Long yeastId, @RequestParam String yeastAddDate, @RequestParam String yeastOrigin, @RequestParam double fermentationStartVolume, @RequestParam double fermantationTemperature, @RequestParam String silentFermentationDate, @RequestParam double silentFemrantationTemperature) {
 		if (principal != null) {
-			Log.rootLogger.debug("Delete brewAddon- id: " + id);
 			Brewing brew = brewRepository.getBrewing(id);
-			brew.setYeast(yeast);
+			Yeast yeast = yeastRepository.getYeast(yeastId);
+			brewRepository.setYeast(id,yeast);
 			brew.setYeastOrigin(yeastOrigin);
 			try {
 				brew.setYeastAddDate(dateParser.parse(yeastAddDate));
@@ -267,7 +270,6 @@ public class BrewController {
 			brew.setFermantationTemperature(fermantationTemperature);
 			brew.setFermentationStartVolume(fermentationStartVolume);
 			brew.setSilentFemrantationTemperature(silentFemrantationTemperature);
-		
 			brewRepository.save(brew);
 			return true;
 		}
@@ -275,13 +277,12 @@ public class BrewController {
 	}
 	
 	@RequestMapping(value = "brews/editBottling", method = RequestMethod.POST)
-	public @ResponseBody boolean editBotlling(Principal principal, @RequestParam Long id,@RequestParam double endVolume,@RequestParam String refermentationSource, @RequestParam double referemntationSourceVolume, @RequestParam String bottlingDate){
+	public @ResponseBody boolean editBottling(Principal principal, @RequestParam Long id,@RequestParam double endVolume,@RequestParam String refermentationSource, @RequestParam double refermentationSourceVolume, @RequestParam String bottlingDate){
 		if (principal != null) {
-			Log.rootLogger.debug("Delete brewAddon- id: " + id);
 			Brewing brew = brewRepository.getBrewing(id);
 			brew.setEndVolume(endVolume);
 			brew.setReferementationSource(refermentationSource);
-			brew.setReferemntationSourceVolume(referemntationSourceVolume);
+			brew.setReferemntationSourceVolume(refermentationSourceVolume);
 			try {
 				brew.setBottlingDate(dateParser.parse(bottlingDate));
 			} catch (ParseException e) {

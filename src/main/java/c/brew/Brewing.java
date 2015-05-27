@@ -15,7 +15,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import c.beerSources.Yeast;
 
 @SuppressWarnings("serial")
 @Entity
@@ -70,8 +73,9 @@ public class Brewing implements java.io.Serializable {
 	private double color;
 	// Fermentacja
 
-	@Column
-	private String yeast;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "YeastId", nullable = true)
+	private Yeast yeast;
 
 	@Column
 	private Date yeastAddDate;
@@ -161,11 +165,11 @@ public class Brewing implements java.io.Serializable {
 		this.endDensity = endDensity;
 	}
 
-	public String getYeast() {
+	public Yeast getYeast() {
 		return yeast;
 	}
 
-	public void setYeast(String yeast) {
+	public void setYeast(Yeast yeast) {
 		this.yeast = yeast;
 	}
 

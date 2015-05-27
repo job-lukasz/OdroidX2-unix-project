@@ -22,14 +22,16 @@ public class BeerSourcesController {
 	private MaltRepository maltRepository;
 	private AddonsRepository addonsRepository;
 	private BreakRepository breakRepository;
+	private YeastRepository yeastRepository;
 	private AddonUsingTimeRepository addonUsingTimeRepository;
 	@Autowired
-	public BeerSourcesController(HopRepository hopRepository, MaltRepository maltRepository, AddonsRepository addonsRepository, BreakRepository breakRepository,AddonUsingTimeRepository addonUsingTimeRepository) {
+	public BeerSourcesController(YeastRepository yeastRepository, HopRepository hopRepository, MaltRepository maltRepository, AddonsRepository addonsRepository, BreakRepository breakRepository,AddonUsingTimeRepository addonUsingTimeRepository) {
 		this.hopRepository = hopRepository;
 		this.maltRepository = maltRepository;
 		this.addonsRepository = addonsRepository;
 		this.breakRepository = breakRepository;
 		this.addonUsingTimeRepository = addonUsingTimeRepository;
+		this.yeastRepository = yeastRepository;
 	}
 
 	@RequestMapping(value = "sources", method = RequestMethod.GET)
@@ -39,11 +41,12 @@ public class BeerSourcesController {
 			List<Malt> malts = maltRepository.getAllMalts();
 			List<Addons> addons = addonsRepository.getAllAddons();
 			List<Break> breaks = breakRepository.getAllBreaks();
+			List<Yeast> yeasts = yeastRepository.getAllYeast();
 			model.addAttribute("hops", hops);
 			model.addAttribute("malts", malts);
 			model.addAttribute("addons", addons);
 			model.addAttribute("breaks", breaks);
-			model.addAttribute(new BeerSourcesForm());
+			model.addAttribute("yeasts", yeasts);
 			return "sources/index";
 		}
 		return "home/homeNotSignedIn";
@@ -145,6 +148,29 @@ public class BeerSourcesController {
 		if (principal != null) {
 			Log.rootLogger.debug("Delete addon: id: " + id);
 			addonsRepository.delete(id);
+			return true;
+		}
+		return false;
+	}
+	
+	@RequestMapping(value = "sources/saveYeast", method = RequestMethod.POST)
+	public @ResponseBody
+	boolean saveYeast(Principal principal, @RequestParam Long id, @RequestParam String name, @RequestParam String description) {
+		if (principal != null) {
+			Yeast yeast = new Yeast(name, description);
+			yeast.setId(id);
+			yeastRepository.save(yeast);
+			return true;
+		}
+		return false;
+	}
+
+	@RequestMapping(value = "sources/deleteYeast", method = RequestMethod.POST)
+	public @ResponseBody
+	boolean deleteYeast(Principal principal, @RequestParam Long id) {
+		if (principal != null) {
+			Log.rootLogger.debug("Delete yeast - id: " + id);
+			yeastRepository.delete(id);
 			return true;
 		}
 		return false;
@@ -257,5 +283,21 @@ public class BeerSourcesController {
 			return addonUsingTimeRepository.getAllAddonUsingTimes();
 		}
 		return null;
+	}
+	
+	@RequestMapping(value = "sources/getYeasts", method = RequestMethod.GET)
+	public @ResponseBody List<Yeast> getYeasts(Principal principal) {
+		if (principal != null) {
+			return yeastRepository.getAllYeast();
+		}
+		return null;
+	}
+	
+	@RequestMapping(value = "sources/getYeastDescription", method = RequestMethod.GET)
+	public @ResponseBody String[] getYeastDescription(Principal principal, Long id) {
+		if (principal != null) {
+			return new String[]{yeastRepository.getYeast(id).getDescription()};
+		}
+		return new String[]{""};
 	}
 }

@@ -197,7 +197,7 @@
 						<div class="title">
 							Fermentacja
 							<button data-type="brewfermentation"
-								th:attr="data-id=${brew.brewingId}, data-name='Fermentacje', data-yeast=${brew.yeast}, data-yeastAddDate=${brew.yeastAddDate},
+								th:attr="data-id=${brew.brewingId}, data-name='Fermentacje', data-yeastId=${brew.yeast==null?0:brew.yeast.id}, data-yeastAddDate=${brew.yeastAddDate},
 								data-yeastorigin=${brew.yeastOrigin}, data-fermentationstartvolume=${brew.fermentationStartVolume},
 								data-fermantationtemperature=${brew.fermantationTemperature}, data-silentfermentationdate=${brew.silentFermantationDate},
 								data-silentFemrantationTemperature=${brew.silentFemrantationTemperature}"
@@ -207,7 +207,7 @@
 						<table class="table table-striped">
 							<tr>
 								<td>Drożdze</td>
-								<td th:text="${brew.yeast}"></td>
+								<td th:if="${brew.yeast != null}" th:text="${brew.yeast.name}"></td>
 							</tr>
 							<tr>
 								<td>Data dodania drożdy</td>

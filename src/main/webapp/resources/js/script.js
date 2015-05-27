@@ -177,6 +177,10 @@ $(document).ready(function() {
 			modal.find('form')[0].appendChild(generateInput('temp_high', 'Podaj gorną temperaturę: ', tempHigh));
 			modal.find('form')[0].appendChild(generateTextArea('description', 'Opis: ', description));
 			break;
+		case "yeast":
+			modal.find('form')[0].appendChild(generateInput('name', 'Nazwa: ', name));
+			modal.find('form')[0].appendChild(generateTextArea('description', 'Opis: ', description));
+			break;
 		case "brew":
 			var brewtype = button.data('brewtype');
 			modal.find('form')[0].appendChild(generateInput('name', 'Nazwa: ', name));
@@ -258,22 +262,26 @@ $(document).ready(function() {
 		modal.find('form')[0].appendChild(generateTextArea('description', 'Opis: ', description));
 		break;
 	case "brewfermentation":
-		var yeast = button.data('yeast');
+		var yeastId = button.data('yeastid');
 		var yeastAddDate = button.data('yeastadddate');
 		var yeastOrigin = button.data('yeastorigin');
 		var fermentationstartvolume = button.data('fermentationstartvolume');
 		var fermantationTemperature = button.data('fermantationtemperature');
 		var silentFermentationDate = button.data('silentfermentationdate');
 		var silentFemrantationTemperature = button.data('silentfemrantationtemperature');
-		modal.find('form')[0].appendChild(generateInput('yeast', 'Drożdże: ', yeast));
+		modal.find('form')[0].appendChild(generateSelectBox('yeastId', 'Drożdże:', '../sources/getYeasts', yeastId));
 		modal.find('form')[0].appendChild(generateInput('yeastAddDate', 'Data dodania drożdży ',yeastAddDate));
 		modal.find('form')[0].appendChild(generateInput('yeastOrigin', 'Pochodzenie drożdży: ', yeastOrigin));
 		modal.find('form')[0].appendChild(generateInput('fermentationStartVolume', 'Początkowa objętość: ', fermentationstartvolume));
 		modal.find('form')[0].appendChild(generateInput('fermantationTemperature', 'Temperatura fermentacji burzliwej: ', fermantationTemperature));
 		modal.find('form')[0].appendChild(generateInput('silentFermentationDate', 'Data rozpoczęcia fermentacji cichej: ', silentFermentationDate));
 		modal.find('form')[0].appendChild(generateInput('silentFemrantationTemperature', 'Temperatura fermentacji cichej: ', silentFemrantationTemperature));
+		showPropertyPanel("yeastId", [ {
+			'property' : 'Opis',
+			'action' : '../sources/getYeastDescription'
+		} ]);
 		break;
-	case "brewbooteling":
+	case "brewbottling":
 		var endVolume = button.data('endvolume');
 		var bottlingDate = button.data('bottling');
 		var refermentationSource = button.data('refermentationsource');
@@ -281,7 +289,7 @@ $(document).ready(function() {
 		modal.find('form')[0].appendChild(generateInput('endVolume', 'Końcowa objętość: ', endVolume));
 		modal.find('form')[0].appendChild(generateInput('bottlingDate', 'Data rozlewu: ',bottlingDate));
 		modal.find('form')[0].appendChild(generateInput('refermentationSource', 'Surowiec refermentacji: ',refermentationSource));
-		modal.find('form')[0].appendChild(generateInput('referemntationSourceVolume ', 'Ilość surowca refermentacji: ', referemntationSourceVolume ));
+		modal.find('form')[0].appendChild(generateInput('refermentationSourceVolume', 'Ilość surowca refermentacji: ', referemntationSourceVolume ));
 		break;
 	}
 	});
