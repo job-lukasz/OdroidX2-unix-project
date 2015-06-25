@@ -73,7 +73,7 @@ public class Settings {
 		model.addAttribute("avaiblePorts", getAvailblePort());
 		model.addAttribute("name", principal.getName());
 		model.addAttribute("settingsForm", new SettingsForm());
-		Set<m.gpio.GPIO_Pin> pins = m.gpio.GPIO.INSTANCE.getAllPinStates();
+		Set<m.gpio.StaticValues.OdroidX2PIN> pins = m.gpio.GPIO.INSTANCE.getAllPinStates();
 		model.addAttribute("pins", pins);
 	}
 }

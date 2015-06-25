@@ -17,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import c.beerSources.AddonUsingTime;
 import c.beerSources.AddonUsingTimeRepository;
 
 public class UserService implements UserDetailsService {
@@ -41,7 +40,7 @@ public class UserService implements UserDetailsService {
 //		addonUsingTimeRepository.save(add2);
 //		addonUsingTimeRepository.save(add3);
 		
-		m.gpio.GPIO.INSTANCE.initPins();
+//		m.gpio.GPIO.INSTANCE.initPins();
 		Settings.readSettingsFromFile();
 	}
 

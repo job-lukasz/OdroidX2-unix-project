@@ -26,7 +26,7 @@ public class LedsController {
 	public String index(Principal principal, Model model) {
 		new SignupForm();
 		if (principal != null) {
-			Set<m.gpio.GPIO_Pin> pins = m.gpio.GPIO.INSTANCE.getAllPinStates();
+			Set<OdroidX2PIN> pins = m.gpio.GPIO.INSTANCE.getAllPinStates();
 			model.addAttribute("pins", pins);
 			model.addAttribute("ledsToggleForm", new LedsToggleForm());
 			model.addAttribute("name", principal.getName());
@@ -58,7 +58,7 @@ public class LedsController {
 	@RequestMapping(value = "togglePin", method = RequestMethod.POST)
 	public @ResponseBody boolean toggleLed(Principal principal, @RequestParam OdroidX2PIN pinID) {
 		if (principal != null) {
-			boolean value = m.gpio.GPIO.INSTANCE.toggle(pinID);
+			boolean value = pinID.toggle();
 			return value;
 		}
 		return false;

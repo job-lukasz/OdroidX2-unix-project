@@ -18,7 +18,7 @@ import c.beerSources.Break;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "BrewBreak")
-public class BrewBreak implements java.io.Serializable {
+public class BrewBreak implements java.io.Serializable, Comparable<BrewBreak> {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue
@@ -86,4 +86,13 @@ public class BrewBreak implements java.io.Serializable {
 	protected BrewBreak(){
 		
 	}
+	
+	@Override
+	public int compareTo(BrewBreak _break) {
+		if (this.startMinute < _break.startMinute)
+	        return -1;
+	    if (this.startMinute == _break.startMinute)
+	        return 0;
+	    return 1;
+	}	
 }

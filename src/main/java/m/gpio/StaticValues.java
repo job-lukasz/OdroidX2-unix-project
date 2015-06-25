@@ -1,84 +1,185 @@
 package m.gpio;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 
-public class StaticValues{
-	public static enum OdroidX2PIN{
-		 PIN1, PIN2,		 
-		 PIN3, PIN4,
-		 PIN5, PIN6,
-		 PIN7, PIN8,
-		 PIN9, PIN10,
-		 PIN11, 
-		 PIN13, PIN14,
-		 PIN15, PIN16,
-		 PIN17, PIN18,
-		 PIN19, PIN20,
-		 PIN21, PIN22,
-		 PIN23, PIN24,
-		 PIN25, PIN26,
-		 PIN27, PIN28,
-		 PIN29, PIN30,
-		 PIN31,
-		 PIN33, PIN34,
-		 PIN35, PIN36,
-		 PIN37, PIN38,
-		 PIN39, PIN40,
-		 PIN41, PIN42,
-		 PIN43, PIN44,
-		 PIN45
-		 };
+public class StaticValues {
+	public enum OdroidX2PIN {
+		PIN1("220"), PIN2("12"), PIN3("44"), PIN4("209"), PIN5("45"), PIN6("20"), PIN7("19"), PIN8("18"), PIN9("203"), PIN10("21"), PIN11("23"), PIN13("38"), PIN14(
+				"13"), PIN15("22"), PIN16("10"), PIN17("112"), PIN18("115"), PIN19("93"), PIN20("100"), PIN21("108"), PIN22("91"), PIN23("90"), PIN24("99"), PIN25(
+				"111"), PIN26("103"), PIN27("88"), PIN28("98"), PIN29("89"), PIN30("114"), PIN31("87"), PIN33("94"), PIN34("105"), PIN35("97"), PIN36("102"), PIN37(
+				"107"), PIN38("110"), PIN39("101"), PIN40("117"), PIN41("92"), PIN42("96"), PIN43("116"), PIN44("106"), PIN45("109");
+
+		public String pinID;
+		private Direction direction;
+		private boolean value;
+		private boolean isSoftPWN;
+		private boolean isOpen;
+		private String address;
+		
+		OdroidX2PIN(String pinID) {
+			this.pinID = pinID;
+		}
+
+		public void setHigh() {
+			openPin();
+			setValue(true);
+		}
+
+		public void setLow() {
+			openPin();
+			setValue(false);
+		}
+
+		public boolean toggle() {
+			openPin();
+			setValue(!getValue());
+			return getValue();
+		}
+
+		// TODO READ FROM PIN
+		private void openPin() {
+			if (isOpen()) {
+				if (getDirection() != Direction.out) {
+					close();
+					open(Direction.out);
+				}
+			} else {
+				open(Direction.out);
+			}
+		}
+
+		public boolean open(Direction direction) {
+			exportPin();
+			setDirection(direction);
+			isOpen = true;
+			return true;
+		}
+
+		public boolean getValue() {
+			if (isPinExported()) {
+				if (direction == Direction.out) {
+					value = readFromFile("/sys/class/gpio/gpio" + address + "/value").equals("1");
+				}
+				return value;
+			}
+			return false;
+		}
+
+		public boolean setValue(boolean _value) {
+			if (isPinExported()) {
+				value = _value;
+				if (value) {
+					return writeToFile("/sys/class/gpio/gpio" + address + "/value", "1");
+				}
+				return writeToFile("/sys/class/gpio/gpio" + address + "/value", "0");
+			}
+			value = false;
+			return false;
+		}
+
+		public boolean close() {
+			if (isPinExported()) {
+				return writeToFile("/sys/class/gpio/unexport", address);
+			}
+			isOpen = false;
+			return false;
+		}
+
+		private boolean exportPin() {
+			if (!isPinExported()) {
+				return writeToFile("/sys/class/gpio/export", address);
+			}
+			return true;
+		}
+
+		private boolean setDirection(Direction _direction) {
+			direction = _direction;
+			if (isPinExported()) {
+				return writeToFile("/sys/class/gpio/gpio" + address + "/direction", direction.toString());
+			}
+			return false;
+		}
+
+		private boolean isPinExported() {
+			return !readFromFile("/sys/class/gpio/gpio" + address + "/direction").equals("ERROR");
+		}
+
+		private boolean writeToFile(String fileName, String value) {
+			PrintWriter zapis;
+			try {
+				zapis = new PrintWriter(fileName);
+			} catch (FileNotFoundException e) {
+				return false;
+			}
+			zapis.print(value);
+			zapis.close();
+			return true;
+		}
+
+		private String readFromFile(String fileName) {
+			BufferedReader file = null;
+			String result = "";
+			try {
+				file = new BufferedReader(new FileReader(fileName));
+				result = file.readLine();
+			} catch (FileNotFoundException e) {
+				return "ERROR";
+			} catch (IOException e) {
+				return "ERROR";
+			} finally {
+				if (file != null) {
+					try {
+						file.close();
+					} catch (IOException e) {
+						return "ERROR";
+					}
+				}
+			}
+			return result;
+		}
+
+//		@Override
+//		public int compareTo(OdroidX2PIN pin) {
+//			if (Integer.parseInt(pinID.toString().substring(3)) < Integer.parseInt(pin.pinID.toString().substring(3))) {
+//				return -1;
+//			} else if (Integer.parseInt(pinID.toString().substring(3)) > Integer.parseInt(pin.pinID.toString().substring(3))) {
+//				return 1;
+//			}
+//			return 0;
+//		}
+
+		public String getPinID() {
+			return pinID;
+		}
+
+		public boolean isSoftPWN() {
+			return isSoftPWN;
+		}
+
+		public boolean isOpen() {
+			return isOpen;
+		}
+
+		public String getAddress() {
+			return address;
+		}
+
+		public Direction getDirection() {
+			return direction;
+		}
+		
+//		public void setPWM(long high_microS, long freq_microS) {
+//			openPin();
+//			Thread pwmThread = new Thread(pwmPins.get(odroidPin));
+//			pwmThread.start();
+//		}
+	};
+
 	public static enum Direction {
-			in, out
-		}
-	public final static Map<OdroidX2PIN, String> pinMap;
-		static {
-				Map<OdroidX2PIN, String> tempMap = new HashMap<OdroidX2PIN, String>();
-				tempMap.put(OdroidX2PIN.PIN1, "220");
-				tempMap.put(OdroidX2PIN.PIN2, "12");
-				tempMap.put(OdroidX2PIN.PIN3, "44");
-				tempMap.put(OdroidX2PIN.PIN4, "209");
-				tempMap.put(OdroidX2PIN.PIN5, "45");
-				tempMap.put(OdroidX2PIN.PIN6, "20");
-				tempMap.put(OdroidX2PIN.PIN7, "19");
-				tempMap.put(OdroidX2PIN.PIN8, "18");
-				tempMap.put(OdroidX2PIN.PIN9, "203");
-				tempMap.put(OdroidX2PIN.PIN10, "21");
-				tempMap.put(OdroidX2PIN.PIN11, "23");
-				tempMap.put(OdroidX2PIN.PIN13, "38");
-				tempMap.put(OdroidX2PIN.PIN14, "13");
-				tempMap.put(OdroidX2PIN.PIN15, "22");
-				tempMap.put(OdroidX2PIN.PIN16, "10");
-				tempMap.put(OdroidX2PIN.PIN17, "112");
-				tempMap.put(OdroidX2PIN.PIN18, "115");
-				tempMap.put(OdroidX2PIN.PIN19, "93");
-				tempMap.put(OdroidX2PIN.PIN20, "100");
-				tempMap.put(OdroidX2PIN.PIN21, "108");
-				tempMap.put(OdroidX2PIN.PIN22, "91");
-				tempMap.put(OdroidX2PIN.PIN23, "90");
-				tempMap.put(OdroidX2PIN.PIN24, "99");
-				tempMap.put(OdroidX2PIN.PIN25, "111");
-				tempMap.put(OdroidX2PIN.PIN26, "103");
-				tempMap.put(OdroidX2PIN.PIN27, "88");
-				tempMap.put(OdroidX2PIN.PIN28, "98");
-				tempMap.put(OdroidX2PIN.PIN29, "89");
-				tempMap.put(OdroidX2PIN.PIN30, "114");
-				tempMap.put(OdroidX2PIN.PIN31, "87");
-				tempMap.put(OdroidX2PIN.PIN33, "94");
-				tempMap.put(OdroidX2PIN.PIN34, "105");
-				tempMap.put(OdroidX2PIN.PIN35, "97");
-				tempMap.put(OdroidX2PIN.PIN36, "102");
-				tempMap.put(OdroidX2PIN.PIN37, "107");
-				tempMap.put(OdroidX2PIN.PIN38, "110");
-				tempMap.put(OdroidX2PIN.PIN39, "101");
-				tempMap.put(OdroidX2PIN.PIN40, "117");
-				tempMap.put(OdroidX2PIN.PIN41, "92");
-				tempMap.put(OdroidX2PIN.PIN42, "96");
-				tempMap.put(OdroidX2PIN.PIN43, "116");
-				tempMap.put(OdroidX2PIN.PIN44, "106");
-				tempMap.put(OdroidX2PIN.PIN45, "109");
-				pinMap = Collections.unmodifiableMap(tempMap);
-		}
+		in, out
+	}
 }

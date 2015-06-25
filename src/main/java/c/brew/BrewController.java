@@ -233,7 +233,7 @@ public class BrewController {
 	}
 	
 	@RequestMapping(value = "brews/editBrew", method = RequestMethod.POST)
-	public @ResponseBody boolean editBrew(Principal principal, @RequestParam Long id,@RequestParam String name, @RequestParam String date, @RequestParam String type, @RequestParam double startDensity, @RequestParam double endDensity, @RequestParam String description) {
+	public @ResponseBody boolean editBrew(Principal principal, @RequestParam Long id,@RequestParam String name, @RequestParam String date, @RequestParam String type, @RequestParam double startDensity, @RequestParam double endDensity, @RequestParam String description, @RequestParam int hopDuration) {
 		if (principal != null) {
 			Brewing brew = brewRepository.getBrewing(id);
 			brew.setName(name);
@@ -248,6 +248,7 @@ public class BrewController {
 			brew.setStartDensity(startDensity);
 			brew.setEndDensity(endDensity);
 			brew.setType(type);
+			brew.setHopDuration(hopDuration);
 			brewRepository.save(brew);
 			return true;
 		}

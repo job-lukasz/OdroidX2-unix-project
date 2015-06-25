@@ -1,4 +1,8 @@
-package c.Brewer;
+package c.brewer;
+
+import c.Log;
+import c.brew.Brewing;
+import m.settings.Settings;
 
 
 public class Brewer implements Runnable {
@@ -19,18 +23,18 @@ public class Brewer implements Runnable {
 	private Filtration filtrationController;
 	private Brew brewController;
 	
-	public Brewer(){
-		parameters = new ParameterHolder();
+	public Brewer(Brewing brewing){
+		parameters = new ParameterHolder(brewing);
 		hopController = new Hop(parameters);
 		filtrationController = new Filtration(parameters);
 		brewController = new Brew(parameters);
+		Settings.getInstance().getFirstCleanCapacityLevel();
 	}
 	
 
 	@Override
 	public void run() {
 		isBrewing = true;
-		
 		brewState = BrewingState.Brew;
 		stateProgress = StateProgress.Init;
 		while (isBrewing) {
@@ -43,6 +47,8 @@ public class Brewer implements Runnable {
 			}
 			checkBrewingState();
 		}
+		parameters.destroy();
+		Log.rootLogger.debug("End brewing");
 	}
 
 	private void checkBrewingState() {
@@ -58,6 +64,7 @@ public class Brewer implements Runnable {
 			break;
 		case Finish:
 			isBrewing = false;
+			Log.rootLogger.debug("Brew state finish");
 			break;
 		}
 	}
@@ -65,19 +72,21 @@ public class Brewer implements Runnable {
 	private void checkBrewState() {
 		switch (stateProgress) {
 		case Init:
+			Log.rootLogger.debug("Brew state init");
 			if (brewController.checkMinTemp()) {
 				stateProgress = StateProgress.Main;
 			}
-			;
 			break;
 		case Main:
+			Log.rootLogger.debug("Brew state main");
 			if (brewController.checkBrewTemperature()) {
 				stateProgress = StateProgress.End;
 			}
 			break;
 		case End:
+			Log.rootLogger.debug("Brew state end");
 			if (brewController.checkMashOut()) {
-				stateProgress = StateProgress.Main;
+				stateProgress = StateProgress.Init;
 				brewState = BrewingState.Filtration;
 			}
 			break;
@@ -87,16 +96,19 @@ public class Brewer implements Runnable {
 	private void checkFiltrationState() {
 		switch (stateProgress) {
 		case Init:
+			Log.rootLogger.debug("Filtration state init");
 			if (filtrationController.checkTransfer()) {
 				stateProgress = StateProgress.Main;
 			}
 			break;
 		case Main:
+			Log.rootLogger.debug("Filtration state main");
 			if (filtrationController.checkFiltrationProgress()) {
 				stateProgress = StateProgress.End;
 			}
 			break;
 		case End:
+			Log.rootLogger.debug("Filtration state end");
 			if(filtrationController.checkPumpingProgress()){
 				stateProgress = StateProgress.Init;
 				brewState=BrewingState.Hop;
@@ -108,16 +120,19 @@ public class Brewer implements Runnable {
 	private void checkHopState() {
 		switch (stateProgress) {
 		case Init:
+			Log.rootLogger.debug("Hop state init");
 			if(hopController.checkBoiling()){
 				stateProgress = StateProgress.Main;
 			}
 			break;
 		case Main:
+			Log.rootLogger.debug("Hop state main");
 			if(hopController.checkHop()){
 				stateProgress = StateProgress.End;
 			}
 			break;
 		case End:
+			Log.rootLogger.debug("Hop state end");
 			if(hopController.checkCooling()){
 				stateProgress = StateProgress.Init;
 				brewState = BrewingState.Finish;

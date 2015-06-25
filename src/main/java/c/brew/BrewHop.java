@@ -18,7 +18,7 @@ import c.beerSources.Hop;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "BrewHop")
-public class BrewHop implements java.io.Serializable {
+public class BrewHop implements java.io.Serializable, Comparable<BrewHop> {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue
@@ -85,5 +85,14 @@ public class BrewHop implements java.io.Serializable {
 
 	public void setBrewing(Set<Brewing> brewing) {
 		this.brewing = brewing;
+	}
+	
+	@Override
+	public int compareTo(BrewHop hop) {
+		if (this.startMinute < hop.startMinute)
+	        return -1;
+	    if (this.startMinute == hop.startMinute)
+	        return 0;
+	    return 1;
 	}
 }

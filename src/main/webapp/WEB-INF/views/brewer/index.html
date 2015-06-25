@@ -15,10 +15,9 @@
 		<div id="sidebar-wrapper">
 			<div class="title">
 				<span th:text="${brew.name}"> </span>
-				<button data-type="editbrew"
-					th:attr="data-id=${brew.brewingId}, data-name=${brew.name}, 
+				<button data-type="editbrew" th:attr="data-id=${brew.brewingId}, data-name=${brew.name}, 
 				data-brewdate=${brew.date}, data-brewtype=${brew.type}, data-startdensity=${brew.startDensity},
-				data-enddensity=${brew.endDensity}, data-description=${brew.description},data-hopduration=${brew.hopDuration}"
+				data-enddensity=${brew.endDensity}, data-description=${brew.description}"
 					data-action="editBrew" type="button" class="edit btn"
 					data-toggle="modal" data-target="#editModal" />
 			</div>
@@ -53,10 +52,6 @@
 					<td th:text="${brew.alkohol}"></td>
 				</tr>
 				<tr>
-					<td>Czas chmielenia:</td>
-					<td th:text="${brew.hopDuration}"></td>
-				</tr>
-				<tr>
 					<td>Wydajność:</td>
 					<td th:text="${brew.efficiency}"></td>
 				</tr>
@@ -64,10 +59,7 @@
 		</div>
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
-				<div class="title">
-					Opis <span style="float: right"><a class="btn btn-success"
-						th:href="@{/toBrew(id=${brew.brewingId})}">Uwarz</a></span>
-				</div>
+				<div class="title">Warzenie: Opis <span style="float: right"><a class="btn btn-success" th:href="@{/toBrew(id=${brew.brewingId})}">Uwarz</a></span></div>
 				<div class="text" th:text="${brew.description}"></div>
 
 				<div class="row">
@@ -78,7 +70,7 @@
 								data-action="addMalt" type="button" class="add btn"
 								data-toggle="modal" data-target="#editModal" />
 						</div>
-
+					
 						<table class="table table-striped">
 							<tr>
 								<th class="name">Nazwa</th>

@@ -254,9 +254,11 @@ $(document).ready(function() {
 		var startDensity = button.data('startdensity');
 		var endDensity = button.data('enddensity');
 		var description = button.data('description');
+		var hopDuration = button.data('hopduration');
 		modal.find('form')[0].appendChild(generateInput('name', 'Nazwa: ', name));
 		modal.find('form')[0].appendChild(generateInput('date', 'Data warzenia: ',date));
 		modal.find('form')[0].appendChild(generateInput('type', 'Typ: ', type));
+		modal.find('form')[0].appendChild(generateInput('hopDuration', 'Czas chmielenia: ', hopDuration));
 		modal.find('form')[0].appendChild(generateInput('startDensity', 'Gęstość początkowa: ', startDensity));
 		modal.find('form')[0].appendChild(generateInput('endDensity', 'Gęstość końcowa: ', endDensity));
 		modal.find('form')[0].appendChild(generateTextArea('description', 'Opis: ', description));

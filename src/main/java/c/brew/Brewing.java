@@ -64,6 +64,9 @@ public class Brewing implements java.io.Serializable {
 	@Column
 	private double endDensity;
 
+	@Column
+	private int hopDuration;
+
 	private double alkohol;
 
 	private double efficiency;
@@ -122,6 +125,14 @@ public class Brewing implements java.io.Serializable {
 
 	}
 
+	public int getHopDuration() {
+		return hopDuration;
+	}
+
+	public void setHopDuration(int hopDuration) {
+		this.hopDuration = hopDuration;
+	}
+	
 	public double getAlkohol() {
 		return alkohol;
 	}

@@ -39,7 +39,7 @@
 		        <td id="firstHeaterPin" th:text="${settingsForm.firstHeaterPin}"></td>
 		        <td>
 			        <select id="firstHeaterPin" name="firstHeaterPin" th:object="${settingsForm.firstHeaterPin}">
-						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.firstHeaterPin}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.firstHeaterPin}"></option>
 					</select>
 				</td>
 		      </tr>
@@ -49,7 +49,7 @@
 		        <td id="secondHeaterPin" th:text="${settingsForm.secondHeaterPin}"></td>
 		        <td>
 			        <select id="secondHeaterPin" name="secondHeaterPin" th:object="${settingsForm.secondHeaterPin}">
-						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.secondHeaterPin}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.secondHeaterPin}"></option>
 					</select>
 				</td>
 		      </tr>
@@ -59,7 +59,7 @@
 		        <td id="mainValvePin" th:text="${settingsForm.mainValvePin}"></td>
 		        <td>
 			        <select id="mainValvePin" name="mainValvePin" th:object="${settingsForm.mainValvePin}">
-						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.mainValvePin}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.mainValvePin}"></option>
 					</select>
 				</td>
 		      </tr>	      
@@ -69,7 +69,7 @@
 		        <td id="cleanWaterValvePin" th:text="${settingsForm.cleanWaterValvePin}"></td>
 		        <td>
 			        <select id="cleanWaterValvePin" name="cleanWaterValvePin" th:object="${settingsForm.cleanWaterValvePin}">
-						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.cleanWaterValvePin}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.cleanWaterValvePin}"></option>
 					</select>
 				</td>
 		      </tr>	
@@ -79,7 +79,7 @@
 		        <td id="runningWaterValvePin" th:text="${settingsForm.runningWaterValvePin}"></td>
 		        <td>
 			        <select id="runningWaterValvePin" name="runningWaterValvePin" th:object="${settingsForm.runningWaterValvePin}">
-						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.runningWaterValvePin}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.runningWaterValvePin}"></option>
 					</select>
 				</td>
 		      </tr>		
@@ -89,7 +89,7 @@
 		        <td id="wortValvePin" th:text="${settingsForm.wortValvePin}"></td>
 		        <td>
 			        <select id="wortValvePin" name="wortValvePin" th:object="${settingsForm.wortValvePin}">
-						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.wortValvePin}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.wortValvePin}"></option>
 					</select>
 				</td>
 		      </tr>		
@@ -99,7 +99,7 @@
 		        <td id="wortPompPin" th:text="${settingsForm.wortPompPin}"></td>
 		        <td>
 			        <select id="wortPompPin" name="wortPompPin" th:object="${settingsForm.wortPompPin}">
-						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.wortPompPin}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.wortPompPin}"></option>
 					</select>
 				</td>
 		      </tr>		    
@@ -109,7 +109,7 @@
 		        <td id="firstMainCapacityLevel" th:text="${settingsForm.firstMainCapacityLevel}"></td>
 		        <td>
 			        <select id="firstMainCapacityLevel" name="firstMainCapacityLevel" th:object="${settingsForm.firstMainCapacityLevel}">
-						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.firstMainCapacityLevel}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.firstMainCapacityLevel}"></option>
 					</select>
 				</td>
 		      </tr>	
@@ -118,7 +118,7 @@
 		        <td id="secondMainCapacityLevel" th:text="${settingsForm.secondMainCapacityLevel}"></td>
 		        <td>
 			        <select id="secondMainCapacityLevel" name="secondMainCapacityLevel" th:object="${settingsForm.secondMainCapacityLevel}">
-						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.secondMainCapacityLevel}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.secondMainCapacityLevel}"></option>
 					</select>
 				</td>
 		      </tr>		
@@ -127,7 +127,7 @@
 		        <td id="thirdMainCapacityLevel" th:text="${settingsForm.thirdMainCapacityLevel}"></td>
 		        <td>
 			        <select id="thirdMainCapacityLevel" name="thirdMainCapacityLevel" th:object="${settingsForm.thirdMainCapacityLevel}">
-						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.thirdMainCapacityLevel}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.thirdMainCapacityLevel}"></option>
 					</select>
 				</td>
 		      </tr>	
@@ -136,7 +136,7 @@
 		        <td id="fourthMainCapacityLevel" th:text="${settingsForm.fourthMainCapacityLevel}"></td>
 		        <td>
 			        <select id="fourthMainCapacityLevel" name="fourthMainCapacityLevel" th:object="${settingsForm.fourthMainCapacityLevel}">
-						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.fourthMainCapacityLevel}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.fourthMainCapacityLevel}"></option>
 					</select>
 				</td>
 		      </tr>		   
@@ -146,7 +146,7 @@
 		        <td id="firstCleanCapacityLevel" th:text="${settingsForm.firstCleanCapacityLevel}"></td>
 		        <td>
 			        <select id="firstCleanCapacityLevel" name="firstCleanCapacityLevel" th:object="${settingsForm.firstCleanCapacityLevel}">
-						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.firstCleanCapacityLevel}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.firstCleanCapacityLevel}"></option>
 					</select>
 				</td>
 		      </tr>	
@@ -155,7 +155,7 @@
 		        <td id="secondCleanCapacityLevel" th:text="${settingsForm.secondCleanCapacityLevel}"></td>
 		        <td>
 			        <select id="secondCleanCapacityLevel" name="secondCleanCapacityLevel" th:object="${settingsForm.secondCleanCapacityLevel}">
-						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.secondCleanCapacityLevel}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.secondCleanCapacityLevel}"></option>
 					</select>
 				</td>
 		      </tr>	 		      
@@ -164,7 +164,7 @@
 		        <td id="thirdCleanCapacityLevel" th:text="${settingsForm.thirdCleanCapacityLevel}"></td>
 		        <td>
 			        <select id="thirdCleanCapacityLevel" name="thirdCleanCapacityLevel" th:object="${settingsForm.thirdCleanCapacityLevel}">
-						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.thirdCleanCapacityLevel}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.thirdCleanCapacityLevel}"></option>
 					</select>
 				</td>
 		      </tr>	 
@@ -173,10 +173,10 @@
 		        <td id="fourthCleanCapacityLevel" th:text="${settingsForm.fourthCleanCapacityLevel}"></td>
 		        <td>
 			        <select id="fourthCleanCapacityLevel" name="fourthCleanCapacityLevel" th:object="${settingsForm.fourthCleanCapacityLevel}">
-						<option th:each="pin : ${pins}" th:value="${pin.pinID}"	th:text="${pin.pinID}" th:selected="${pin.pinID == settingsForm.fourthCleanCapacityLevel}"></option>
+						<option th:each="pin : ${pins}" th:value="${pin}"	th:text="${pin}" th:selected="${pin == settingsForm.fourthCleanCapacityLevel}"></option>
 					</select>
 				</td>
-		      </tr>	
+		      </tr>
 		      <tr>
 		      	<td colspan="2" style="text-align: right; padding-right: 20px;">
 		      		<input class="btn btn-danger" type="reset" value="Odrzuć" />

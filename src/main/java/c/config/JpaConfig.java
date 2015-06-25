@@ -47,7 +47,7 @@ public class JpaConfig {
 
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource);
-		sessionFactory.setPackagesToScan(new String[] {"c.account", "c.measurement", "c.beerSources", "c.brew"});
+		sessionFactory.setPackagesToScan(new String[] {"c.account", "c.measurement", "c.beerSources", "c.brew", "c.brewer"});
 		sessionFactory.setHibernateProperties(hibernateProperties().getObject());
 
 		return sessionFactory;
