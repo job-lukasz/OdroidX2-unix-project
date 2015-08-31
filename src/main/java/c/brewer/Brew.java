@@ -12,6 +12,7 @@ public class Brew {
 	private DS1820 tempSensor;
 	private Date brewStart = null;
 	private Calendar cal;
+	private breakNumber = 1; 
 	private static final int startTempOffset = 10;
 	private static final int breakTemperatureOffset = 1;
 	private static final int mashOutTemp = 18;// TODO fix static values
@@ -19,13 +20,14 @@ public class Brew {
 	public Brew(ParameterHolder parameters) {
 		this.parameters = parameters;
 		tempSensor = parameters.tempSensor;
+		breakNumber =1;
 	}
 
 	public boolean checkMinTemp() {
 		double temp = tempSensor.GetTemperature(0);
 		Log.rootLogger.debug("Temperature: " + temp + "*C Minimal temp: " + parameters.breaks.get(parameters.breakNumber).get_break().getTemp_low()
 				+ startTempOffset);
-		if (temp < parameters.breaks.get(parameters.breakNumber).get_break().getTemp_low() + startTempOffset) {
+		if (temp < parameters.breaks.get(breakNumber-1).get_break().getTemp_low() + startTempOffset) {
 			heat(100);
 			mix(10);
 			return false;
@@ -43,10 +45,14 @@ public class Brew {
 		Calendar cal1 = Calendar.getInstance();
 		cal = Calendar.getInstance();
 		cal1.setTime(brewStart);
-		cal1.add(Calendar.MINUTE, parameters.breaks.get(parameters.breakNumber).getDuration());
+		cal1.add(Calendar.MINUTE, parameters.breaks.get(breakNumber-1).getDuration());
 		Log.rootLogger.debug("current time: " + cal.getTime() + " end time: " + cal1.getTime());
 		if (cal1.getTime().after(cal.getTime())) {
-			checkTemperature(parameters.breaks.get(parameters.breakNumber).get_break().getTemp_low(), parameters.breaks.get(parameters.breakNumber).get_break().getTemp_high());
+			checkTemperature(parameters.breaks.get(breakNumber-1).get_break().getTemp_low(), parameters.breaks.get(breakNumber-1).get_break().getTemp_high());
+			return false;
+		}
+		if(breakNumber<parameters.breaks.size()){	
+			breakNumer++;
 			return false;
 		}
 		return true;

@@ -26,7 +26,7 @@ public class YeastRepository {
 	@SuppressWarnings("unchecked")
 	public List<Yeast> getAllYeast() {
 		try {
-			List<Yeast> yeast = sessionFactory.getCurrentSession().createCriteria(Yeast.class).list();
+			List<Yeast> yeast = sessionFactory.getCurrentSession().createQuery("From Yeast").list();
 			return yeast;
 		} catch (PersistenceException e) {
 			return null;

@@ -12,12 +12,12 @@ public class Hop {
 	private DS1820 tempSensor;
 	private Date hopStart = null;
 	private Calendar cal;
-	private int hopNumber = 0;
+	private int hopNumber = 1;
 	private final static int boilingTemp = 18;
 	public Hop(ParameterHolder parameters) {
 		this.parameters = parameters;
 		tempSensor = parameters.tempSensor;
-		hopNumber = 0;
+		hopNumber = 1;
 	}
 
 	public boolean checkBoiling() {
@@ -36,9 +36,9 @@ public class Hop {
 		cal = Calendar.getInstance();
 		Calendar cal1 = Calendar.getInstance();
 		cal1.setTime(hopStart);
-		cal1.add(Calendar.MINUTE, parameters.hops.get(hopNumber).getStartMinute());
+		cal1.add(Calendar.MINUTE, parameters.hops.get(hopNumber-1).getStartMinute());
 		if (cal1.getTime().after(cal.getTime())) {
-			addHop(hopNumber);
+			addHop(hopNumber-1);
 			hopNumber++;
 		}
 		if (tempSensor.GetTemperature(0) < 90) {

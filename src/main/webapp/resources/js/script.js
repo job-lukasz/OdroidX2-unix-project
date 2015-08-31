@@ -215,7 +215,7 @@ $(document).ready(function() {
 				'action' : '../sources/getBreakTemp_High'
 			},{
 				'property' : 'Opis',
-				'action' : '../sources/getMaltDescription'
+				'action' : '../sources/getBreakDescription'
 			} ]);
 			break;
 	case "brewhop":

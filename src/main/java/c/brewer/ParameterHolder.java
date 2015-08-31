@@ -22,7 +22,6 @@ public class ParameterHolder {
 	private BrewRepository brewRepository;
 	
 	public Date startTime;
-	public int breakNumber = 0;
 	public List<BrewBreak> breaks;
 	public List<BrewHop> hops;
 	public int hopDuration;
