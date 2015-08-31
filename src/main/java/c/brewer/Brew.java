@@ -53,6 +53,7 @@ public class Brew {
 		}
 		if(breakNumber<parameters.breaks.size()){	
 			breakNumer++;
+			brewStart = Calendar.getInstance().getTime();
 			return false;
 		}
 		return true;
